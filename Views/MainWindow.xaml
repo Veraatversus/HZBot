@@ -1,0 +1,410 @@
+﻿<Window
+    x:Class="HZBot.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HZBot"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="1190.574"
+    Height="613.935"
+    DataContext="{Binding Source={x:Static local:UserManager.Instance}}"
+    Loaded="Window_Loaded"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <CollectionViewSource x:Key="jsonRootViewSource" d:DesignSource="{d:DesignInstance {x:Type local:JsonRoot}, CreateList=True}" />
+        <CollectionViewSource x:Key="jsonRootquestsViewSource" Source="{Binding quests, Source={StaticResource jsonRootViewSource}}" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid
+                x:Name="AutomationGrid"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0">
+                <WrapPanel Orientation="Horizontal">
+                    <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding IsBotEnabled}">Enable Bot</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoTrain}">AutoTrain</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoQuest}">AutoQuest</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoSkill}">AutoSkill</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoHideOutCollect}">AutoHideOutCollect</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoHideOutBuild}">AutoHideOutBuild</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoBuyEnergyFromGold}">Buy Energy for Gold</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoBuyEnergyFromPremium}">Buy Energy for Premium</CheckBox>
+                    <CheckBox HorizontalContentAlignment="Left" Margin="5,0,0,0" IsChecked="{Binding IsAutoReconnect}">AutoReconect</CheckBox>
+                </WrapPanel>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Setters>
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLogined}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+            </Grid>
+            <Grid
+                x:Name="loginGrid"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLogined}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Center"
+                    Content="Username" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalContentAlignment="Center"
+                    Content="Password" />
+                <TextBox
+                    x:Name="tbUserName"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BorderBrush="Black"
+                    BorderThickness="2"
+                    Text="{Binding UserName}" />
+                <TextBox
+                    x:Name="tbPassword"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BorderBrush="Black"
+                    BorderThickness="2"
+                    Text="{Binding Password}" />
+            </Grid>
+            <Label
+                Grid.Row="0"
+                Grid.Column="2"
+                HorizontalAlignment="Center">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Style.Setters>
+                            <Setter Property="Content" Value="Status: Offline" />
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLogined}" Value="True">
+                                <Setter Property="Content" Value="Status: Online" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Button
+                x:Name="btnLogin"
+                Grid.Row="1"
+                Grid.Column="2"
+                BorderBrush="Black"
+                BorderThickness="2"
+                Command="{Binding LoginCommand}"
+                Content="Login" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <StackPanel>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.name, StringFormat=Character: {0}}" />
+
+                    <TextBlock Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.level, StringFormat=Level: {0}}" />
+                    <TextBlock Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.xp, StringFormat=Xp: {0}}" />
+                    <TextBlock Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.game_currency, StringFormat=Currency: {0}}" />
+                    <TextBlock Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.user.premium_currency, StringFormat=Premium Currency: {0}}" />
+                    <TextBlock Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.honor, StringFormat=Honor: {0}}" />
+                    <TextBlock Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.league_points, StringFormat=LeaguePoints: {0}}" />
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding HZData.character.quest_energy, StringFormat=Quest Energy: {0}}" />
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding BuyQuestEnergyCommand}"
+                            Content="+" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel x:Name="CharacterStatsGrid">
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="Character Stats:" />
+                    <TextBox Text="{Binding HZData.character.stat_points_available, StringFormat=AvailablePoints: {0}}" />
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding HZData.character.stat_total_strength, StringFormat=Strength: {0}}" />
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding ImproveStrengthCommand}"
+                            Content="+" />
+                    </Grid>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding HZData.character.stat_total_stamina, StringFormat=Stamina: {0}}" />
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding ImproveStaminaCommand}"
+                            Content="+" />
+                    </Grid>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding HZData.character.stat_total_critical_rating, StringFormat=Critical Rating: {0}}" />
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding ImproveCritRatingCommand}"
+                            Content="+" />
+                    </Grid>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding HZData.character.stat_total_dodge_rating, StringFormat=Dodge Rating: {0}}" />
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding ImproveDodgeRatingCommand}"
+                            Content="+" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="Training:" />
+                    <TextBox Text="{Binding HZData.character.training_count, StringFormat=Avaiblable Training Today: {0}}" />
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{} Strenght: {0} / {1}">
+                                    <Binding Path="HZData.character.training_progress_value_strength" />
+                                    <Binding Path="HZData.character.training_progress_end_strength" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding TrainStrengthCommand}"
+                            Content="+" />
+                    </Grid>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{} Stamina: {0} / {1}">
+                                    <Binding Path="HZData.character.training_progress_value_stamina" />
+                                    <Binding Path="HZData.character.training_progress_end_stamina" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding TrainStaminaCommand}"
+                            Content="+" />
+                    </Grid>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{} Dodge Rating: {0} / {1}">
+                                    <Binding Path="HZData.character.training_progress_value_dodge_rating" />
+                                    <Binding Path="HZData.character.training_progress_end_dodge_rating" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding TrainCritRatingCommand}"
+                            Content="+" />
+                    </Grid>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{} Critical Rating: {0} / {1}">
+                                    <Binding Path="HZData.character.training_progress_value_critical_rating" />
+                                    <Binding Path="HZData.character.training_progress_end_critical_rating" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Button
+                            Width="30"
+                            HorizontalAlignment="Right"
+                            Command="{Binding TrainDodgeRatingCommand}"
+                            Content="+" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <StackPanel>
+                    <!--HideOut-->
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="Hideout:" />
+                    <TextBlock Text="{Binding HZData.hideout.hideout_points, StringFormat=Points: {0}}" />
+                    <TextBlock Text="{Binding HZData.hideout.current_level, StringFormat=Level: {0}}" />
+                    <TextBlock HorizontalAlignment="Left">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{} Glue: {0} / {1}">
+                                <Binding Path="HZData.hideout.current_resource_glue" />
+                                <Binding Path="HZData.hideout.max_resource_glue" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{} Stone: {0} / {1}">
+                                <Binding Path="HZData.hideout.current_resource_stone" />
+                                <Binding Path="HZData.hideout.max_resource_stone" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{} Barracks Level: {0} / {1}">
+                                <Binding Path="HZData.hideout.current_barracks_level" />
+                                <Binding Path="HZData.hideout.max_barracks_level" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Text="{Binding HZData.hideout.current_worker_level, StringFormat=Worker Level: {0}}" />
+                    <TextBlock HorizontalAlignment="Left">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{} Worker Count: {0} / {1}">
+                                <Binding Path="HZData.hideout.idle_worker_count" />
+                                <Binding Path="HZData.hideout.max_worker_count" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{} Attack Units: {0} / {1}">
+                                <Binding Path="HZData.hideout.current_attacker_units" />
+                                <Binding Path="HZData.hideout.max_attacker_units" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{} Defend Units: {0} / {1}">
+                                <Binding Path="HZData.hideout.current_defender_units" />
+                                <Binding Path="HZData.hideout.max_defender_units" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <!--HideOutRooms-->
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="Hideout Rooms:" />
+                    <ListView ItemsSource="{Binding HZData.hideout_rooms}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding identifier}" Header="Type" />
+                                <GridViewColumn Header="Resources">
+                                    <GridViewColumn.DisplayMemberBinding>
+                                        <MultiBinding StringFormat="{}{0} / {1}">
+                                            <Binding Path="current_resource_amount" />
+                                            <Binding Path="max_resource_amount" />
+                                        </MultiBinding>
+                                    </GridViewColumn.DisplayMemberBinding>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Claim">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Claim" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.Header>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} / {1}">
+                                                    <Binding Path="HZData.hideout.current_resource_glue" />
+                                                    <Binding Path="HZData.hideout.current_resource_stone" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </GridViewColumn.Header>
+                                    <GridViewColumn.DisplayMemberBinding>
+                                        <MultiBinding StringFormat="{}{0} / {1}">
+                                            <Binding Path="current_resource_amount" />
+                                            <Binding Path="max_resource_amount" />
+                                        </MultiBinding>
+                                    </GridViewColumn.DisplayMemberBinding>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding HZData.quests}" />
+                <StackPanel x:Name="ActiveQuest">
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="ActiveWork:" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.WorkerType, StringFormat=Type: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.id, StringFormat=ID: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.duration, StringFormat=Duration: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.energy_cost, StringFormat=EnergyCost: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.level, StringFormat=Level: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.stage, StringFormat=Stage: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.XPPerEnergy, StringFormat=XPPerEnergy: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.CurrencyPerEnergy, StringFormat=CurrencyPerEnergy: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.XPCurrencyPerEneryAverage, StringFormat=XPCurrencyPerEneryAverage: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.status, StringFormat=Status: {0}}" />
+                    <TextBlock Text="{Binding HZData.ActiveWorker.StatType, StringFormat=Type: {0}}" />
+                    <TextBlock Text="{Binding TimerText, StringFormat=Remaining Time: {0}}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <WrapPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.name, StringFormat=Name: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.level, StringFormat=Level: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.xp, StringFormat=Xp: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.game_currency, StringFormat=Currency: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.honor, StringFormat=Honor: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.league_points, StringFormat=LeaguePoints: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.character.quest_energy, StringFormat=Quest Energy: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=HZData.ActiveQuest.id, StringFormat=ActiveQuest: {0}}" />
+            <TextBlock Margin="10,0,0,0" Text="{Binding Source={x:Static local:UserManager.Instance}, Path=TimerText, StringFormat=TimeLeft: {0}}" />
+        </WrapPanel>
+    </Grid>
+</Window>
