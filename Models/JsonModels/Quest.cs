@@ -18,14 +18,23 @@ namespace HZBot
         public string identifier { get; set; }
         public int level { get; set; }
         public string rewards { get; set; }
-        public Rewards GetRewads => JObject.Parse(rewards).ToObject<Rewards>();
         public int stage { get; set; }
         public int status { get; set; }
         public int ts_complete { get; set; }
         public int type { get; set; }
         public int used_resources { get; set; }
-        public double XPPerEnergy => GetRewads.xp / energy_cost;
-        public double CurrencyPerEnergy => GetRewads.CoinsInclItem / energy_cost;
+
+        //Extended Properties
+
+        /// <summary>Gets the get rewards.</summary>
+        /// <value>The get rewards.</value>
+        public Rewards GetRewards => JObject.Parse(rewards).ToObject<Rewards>();
+
+        public Item GetItem => AccountManger.GetItemById(GetRewards.item, character_id);
+        public Item GetEventItem => AccountManger.GetItemById(GetRewards.item, character_id);
+        public int CoinsInclItem => GetRewards.coins + (GetItem?.sell_price ?? 0);
+        public double XPPerEnergy => GetRewards.xp / energy_cost;
+        public double CurrencyPerEnergy => CoinsInclItem / energy_cost;
         public double XPCurrencyPerEneryAverage => (XPPerEnergy + CurrencyPerEnergy) / 2;
         public long RemainingTime => (ts_complete != 0 ? ts_complete : HzRequests.ServerTime) - HzRequests.ServerTime;
 

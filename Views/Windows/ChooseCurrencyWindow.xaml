@@ -5,10 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ChooseCurrencyWin"
     Title="ChooseCurrencyWindow"
     Width="400"
     Background="Transparent"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     WindowStartupLocation="CenterOwner"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -16,7 +16,8 @@
         Background="SkyBlue"
         BorderBrush="Black"
         BorderThickness="5"
-        CornerRadius="10">
+        CornerRadius="10"
+        DataContext="{Binding ElementName=ChooseCurrencyWin}">
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -55,16 +56,16 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         HorizontalAlignment="Center"
-                        Text="{Binding data.character.game_currency, StringFormat=Gold: {0}}" />
+                        Text="{Binding Account.Character.game_currency, StringFormat=Gold: {0}}" />
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="1"
                         HorizontalAlignment="Center"
-                        Text="{Binding data.user.premium_currency, StringFormat=Premium: {0}}" />
+                        Text="{Binding Account.User.premium_currency, StringFormat=Premium: {0}}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
-                        Text="{Binding data.character.CurrentGameCurrencyCostEnergyRefill, StringFormat=Cost: {0}}" />
+                        Text="{Binding Account.Character.CurrentGameCurrencyCostEnergyRefill, StringFormat=Cost: {0}}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
@@ -75,14 +76,14 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         Margin="1"
-                        Command="{Binding Source={x:Static local:UserManager.Instance}, Path=BuyEnergyFromGoldCommand}"
+                        Command="{Binding Account.Commands.BuyEnergyFromGold}"
                         Content="Gold" />
                     <Button
                         x:Name="btnPremium"
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="1"
-                        Command="{Binding Source={x:Static local:UserManager.Instance}, Path=BuyEnergyFromPremiumCommand}"
+                        Command="{Binding Account.Commands.BuyEnergyFromPremium}"
                         Content="Premium" />
                     <Button
                         x:Name="Cancel"

@@ -2,8 +2,6 @@
 {
     public class HideOutRoom
     {
-        #region Properties
-
         public int id { get; set; }
         public int hideout_id { get; set; }
         public int ts_creation { get; set; }
@@ -17,7 +15,5 @@
         public int current_generator_level { get; set; }
         public int additional_value_1 { get; set; }
         public string additional_value_2 { get; set; }
-
-        #endregion Properties
     }
 }

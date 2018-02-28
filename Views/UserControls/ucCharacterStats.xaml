@@ -1,0 +1,140 @@
+﻿<local:HzUserControl
+    x:Class="HZBot.ucCharacterStats"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HZBot"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <StackPanel>
+        <StackPanel>
+            <TextBlock
+                FontSize="18"
+                FontWeight="Bold"
+                Text="{Binding Account.Data.character.name, StringFormat=Character: {0}}" />
+
+            <TextBlock Text="{Binding Account.Character.level, StringFormat=Level: {0}}" />
+            <TextBlock Text="{Binding Account.Data.character.xp, StringFormat=Xp: {0}}" />
+            <TextBlock Text="{Binding Account.Data.character.game_currency, StringFormat=Currency: {0}}" />
+            <TextBlock Text="{Binding Account.Data.user.premium_currency, StringFormat=Premium Currency: {0}}" />
+            <TextBlock Text="{Binding Account.Data.character.honor, StringFormat=Honor: {0}}" />
+            <TextBlock Text="{Binding Account.Data.character.league_points, StringFormat=LeaguePoints: {0}}" />
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.quest_energy, StringFormat=Quest Energy: {0}}" />
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.ShowBuyQuestEnergyWindow}"
+                    Content="+" />
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="CharacterStatsGrid">
+            <TextBlock
+                FontSize="18"
+                FontWeight="Bold"
+                Text="Character Stats:" />
+            <TextBox Text="{Binding Account.Data.character.stat_points_available, StringFormat=AvailablePoints: {0}}" />
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_strength, StringFormat=Strength: {0}}" />
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.ImproveStrength}"
+                    Content="+" />
+            </Grid>
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_stamina, StringFormat=Stamina: {0}}" />
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.ImproveStamina}"
+                    Content="+" />
+            </Grid>
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_critical_rating, StringFormat=Critical Rating: {0}}" />
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.ImproveCritRating}"
+                    Content="+" />
+            </Grid>
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_dodge_rating, StringFormat=Dodge Rating: {0}}" />
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.ImproveDodgeRating}"
+                    Content="+" />
+            </Grid>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock
+                FontSize="18"
+                FontWeight="Bold"
+                Text="Training:" />
+            <TextBox Text="{Binding Account.Data.character.training_count, StringFormat=Avaiblable Training Today: {0}}" />
+            <Grid>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Strenght: {0} / {1}">
+                            <Binding Path="Account.Data.character.training_progress_value_strength" />
+                            <Binding Path="Account.Data.character.training_progress_end_strength" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.TrainStrength}"
+                    Content="+" />
+            </Grid>
+            <Grid>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Stamina: {0} / {1}">
+                            <Binding Path="Account.Data.character.training_progress_value_stamina" />
+                            <Binding Path="Account.Data.character.training_progress_end_stamina" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.TrainStamina}"
+                    Content="+" />
+            </Grid>
+            <Grid>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Dodge Rating: {0} / {1}">
+                            <Binding Path="Account.Data.character.training_progress_value_dodge_rating" />
+                            <Binding Path="Account.Data.character.training_progress_end_dodge_rating" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.TrainCritRating}"
+                    Content="+" />
+            </Grid>
+            <Grid>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Critical Rating: {0} / {1}">
+                            <Binding Path="Account.Data.character.training_progress_value_critical_rating" />
+                            <Binding Path="Account.Data.character.training_progress_end_critical_rating" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Account.Commands.TrainDodgeRating}"
+                    Content="+" />
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</local:HzUserControl>

@@ -67,13 +67,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\UserControls\ucDuells.xaml.cs">
+      <DependentUpon>ucDuells.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucControlPanel.xaml.cs">
+      <DependentUpon>ucControlPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucStatusbar.xaml.cs">
+      <DependentUpon>ucStatusbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucQuests.xaml.cs">
+      <DependentUpon>ucQuests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucCharacterStats.xaml.cs">
+      <DependentUpon>ucCharacterStats.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ucHideOut.xaml.cs">
+      <DependentUpon>ucHideOut.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\HzUserControl.cs" />
+    <Compile Include="Services\AccountManger.cs" />
+    <Compile Include="Commands\HzCommands.cs" />
+    <Compile Include="Models\HzAccount.cs" />
     <Compile Include="Models\CConstant.cs" />
-    <Compile Include="Views\ChooseCurrencyWindow.xaml.cs">
+    <Compile Include="Views\Windows\ChooseCurrencyWindow.xaml.cs">
       <DependentUpon>ChooseCurrencyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Command\AsyncRelayCommand.cs" />
-    <Compile Include="Command\CommandBase.cs" />
-    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Commands\CommandBase\AsyncRelayCommand.cs" />
+    <Compile Include="Commands\CommandBase\CommandBase.cs" />
+    <Compile Include="Commands\CommandBase\RelayCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\CharacterStat.cs" />
     <Compile Include="Models\JsonModels\HideOut.cs" />
@@ -82,7 +104,7 @@
     <Compile Include="Models\JsonModels\Training.cs" />
     <Compile Include="Models\StatType.cs" />
     <Compile Include="Models\WorkType.cs" />
-    <Compile Include="ViewModels\UserManager.cs" />
+    <Compile Include="Services\HzBot.cs" />
     <Compile Include="Models\JsonModels\Bank_Inventory.cs" />
     <Compile Include="Models\JsonModels\Character.cs" />
     <Compile Include="Models\JsonModels\Data.cs" />
@@ -93,11 +115,35 @@
     <Compile Include="Models\Rewards.cs" />
     <Compile Include="Models\JsonModels\User.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Page Include="Views\ChooseCurrencyWindow.xaml">
+    <Page Include="Views\UserControls\ucDuells.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\UserControls\ucControlPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ucStatusbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ucQuests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ucCharacterStats.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ucHideOut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\ChooseCurrencyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -106,7 +152,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\HzRequests.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -129,7 +175,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="constantsReadable.json" />
+    <EmbeddedResource Include="Assets\constantsReadable.json" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\JsonRoot.datasource" />
     <None Include="Properties\Settings.settings">

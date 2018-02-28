@@ -9,19 +9,25 @@ namespace HZBot
     {
         #region Constructors
 
-        public ChooseCurrencyWindow(Data data)
+        public ChooseCurrencyWindow(HzAccount account)
         {
-            this.data = data;
             InitializeComponent();
+            this.account = account;
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public Data data { get; private set; }
+        public HzAccount Account => account;
 
         #endregion Properties
+
+        #region Fields
+
+        private readonly HzAccount account;
+
+        #endregion Fields
 
         #region Methods
 

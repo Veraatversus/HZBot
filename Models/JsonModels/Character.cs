@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace HZBot
 {
@@ -147,5 +148,32 @@ namespace HZBot
         public int CurrentGameCurrencyCostEnergyRefill => CConstant.GameCurrencyCostEnergyRefill(level, quest_energy_refill_amount_today);
 
         #endregion Properties
+
+        #region Methods
+
+        /// <summary>Gets the next Character Stat to Improve.</summary>
+        /// <returns></returns>
+        public CharacterStat GetNextImroveStat()
+        {
+            return Stats.OrderBy(stat => stat.BaseValue).FirstOrDefault();
+        }
+
+        /// <summary>Determines whether this Character [can improve character stat].</summary>
+        /// <returns>
+        ///   <c>true</c> if this instance [can improve character stat]; otherwise, <c>false</c>.</returns>
+        public bool CanImproveCharacterStat()
+        {
+            return stat_points_available > 0;
+        }
+
+        /// <summary>Determines whether this Character can train.</summary>
+        /// <returns>
+        ///   <c>true</c> if this instance can train; otherwise, <c>false</c>.</returns>
+        public bool CanTrain()
+        {
+            return training_count > 0;
+        }
+
+        #endregion Methods
     }
 }

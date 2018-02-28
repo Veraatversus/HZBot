@@ -5,8 +5,6 @@ namespace HZBot
 {
     public class Data
     {
-        #region Properties
-
         public Bank_Inventory bank_inventory { get; set; }
         public Character character { get; set; }
         public Inventory inventory { get; set; }
@@ -31,7 +29,5 @@ namespace HZBot
 
         public Training training { get; set; }
         public Quest BestQuest => quests.Aggregate((q1, q2) => q1.XPCurrencyPerEneryAverage > q2.XPCurrencyPerEneryAverage ? q1 : q2);
-
-        #endregion Properties
     }
 }

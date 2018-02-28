@@ -1,0 +1,117 @@
+﻿<local:HzUserControl
+    x:Class="HZBot.ucHideOut"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HZBot"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <StackPanel Grid.Row="1" Grid.Column="1">
+        <StackPanel>
+            <!--  HideOut  -->
+            <TextBlock
+                FontSize="18"
+                FontWeight="Bold"
+                Text="Hideout:" />
+            <TextBlock Text="{Binding Account.Data.hideout.hideout_points, StringFormat=Points: {0}}" />
+            <TextBlock Text="{Binding Account.Data.hideout.current_level, StringFormat=Level: {0}}" />
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Glue: {0} / {1}">
+                        <Binding Path="Account.Data.hideout.current_resource_glue" />
+                        <Binding Path="Account.Data.hideout.max_resource_glue" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Stone: {0} / {1}">
+                        <Binding Path="Account.Data.hideout.current_resource_stone" />
+                        <Binding Path="Account.Data.hideout.max_resource_stone" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Barracks Level: {0} / {1}">
+                        <Binding Path="Account.Data.hideout.current_barracks_level" />
+                        <Binding Path="Account.Data.hideout.max_barracks_level" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Text="{Binding Account.Data.hideout.current_worker_level, StringFormat=Worker Level: {0}}" />
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Worker Count: {0} / {1}">
+                        <Binding Path="Account.Data.hideout.idle_worker_count" />
+                        <Binding Path="Account.Data.hideout.max_worker_count" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Attack Units: {0} / {1}">
+                        <Binding Path="Account.Data.hideout.current_attacker_units" />
+                        <Binding Path="Account.Data.hideout.max_attacker_units" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Defend Units: {0} / {1}">
+                        <Binding Path="Account.Data.hideout.current_defender_units" />
+                        <Binding Path="Account.Data.hideout.max_defender_units" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <!--  HideOutRooms  -->
+            <TextBlock
+                FontSize="18"
+                FontWeight="Bold"
+                Text="Hideout Rooms:" />
+            <ListView ItemsSource="{Binding Account.Data.hideout_rooms}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding identifier}" Header="Type" />
+                        <GridViewColumn Header="Resources">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0} / {1}">
+                                    <Binding Path="current_resource_amount" />
+                                    <Binding Path="max_resource_amount" />
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Claim">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Claim" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.Header>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} / {1}">
+                                            <Binding Path="Account.Data.hideout.current_resource_glue" />
+                                            <Binding Path="Account.Data.hideout.current_resource_stone" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0} / {1}">
+                                    <Binding Path="current_resource_amount" />
+                                    <Binding Path="max_resource_amount" />
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </StackPanel>
+</local:HzUserControl>

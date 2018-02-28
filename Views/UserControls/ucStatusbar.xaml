@@ -1,0 +1,22 @@
+﻿<local:HzUserControl
+    x:Class="HZBot.ucStatusbar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HZBot"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <WrapPanel Grid.Row="2" Orientation="Horizontal">
+        <TextBlock Text="{Binding Account.Character.name, StringFormat=Name: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Character.level, StringFormat=Level: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Character.xp, StringFormat=Xp: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Character.game_currency, StringFormat=Currency: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Character.honor, StringFormat=Honor: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Character.league_points, StringFormat=LeaguePoints: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Character.quest_energy, StringFormat=Quest Energy: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Data.ActiveWorker.id, StringFormat=ActiveWorkId: {0}}" />
+        <TextBlock Margin="10,0,0,0" Text="{Binding Account.Bot.TimerText, StringFormat=TimeLeft: {0}}" />
+    </WrapPanel>
+</local:HzUserControl>

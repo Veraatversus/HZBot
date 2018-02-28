@@ -2,8 +2,6 @@
 {
     public class User
     {
-        #region Properties
-
         public int id { get; set; }
         public string registration_source { get; set; }
         public string _ref { get; set; }
@@ -20,7 +18,5 @@
         public string settings { get; set; }
         public int status { get; set; }
         public bool trusted { get; set; }
-
-        #endregion Properties
     }
 }
