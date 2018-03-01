@@ -12,8 +12,8 @@ namespace HZBot
         public HzAccount()
         {
             AccountManger.Accounts.Add(this);
+            Plugins = new HzPlugins(this);
             Requests = new HzRequests(this);
-            Commands = new HzCommands(this);
             Bot = new HzBot(this);
             OnDataChanged += HzAccount_OnDataChanged;
         }
@@ -29,7 +29,7 @@ namespace HZBot
         #region Properties
 
         //Commands
-        public HzCommands Commands { get; }
+        public HzPlugins Plugins { get; }
 
         //Personal data
         public string Username { get => _username; set { _username = value; RaisePropertyChanged(); } }
@@ -50,14 +50,6 @@ namespace HZBot
         public HzRequests Requests { get; }
 
         public HzBot Bot { get; }
-
-        public JObject JsonData { get; } = new JObject();
-
-        public JsonRoot MainData
-        {
-            get => _mainData;
-            set { _mainData = value; RaisePropertyChanged(); OnDataChanged?.Invoke(); }
-        }
 
         public IWorkItem ActiveWorker => Data?.ActiveWorker;
 
@@ -96,11 +88,8 @@ namespace HZBot
         #region Fields
 
         private JsonRoot _mainData;
-
         private bool _isLogined;
-
         private string _username;
-
         private string _password;
 
         #endregion Fields
@@ -113,6 +102,14 @@ namespace HZBot
         }
 
         #endregion Destructors
+
+        private JObject JsonData { get; } = new JObject();
+
+        private JsonRoot MainData
+        {
+            get => _mainData;
+            set { _mainData = value; RaisePropertyChanged(); OnDataChanged?.Invoke(); }
+        }
 
         private void HzAccount_OnDataChanged()
         {

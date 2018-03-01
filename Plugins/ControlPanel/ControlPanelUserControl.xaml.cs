@@ -1,13 +1,13 @@
 ﻿namespace HZBot
 {
     /// <summary>
-    /// Interaktionslogik für ucCharacterStats.xaml
+    /// Interaktionslogik für usControlPanel.xaml
     /// </summary>
-    public partial class ucCharacterStats : HzUserControl
+    public partial class ControlPanelUserControl : HzUserControl
     {
         #region Constructors
 
-        public ucCharacterStats()
+        public ControlPanelUserControl()
         {
             InitializeComponent();
         }

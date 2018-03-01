@@ -1,14 +1,67 @@
 ﻿<local:HzUserControl
-    x:Class="HZBot.ucCharacterStats"
+    x:Class="HZBot.CharacterStatUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="UserControl"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <StackPanel>
+    <StackPanel DataContext="{Binding ElementName=UserControl}">
+        <Grid>
+            <ListView Grid.IsSharedSizeScope="True" ItemsSource="{Binding Account.Character.Stats}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:CharacterStat}">
+                        <Grid x:Name="statGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="skillColumn" />
+                                <ColumnDefinition SharedSizeGroup="skillSpacer" />
+                                <ColumnDefinition Width="*" SharedSizeGroup="statNameColumn" />
+                                <ColumnDefinition SharedSizeGroup="skillSpacer" />
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="trainColumn" />
+                            </Grid.ColumnDefinitions>
+                            <Button DataContext="{Binding Account, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                Command="{Binding Plugins.CharacterStat.ImproveCharacterStatCommand}"
+                                CommandParameter="{Binding DataContext, ElementName=statGrid}"
+                                Content="Skill"
+                                ToolTipService.ShowOnDisabled="True">
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Text="{Binding Character.stat_points_available, StringFormat=Stat points available: {0}}" />
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Text="&lt;----" />
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} : {1}">
+                                        <Binding Path="StatType" />
+                                        <Binding Path="TotalValue" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="3"
+                                HorizontalAlignment="Center"
+                                Text="----&gt;" />
+                            <Button
+                                Grid.Column="4"
+                                HorizontalAlignment="Center"
+                                Command="{Binding Account.Plugins.CharacterStat.TrainCharacterStatCommand, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                                CommandParameter="{Binding Mode=OneWay}"
+                                Content="Train" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
         <StackPanel>
             <TextBlock
                 FontSize="18"
@@ -30,7 +83,7 @@
                     Content="+" />
             </Grid>
         </StackPanel>
-        <StackPanel x:Name="CharacterStatsGrid">
+        <!--<StackPanel x:Name="CharacterStatsGrid">
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
@@ -135,6 +188,6 @@
                     Command="{Binding Account.Commands.TrainDodgeRating}"
                     Content="+" />
             </Grid>
-        </StackPanel>
+        </StackPanel>-->
     </StackPanel>
 </local:HzUserControl>

@@ -1,13 +1,13 @@
 ﻿namespace HZBot
 {
     /// <summary>
-    /// Interaktionslogik für ucQuests.xaml
+    /// Interaktionslogik für HideOutUserControl.xaml
     /// </summary>
-    public partial class ucQuests : HzUserControl
+    public partial class HideOutUserControl : HzUserControl
     {
         #region Constructors
 
-        public ucQuests()
+        public HideOutUserControl()
         {
             InitializeComponent();
         }

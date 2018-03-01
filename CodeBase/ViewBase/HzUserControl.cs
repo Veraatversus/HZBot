@@ -39,7 +39,5 @@ namespace HZBot
         }
 
         #endregion Methods
-
-        //private HzAccount _account;
     }
 }

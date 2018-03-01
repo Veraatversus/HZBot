@@ -67,83 +67,92 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\UserControls\ucDuells.xaml.cs">
-      <DependentUpon>ucDuells.xaml</DependentUpon>
+    <Compile Include="CodeBase\HzPluginBase.cs" />
+    <Compile Include="Plugins\Account\AccountPlugin.cs" />
+    <Compile Include="Plugins\CharacterStats\CharacterStatPlugin.cs" />
+    <Compile Include="Plugins\Duell\DuellUserControl.xaml.cs">
+      <DependentUpon>DuellUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucControlPanel.xaml.cs">
-      <DependentUpon>ucControlPanel.xaml</DependentUpon>
+    <Compile Include="Plugins\ControlPanel\ControlPanelUserControl.xaml.cs">
+      <DependentUpon>ControlPanelUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucStatusbar.xaml.cs">
+    <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
+    <Compile Include="Plugins\Quest\QuestPlugin.cs" />
+    <Compile Include="Plugins\Statusbar\ucStatusbar.xaml.cs">
       <DependentUpon>ucStatusbar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucQuests.xaml.cs">
-      <DependentUpon>ucQuests.xaml</DependentUpon>
+    <Compile Include="Plugins\Quest\QuestsUserControl.xaml.cs">
+      <DependentUpon>QuestsUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucCharacterStats.xaml.cs">
-      <DependentUpon>ucCharacterStats.xaml</DependentUpon>
+    <Compile Include="Plugins\CharacterStats\CharacterStatUserControl.xaml.cs">
+      <DependentUpon>CharacterStatUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\ucHideOut.xaml.cs">
-      <DependentUpon>ucHideOut.xaml</DependentUpon>
+    <Compile Include="Plugins\HideOut\HideOutUserControl.xaml.cs">
+      <DependentUpon>HideOutUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\HzUserControl.cs" />
+    <Compile Include="CodeBase\ViewBase\HzUserControl.cs" />
     <Compile Include="Services\AccountManger.cs" />
-    <Compile Include="Commands\HzCommands.cs" />
-    <Compile Include="Models\HzAccount.cs" />
-    <Compile Include="Models\CConstant.cs" />
-    <Compile Include="Views\Windows\ChooseCurrencyWindow.xaml.cs">
+    <Compile Include="Services\HzPlugins.cs" />
+    <Compile Include="Services\HzAccount.cs" />
+    <Compile Include="Services\HzConstants.cs" />
+    <Compile Include="Views\ChooseCurrencyWindow.xaml.cs">
       <DependentUpon>ChooseCurrencyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\CommandBase\AsyncRelayCommand.cs" />
-    <Compile Include="Commands\CommandBase\CommandBase.cs" />
-    <Compile Include="Commands\CommandBase\RelayCommand.cs" />
+    <Compile Include="CodeBase\CommandBase\AsyncRelayCommand.cs" />
+    <Compile Include="CodeBase\CommandBase\CommandBase.cs" />
+    <Compile Include="CodeBase\CommandBase\RelayCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Models\CharacterStat.cs" />
-    <Compile Include="Models\JsonModels\HideOut.cs" />
-    <Compile Include="Models\JsonModels\HideOutRoom.cs" />
+    <Compile Include="Plugins\CharacterStats\CharacterStat.cs" />
+    <Compile Include="Models\HzJsonModels\HideOut.cs" />
+    <Compile Include="Models\HzJsonModels\HideOutRoom.cs" />
     <Compile Include="Models\IWorkItem.cs" />
-    <Compile Include="Models\JsonModels\Training.cs" />
-    <Compile Include="Models\StatType.cs" />
+    <Compile Include="Models\HzJsonModels\Training.cs" />
+    <Compile Include="Plugins\CharacterStats\StatType.cs" />
     <Compile Include="Models\WorkType.cs" />
     <Compile Include="Services\HzBot.cs" />
-    <Compile Include="Models\JsonModels\Bank_Inventory.cs" />
-    <Compile Include="Models\JsonModels\Character.cs" />
-    <Compile Include="Models\JsonModels\Data.cs" />
-    <Compile Include="Models\JsonModels\Inventory.cs" />
-    <Compile Include="Models\JsonModels\Item.cs" />
-    <Compile Include="Models\JsonModels\JsonRoot.cs" />
-    <Compile Include="Models\JsonModels\Quest.cs" />
-    <Compile Include="Models\Rewards.cs" />
-    <Compile Include="Models\JsonModels\User.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Page Include="Views\UserControls\ucDuells.xaml">
+    <Compile Include="Models\HzJsonModels\Bank_Inventory.cs" />
+    <Compile Include="Models\HzJsonModels\Character.cs" />
+    <Compile Include="Models\HzJsonModels\Data.cs" />
+    <Compile Include="Models\HzJsonModels\Inventory.cs" />
+    <Compile Include="Models\HzJsonModels\Item.cs" />
+    <Compile Include="Models\HzJsonModels\JsonRoot.cs" />
+    <Compile Include="Models\HzJsonModels\Quest.cs" />
+    <Compile Include="Models\HzJsonModels\Rewards.cs" />
+    <Compile Include="Models\HzJsonModels\User.cs" />
+    <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
+    <Page Include="Plugins\CharacterStats\CharacterStatTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ucControlPanel.xaml">
+    <Page Include="Plugins\Duell\DuellUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ucStatusbar.xaml">
+    <Page Include="Plugins\ControlPanel\ControlPanelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ucQuests.xaml">
+    <Page Include="Plugins\Statusbar\ucStatusbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ucCharacterStats.xaml">
+    <Page Include="Plugins\Quest\QuestsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\ucHideOut.xaml">
+    <Page Include="Plugins\CharacterStats\CharacterStatUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\ChooseCurrencyWindow.xaml">
+    <Page Include="Plugins\HideOut\HideOutUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Windows\MainWindow.xaml">
+    <Page Include="Views\ChooseCurrencyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -152,7 +161,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\HzRequests.cs" />
-    <Compile Include="Views\Windows\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -182,11 +191,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="TestJsons\buyQuestEnergy.json" />
-    <None Include="TestJsons\checkForQuestComplete.json" />
-    <None Include="TestJsons\claimQuestRewards.json" />
-    <None Include="TestJsons\Login.json" />
-    <None Include="TestJsons\startQuest.json" />
+    <None Include="Assets\TestJsons\buyQuestEnergy.json" />
+    <None Include="Assets\TestJsons\checkForQuestComplete.json" />
+    <None Include="Assets\TestJsons\claimQuestRewards.json" />
+    <None Include="Assets\TestJsons\Login.json" />
+    <None Include="Assets\TestJsons\startQuest.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

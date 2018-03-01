@@ -3,11 +3,11 @@
     /// <summary>
     /// Interaktionslogik für ucDuells.xaml
     /// </summary>
-    public partial class ucDuells : HzUserControl
+    public partial class DuellUserControl : HzUserControl
     {
         #region Constructors
 
-        public ucDuells()
+        public DuellUserControl()
         {
             InitializeComponent();
         }
