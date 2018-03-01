@@ -6,6 +6,7 @@ using System.Windows.Threading;
 
 namespace HZBot
 {
+    // HZBot Class
     public class HzBot : ViewModelBase
     {
         #region Constructors
