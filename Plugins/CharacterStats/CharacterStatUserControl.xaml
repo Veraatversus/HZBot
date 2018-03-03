@@ -6,16 +6,14 @@
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="UserControl"
- d:DataContext="{d:DesignInstance local:HzAccount}"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DataContext="{d:DesignInstance local:CharacterStatPlugin}"
     mc:Ignorable="d">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
@@ -35,7 +33,10 @@
                     Content="+" />
             </Grid>
         </StackPanel>
-        <Grid Grid.Row="1">
+        <Grid
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
