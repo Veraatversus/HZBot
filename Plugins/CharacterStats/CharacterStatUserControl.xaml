@@ -71,7 +71,7 @@
             <TextBlock Text="{Binding Account.Character.level, StringFormat=Level: {0}}" />
             <TextBlock Text="{Binding Account.Data.character.xp, StringFormat=Xp: {0}}" />
             <TextBlock Text="{Binding Account.Data.character.game_currency, StringFormat=Currency: {0}}" />
-            <TextBlock Text="{Binding Account.Data.user.premium_currency, StringFormat=Premium Currency: {0}}" />
+            <TextBlock Text="{Binding Account.Data.user.premium_currency, StringFormat=Donuts: {0}}" />
             <TextBlock Text="{Binding Account.Data.character.honor, StringFormat=Honor: {0}}" />
             <TextBlock Text="{Binding Account.Data.character.league_points, StringFormat=LeaguePoints: {0}}" />
             <Grid>
