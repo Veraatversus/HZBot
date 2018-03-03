@@ -3,11 +3,11 @@
     /// <summary>
     /// Interaktionslogik für ucStatusbar.xaml
     /// </summary>
-    public partial class ucStatusbar : HzUserControl
+    public partial class StatusbarUserControl : HzUserControl
     {
         #region Constructors
 
-        public ucStatusbar()
+        public StatusbarUserControl()
         {
             InitializeComponent();
         }

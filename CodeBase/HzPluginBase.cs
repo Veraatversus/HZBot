@@ -8,11 +8,24 @@ namespace HZBot
 
         public abstract Task OnExcecuteAsync();
 
+        private HzAccount _account;
+
         #endregion Methods
 
         #region Properties
 
-        protected internal HzAccount Account { get; }
+        public HzAccount Account
+        {
+            get
+            {
+                return _account;
+            }
+            set
+            {
+                _account = value;
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion Properties
 

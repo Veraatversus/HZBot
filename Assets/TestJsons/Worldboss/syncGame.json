@@ -1,0 +1,217 @@
+﻿{
+  "data": {
+    "user": {
+      "premium_currency": 11,
+      "id": 26570
+    },
+    "character": {
+      "honor": 1129,
+      "league_points": 0,
+      "unused_resources": "{\"1\":4,\"2\":1}",
+      "used_resources": "",
+      "unread_mass_system_messages": 1,
+      "stat_total_stamina": 116,
+      "stat_total_strength": 136,
+      "stat_total_critical_rating": 58,
+      "stat_total_dodge_rating": 47,
+      "active_quest_booster_id": "booster_quest3",
+      "active_stats_booster_id": "",
+      "active_work_booster_id": "",
+      "ts_active_sense_boost_expires": 0,
+      "active_league_booster_id": "",
+      "ts_active_league_boost_expires": 0,
+      "ts_active_multitasking_boost_expires": 0,
+      "quest_energy": 74,
+      "max_quest_energy": 100,
+      "duel_stamina": 100,
+      "max_duel_stamina": 100,
+      "ts_last_duel_stamina_change": 1520086156,
+      "duel_stamina_cost": 20,
+      "training_count": 10,
+      "max_training_count": 10,
+      "active_worldboss_attack_id": 0,
+      "active_dungeon_quest_id": 0,
+      "guild_id": 0,
+      "guild_rank": 0,
+      "finished_guild_battle_attack_id": 0,
+      "finished_guild_battle_defense_id": 0,
+      "finished_guild_dungeon_battle_id": 0,
+      "guild_donated_game_currency": 0,
+      "guild_donated_premium_currency": 0,
+      "guild_competition_points_gathered": 0,
+      "pending_guild_competition_tournament_rewards": 0,
+      "worldboss_event_id": 148,
+      "worldboss_event_attack_count": 4,
+      "pending_tournament_rewards": 0,
+      "ts_last_shop_refresh": 0,
+      "event_quest_id": 0,
+      "league_group_id": 0,
+      "active_league_fight_id": 0,
+      "league_fight_count": 0,
+      "league_opponents": "",
+      "ts_last_league_opponents_refresh": 0,
+      "league_stamina": 20,
+      "max_league_stamina": 20,
+      "ts_last_league_stamina_change": 1520092840,
+      "league_stamina_cost": 20,
+      "pending_league_tournament_rewards": 0,
+      "slotmachine_spin_count": 0,
+      "new_user_voucher_ids": "[]",
+      "id": 25814
+    },
+    "missed_duels": 22,
+    "missed_league_fights": 0,
+    "missed_hideout_attacks": 1,
+    "streams_info": {
+      "m": {
+        "25814": {
+          "id": 25814,
+          "type": "m",
+          "unread": 0
+        }
+      },
+      "r": {
+        "26570": {
+          "id": 26570,
+          "type": "r",
+          "unread": 0
+        }
+      },
+      "v": {
+        "26570": {
+          "id": 26570,
+          "type": "v",
+          "unread": 0
+        },
+        "25814": {
+          "id": 25814,
+          "type": "v",
+          "unread": 4
+        }
+      },
+      "p": {
+        "32909": {
+          "id": 32909,
+          "type": "p",
+          "unread": 1
+        },
+        "32923": {
+          "id": 32923,
+          "type": "p",
+          "unread": 1
+        }
+      },
+      "s": {
+        "25814": {
+          "id": 25814,
+          "type": "s",
+          "unread": 6
+        }
+      }
+    },
+    "new_guild_log_entries": 0,
+    "worldboss_events": [
+      {
+        "id": 148,
+        "ts_finished": 1520092800,
+        "identifier": "default_event_stage2",
+        "status": 4,
+        "ts_start": 1520085600,
+        "ts_end": 1520092800,
+        "min_level": 15,
+        "max_level": 600,
+        "stage": 2,
+        "reward_multiplier": 100,
+        "reward_top_rank_item_identifier": "suit_setitem_ironman1",
+        "reward_top_rank_item_level_bonus": 20,
+        "reward_top_pool_item_identifier": "suit_setitem_frogman1",
+        "reward_top_pool_item_level_bonus": 15,
+        "npc_identifier": "npc_c3_d2",
+        "npc_hitpoints_current": 81396331,
+        "npc_hitpoints_total": 190000000,
+        "attack_count": 6639,
+        "top_attacker_count": 123,
+        "top_attacker_id": 13461,
+        "top_attacker_name": "SeaShepherd",
+        "winning_attacker_id": 0,
+        "winning_attacker_name": "",
+        "difficulty_factor": 80
+      }
+    ],
+    "worldboss_rewards": [
+      {
+        "id": 39047,
+        "worldboss_event_id": 148,
+        "character_id": 25814,
+        "xp": 861,
+        "game_currency": 232,
+        "item_id": 0,
+        "sidekick_item_id": 0,
+        "rewards": "",
+        "status": 1
+      }
+    ],
+    "worldboss_event_character_data": [
+      {
+        "worldboss_event_id": 148,
+        "ranking": 362,
+        "coin_reward_total": 463,
+        "coin_reward_next_attack": 107,
+        "xp_reward_total": 1721,
+        "xp_reward_next_attack": 398
+      }
+    ],
+    "ingame_notifications": {
+      "grind_it_out_event": {
+        "test": false,
+        "index": 0,
+        "active": true,
+        "available_time_start": "2018-03-02 00:00:00",
+        "available_time_end": "2018-03-04 23:59:59",
+        "text_identifier": "grind_it_out_event_notification",
+        "frequency": 2,
+        "redirect_to_payment_dialog": false,
+        "redirect_to_itemoffer_dialog": false,
+        "display": {
+          "image": "grind_it_out_event_notification.png",
+          "html": true,
+          "custom_button_text": false,
+          "min_level": 5
+        }
+      }
+    },
+    "bonus_info": {
+      "bonus_datas": [
+        {
+          "event_id": "grind_it_out_event",
+          "date": 1519945200,
+          "type": 7,
+          "value": 2
+        },
+        {
+          "event_id": "grind_it_out_event",
+          "date": 1520031600,
+          "type": 7,
+          "value": 2
+        },
+        {
+          "event_id": "grind_it_out_event",
+          "date": 1520118000,
+          "type": 7,
+          "value": 2
+        }
+      ]
+    },
+    "league_locked": false,
+    "sync_states": {
+      "server": 363,
+      "user26570": 1,
+      "character25814": 45,
+      "worldboss148": 6638
+    },
+    "sync_timestamp": 1520092840,
+    "time_correction": 0.022867202758789,
+    "server_time": 1520092840
+  },
+  "error": ""
+}

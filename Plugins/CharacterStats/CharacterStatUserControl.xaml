@@ -6,188 +6,44 @@
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="UserControl"
+ d:DataContext="{d:DesignInstance local:HzAccount}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <StackPanel DataContext="{Binding ElementName=UserControl}">
-        <Grid>
-            <ListView Grid.IsSharedSizeScope="True" ItemsSource="{Binding Account.Character.Stats}">
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type local:CharacterStat}">
-                        <Grid x:Name="statGrid">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="skillColumn" />
-                                <ColumnDefinition SharedSizeGroup="skillSpacer" />
-                                <ColumnDefinition Width="*" SharedSizeGroup="statNameColumn" />
-                                <ColumnDefinition SharedSizeGroup="skillSpacer" />
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="trainColumn" />
-                            </Grid.ColumnDefinitions>
-                            <Button DataContext="{Binding Account, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
-                                Grid.Column="0"
-                                HorizontalAlignment="Center"
-                                Command="{Binding Plugins.CharacterStat.ImproveCharacterStatCommand}"
-                                CommandParameter="{Binding DataContext, ElementName=statGrid}"
-                                Content="Skill"
-                                ToolTipService.ShowOnDisabled="True">
-                                <Button.ToolTip>
-                                    <ToolTip>
-                                        <TextBlock Text="{Binding Character.stat_points_available, StringFormat=Stat points available: {0}}" />
-                                    </ToolTip>
-                                </Button.ToolTip>
-                            </Button>
-                            <TextBlock
-                                Grid.Column="1"
-                                HorizontalAlignment="Center"
-                                Text="&lt;----" />
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Center">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} : {1}">
-                                        <Binding Path="StatType" />
-                                        <Binding Path="TotalValue" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                            <TextBlock
-                                Grid.Column="3"
-                                HorizontalAlignment="Center"
-                                Text="----&gt;" />
-                            <Button
-                                Grid.Column="4"
-                                HorizontalAlignment="Center"
-                                Command="{Binding Account.Plugins.CharacterStat.TrainCharacterStatCommand, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
-                                CommandParameter="{Binding Mode=OneWay}"
-                                Content="Train" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-        <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
                 Text="{Binding Account.Data.character.name, StringFormat=Character: {0}}" />
-
             <TextBlock Text="{Binding Account.Character.level, StringFormat=Level: {0}}" />
-            <TextBlock Text="{Binding Account.Data.character.xp, StringFormat=Xp: {0}}" />
-            <TextBlock Text="{Binding Account.Data.character.game_currency, StringFormat=Currency: {0}}" />
-            <TextBlock Text="{Binding Account.Data.user.premium_currency, StringFormat=Premium Currency: {0}}" />
-            <TextBlock Text="{Binding Account.Data.character.honor, StringFormat=Honor: {0}}" />
-            <TextBlock Text="{Binding Account.Data.character.league_points, StringFormat=LeaguePoints: {0}}" />
+            <TextBlock Text="{Binding Account.Character.xp, StringFormat=Xp: {0}}" />
+            <TextBlock Text="{Binding Account.Character.game_currency, StringFormat=Currency: {0}}" />
+            <TextBlock Text="{Binding Account.User.premium_currency, StringFormat=Premium Currency: {0}}" />
+            <TextBlock Text="{Binding Account.Character.honor, StringFormat=Honor: {0}}" />
+            <TextBlock Text="{Binding Account.Character.league_points, StringFormat=LeaguePoints: {0}}" />
             <Grid>
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.quest_energy, StringFormat=Quest Energy: {0}}" />
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Character.quest_energy, StringFormat=Quest Energy: {0}}" />
                 <Button
                     Width="30"
                     HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.ShowBuyQuestEnergyWindow}"
+                    Command="{Binding Account.Plugins.Quest.ShowBuyQuestEnergyWindow}"
                     Content="+" />
             </Grid>
         </StackPanel>
-        <!--<StackPanel x:Name="CharacterStatsGrid">
+        <Grid Grid.Row="1">
             <TextBlock
                 FontSize="18"
                 FontWeight="Bold"
-                Text="Character Stats:" />
-            <TextBox Text="{Binding Account.Data.character.stat_points_available, StringFormat=AvailablePoints: {0}}" />
-            <Grid>
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_strength, StringFormat=Strength: {0}}" />
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.ImproveStrength}"
-                    Content="+" />
-            </Grid>
-            <Grid>
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_stamina, StringFormat=Stamina: {0}}" />
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.ImproveStamina}"
-                    Content="+" />
-            </Grid>
-            <Grid>
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_critical_rating, StringFormat=Critical Rating: {0}}" />
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.ImproveCritRating}"
-                    Content="+" />
-            </Grid>
-            <Grid>
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Data.character.stat_total_dodge_rating, StringFormat=Dodge Rating: {0}}" />
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.ImproveDodgeRating}"
-                    Content="+" />
-            </Grid>
-        </StackPanel>
-        <StackPanel>
-            <TextBlock
-                FontSize="18"
-                FontWeight="Bold"
-                Text="Training:" />
-            <TextBox Text="{Binding Account.Data.character.training_count, StringFormat=Avaiblable Training Today: {0}}" />
-            <Grid>
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Strenght: {0} / {1}">
-                            <Binding Path="Account.Data.character.training_progress_value_strength" />
-                            <Binding Path="Account.Data.character.training_progress_end_strength" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.TrainStrength}"
-                    Content="+" />
-            </Grid>
-            <Grid>
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Stamina: {0} / {1}">
-                            <Binding Path="Account.Data.character.training_progress_value_stamina" />
-                            <Binding Path="Account.Data.character.training_progress_end_stamina" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.TrainStamina}"
-                    Content="+" />
-            </Grid>
-            <Grid>
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Dodge Rating: {0} / {1}">
-                            <Binding Path="Account.Data.character.training_progress_value_dodge_rating" />
-                            <Binding Path="Account.Data.character.training_progress_end_dodge_rating" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.TrainCritRating}"
-                    Content="+" />
-            </Grid>
-            <Grid>
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Critical Rating: {0} / {1}">
-                            <Binding Path="Account.Data.character.training_progress_value_critical_rating" />
-                            <Binding Path="Account.Data.character.training_progress_end_critical_rating" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Commands.TrainDodgeRating}"
-                    Content="+" />
-            </Grid>
-        </StackPanel>-->
-    </StackPanel>
+                Text="Stats:" />
+            <ListView
+                Grid.IsSharedSizeScope="True"
+                ItemTemplate="{DynamicResource CharacterStatTemplate}"
+                ItemsSource="{Binding Account.Character.Stats}" />
+        </Grid>
+    </Grid>
 </local:HzUserControl>

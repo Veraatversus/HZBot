@@ -12,8 +12,12 @@ namespace HZBot
         // Using a DependencyProperty as the backing store for Account.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AccountProperty =
             DependencyProperty.Register(nameof(Account), typeof(HzAccount), typeof(HzUserControl), new PropertyMetadata(null));
-
-        #endregion Fields
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            Account = DataContext as HzAccount;
+        }
+        #endregion Constructors
 
         #region Events
 

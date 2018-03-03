@@ -79,7 +79,7 @@ namespace HZBot
             if (HZData.ActiveWorker != null)
             {
                 //Worker Remaining Time Left
-                if (HZData.ActiveWorker.RemainingTime <= -2)
+                if (HZData.ActiveWorker.RemainingTime <= -1)
                 {
                     //Work seems complete stop timer
                     StopActiveWorkTimer();

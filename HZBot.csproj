@@ -78,8 +78,8 @@
     </Compile>
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
-    <Compile Include="Plugins\Statusbar\ucStatusbar.xaml.cs">
-      <DependentUpon>ucStatusbar.xaml</DependentUpon>
+    <Compile Include="Plugins\Statusbar\StatusbarUserControl.xaml.cs">
+      <DependentUpon>StatusbarUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Quest\QuestsUserControl.xaml.cs">
       <DependentUpon>QuestsUserControl.xaml</DependentUpon>
@@ -132,7 +132,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Statusbar\ucStatusbar.xaml">
+    <Page Include="Plugins\Statusbar\StatusbarUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,6 +185,11 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\constantsReadable.json" />
+    <None Include="Assets\TestJsons\Worldboss\checkForWorldbossAttackComplete.json" />
+    <None Include="Assets\TestJsons\Worldboss\finishWorldbossAttack.json" />
+    <None Include="Assets\TestJsons\Worldboss\startWorldbossAttack.json" />
+    <None Include="Assets\TestJsons\Worldboss\syncGame.json" />
+    <None Include="Assets\TestJsons\Worldboss\WorldBossLogin.json" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\JsonRoot.datasource" />
     <None Include="Properties\Settings.settings">

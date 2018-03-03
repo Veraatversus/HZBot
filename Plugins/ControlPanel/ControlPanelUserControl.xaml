@@ -5,14 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="Plugin"
+    x:Name="UserControl"
+    d:DataContext="{d:DesignInstance local:HzAccount,
+                                     IsDesignTimeCreatable=True}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid
-        Grid.Row="0"
-        VerticalAlignment="Top"
-        DataContext="{Binding ElementName=Plugin}">
+    <Grid Grid.Row="0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
@@ -27,53 +26,53 @@
             Grid.RowSpan="2"
             Grid.Column="0">
             <WrapPanel Orientation="Horizontal">
-                <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding Account.Bot.IsBotEnabled}">Enable Bot</CheckBox>
+                <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding Bot.IsBotEnabled}">Enable Bot</CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Plugins.CharacterStat.IsAutoTrain}">
+                    IsChecked="{Binding Plugins.CharacterStat.IsAutoTrain}">
                     AutoTrain
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Plugins.Quest.IsAutoQuest}">
+                    IsChecked="{Binding Plugins.Quest.IsAutoQuest}">
                     AutoQuest
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Plugins.CharacterStat.IsAutoSkill}">
+                    IsChecked="{Binding Plugins.CharacterStat.IsAutoSkill}">
                     AutoSkill
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Plugins.HideOut.IsAutoHideOutCollect}">
+                    IsChecked="{Binding Plugins.HideOut.IsAutoHideOutCollect}">
                     AutoHideOutCollect
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Plugins.HideOut.IsAutoHideOutBuild}">
+                    IsChecked="{Binding Plugins.HideOut.IsAutoHideOutBuild}">
                     AutoHideOutBuild
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Plugins.Quest.IsAutoBuyEnergyFromGold}">
+                    IsChecked="{Binding Plugins.Quest.IsAutoBuyEnergyFromGold}">
                     Buy Energy for Gold
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Plugins.Quest.IsAutoBuyEnergyFromPremium}">
+                    IsChecked="{Binding Plugins.Quest.IsAutoBuyEnergyFromPremium}">
                     Buy Energy for Premium
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Account.Bot.IsAutoReconnect}">
+                    IsChecked="{Binding Bot.IsAutoReconnect}">
                     AutoReconect
                 </CheckBox>
             </WrapPanel>
@@ -83,7 +82,7 @@
                         <Setter Property="Visibility" Value="Hidden" />
                     </Style.Setters>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Account.IsLogined}" Value="True">
+                        <DataTrigger Binding="{Binding IsLogined}" Value="True">
                             <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -106,7 +105,7 @@
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Account.IsLogined}" Value="True">
+                        <DataTrigger Binding="{Binding IsLogined}" Value="True">
                             <Setter Property="Visibility" Value="Hidden" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -128,14 +127,14 @@
                 Grid.Column="0"
                 BorderBrush="Black"
                 BorderThickness="2"
-                Text="{Binding Account.Username}" />
+                Text="{Binding Username}" />
             <TextBox
                 x:Name="tbPassword"
                 Grid.Row="1"
                 Grid.Column="1"
                 BorderBrush="Black"
                 BorderThickness="2"
-                Text="{Binding Account.Password}" />
+                Text="{Binding Password}" />
         </Grid>
         <Label
             Grid.Row="0"
@@ -147,7 +146,7 @@
                         <Setter Property="Content" Value="Status: Offline" />
                     </Style.Setters>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Account.IsLogined}" Value="True">
+                        <DataTrigger Binding="{Binding IsLogined}" Value="True">
                             <Setter Property="Content" Value="Status: Online" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -160,7 +159,7 @@
             Grid.Column="2"
             BorderBrush="Black"
             BorderThickness="2"
-            Command="{Binding Account.Plugins.Account.LoginCommand}"
+            Command="{Binding Plugins.Account.LoginCommand}"
             Content="Login" />
     </Grid>
 </local:HzUserControl>

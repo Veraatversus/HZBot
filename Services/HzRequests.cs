@@ -230,7 +230,7 @@ namespace HZBot
                         return null;
                     }
                     Account.MergeNewData(obj);
-                    ServerTimeOffset = DateTimeOffset.Now.ToUnixTimeSeconds() - Account.Data.server_time;
+                    ServerTimeOffset = Account.Data.server_time - DateTimeOffset.Now.ToUnixTimeSeconds();
                     return obj;
                 }
             }

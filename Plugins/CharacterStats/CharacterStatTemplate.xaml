@@ -1,6 +1,87 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:HZBot"
+    xmlns:local="clr-namespace:HZBot">
+    <DataTemplate x:Key="CharacterStatTemplate" DataType="{x:Type local:CharacterStat}">
+        <Grid x:Name="statGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="skillColumn" />
+                <ColumnDefinition SharedSizeGroup="skillSpacer" />
+                <ColumnDefinition Width="*" SharedSizeGroup="statNameColumn" />
+                <ColumnDefinition SharedSizeGroup="skillSpacer" />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="trainColumn" />
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Name="btnSkill"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                Command="{Binding Account.Plugins.CharacterStat.ImproveCharacterStatCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                CommandParameter="{Binding}"
+                Content="Skill"
+                Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                ToolTipService.ShowOnDisabled="True">
+                <Button.ToolTip>
+                    <ToolTip DataContext="{Binding Path=PlacementTarget, RelativeSource={x:Static RelativeSource.Self}}">
+                        <TextBlock Text="{Binding Tag.Account.Character.stat_points_available, StringFormat=Stat points available: \{0\}}" />
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                Text="&lt;----" />
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center"
+                        Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                ToolTipService.ShowOnDisabled="True">
+                <TextBlock.ToolTip>
+                    <ToolTip DataContext="{Binding Path=PlacementTarget, RelativeSource={RelativeSource Self}}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding DataContext.BaseValue, StringFormat=BaseValue: \{0\}}" />
+                            <TextBlock Text="{Binding DataContext.BoughtValue, StringFormat=BoughtValue: \{0\}}" />
+                            <TextBlock Text="{Binding DataContext.TotalValue, StringFormat=TotalValue: \{0\}}" />
+                            <TextBlock Text="{Binding DataContext.MaxValue, StringFormat=MaxValue: \{0\}}" />
+                        </StackPanel>
+                    </ToolTip>
+                </TextBlock.ToolTip>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} : {1}">
+                        <Binding Path="StatType" />
+                        <Binding Path="TotalValue" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock
+                Grid.Column="3"
+                HorizontalAlignment="Center"
+                Text="----&gt;" />
+            <Button
+                x:Name="btnTrain"
+                Grid.Column="4"
+                HorizontalAlignment="Center"
+                Command="{Binding Account.Plugins.CharacterStat.TrainCharacterStatCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                CommandParameter="{Binding}"
+                Content="Train"
+                Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                ToolTipService.ShowOnDisabled="True">
+                <Button.ToolTip>
+                    <ToolTip DataContext="{Binding Path=PlacementTarget, RelativeSource={RelativeSource Self}}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Tag.Account.Character.training_count, StringFormat=Training points available: \{0\}}" />
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}Training progress: {0} / {1}">
+                                        <Binding Path="DataContext.TrainingValue" />
+                                        <Binding Path="DataContext.TrainingMaxValue" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+                        
+                        
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+    </DataTemplate>
 
-    />
+</ResourceDictionary>

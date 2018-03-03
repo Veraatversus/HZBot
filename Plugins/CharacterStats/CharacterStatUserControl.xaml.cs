@@ -12,6 +12,11 @@
             InitializeComponent();
         }
 
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            DataContext = Account.Plugins.CharacterStat;
+        }
         #endregion Constructors
     }
 }
