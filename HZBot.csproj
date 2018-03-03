@@ -68,6 +68,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodeBase\HzPluginBase.cs" />
+    <Compile Include="Models\HzJsonModels\Duell.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatPlugin.cs" />
     <Compile Include="Plugins\Duell\DuellUserControl.xaml.cs">
@@ -76,6 +77,7 @@
     <Compile Include="Plugins\ControlPanel\ControlPanelUserControl.xaml.cs">
       <DependentUpon>ControlPanelUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Duell\DuelPlugin.cs" />
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Statusbar\StatusbarUserControl.xaml.cs">
@@ -92,9 +94,13 @@
     </Compile>
     <Compile Include="CodeBase\ViewBase\HzUserControl.cs" />
     <Compile Include="Services\AccountManger.cs" />
+    <Compile Include="Services\HZLog.cs" />
     <Compile Include="Services\HzPlugins.cs" />
     <Compile Include="Services\HzAccount.cs" />
     <Compile Include="Services\HzConstants.cs" />
+    <Compile Include="Plugins\Log\ucLog.xaml.cs">
+      <DependentUpon>ucLog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChooseCurrencyWindow.xaml.cs">
       <DependentUpon>ChooseCurrencyWindow.xaml</DependentUpon>
     </Compile>
@@ -148,6 +154,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Plugins\Log\ucLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ChooseCurrencyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,6 +195,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\constantsReadable.json" />
+    <None Include="Assets\TestJsons\Battle.json" />
+    <None Include="Assets\TestJsons\startDuell.json" />
     <None Include="Assets\TestJsons\Worldboss\checkForWorldbossAttackComplete.json" />
     <None Include="Assets\TestJsons\Worldboss\finishWorldbossAttack.json" />
     <None Include="Assets\TestJsons\Worldboss\startWorldbossAttack.json" />

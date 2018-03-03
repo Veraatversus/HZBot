@@ -44,10 +44,12 @@ namespace HZBot
             if (workType == WorkType.Quest)
             {
                 content = GetDefaultContent("checkForQuestComplete");
+                Account.logs.Add($"[QUEST] END: ID:{Account.Data.ActiveQuest.id} Duration:{Account.Data.ActiveQuest.duration / 60}");
             }
             else if (workType == WorkType.Training)
             {
                 content = GetDefaultContent("checkForTrainingComplete");
+                Account.logs.Add($"[TRAINING] END: TrainStat:{Account.Data.ActiveTraining.StatType}");
             }
             else
             {
@@ -111,6 +113,46 @@ namespace HZBot
             var content = GetDefaultContent("buyQuestEnergy");
             content.Add(new KeyValuePair<string, string>("use_premium", usePremiumCurrency.ToString().ToLower()));
             content.Add(new KeyValuePair<string, string>("rct", "1"));
+            return await PostAsync(content);
+        }
+
+        /// <summary>Get Duel Opponents.</summary>
+        /// <returns></returns>
+        public async Task<JObject> GetDuelOpponentsAsync()
+        {
+            var content = GetDefaultContent("getDuelOpponents");
+            content.Add(new KeyValuePair<string, string>("rct", "1"));
+            return await PostAsync(content);
+        }
+
+        /// <summary>Start Duel.</summary>
+        /// <returns></returns>
+        public async Task<JObject> StartDuellAsync(string charID, bool usePremiumCurrency=false)
+        {
+            var content = GetDefaultContent("startDuel");
+            content.Add(new KeyValuePair<string, string>("character_id", charID));
+            content.Add(new KeyValuePair<string, string>("use_premium", usePremiumCurrency.ToString().ToLower()));
+            content.Add(new KeyValuePair<string, string>("rct", "2"));
+            return await PostAsync(content);
+        }
+
+        /// <summary>Check for Duel Complete.</summary>
+        /// <returns></returns>
+        public async Task<JObject> CheckForDuelCompleteAsync()
+        {
+            var content = GetDefaultContent("checkForDuelComplete");
+            content.Add(new KeyValuePair<string, string>("rct", "1"));
+            //Account.logs.Add($"[DUELL]END: Gegner:{Account.Data.BestDuel.name} Gewonnen:{Account.Data.battle.winner}");
+            return await PostAsync(content);
+        }
+
+        /// <summary>claimDuelRewards.</summary>
+        /// <returns></returns>
+        public async Task<JObject> claimDuelRewardseAsync()
+        {
+            var content = GetDefaultContent("claimDuelRewards");
+            content.Add(new KeyValuePair<string, string>("rct", "2"));
+            Account.logs.Add($"[DUELL]END: Gegner:{Account.Data.BestDuel.name} Gewonnen:{Account.Data.battle.winner}");
             return await PostAsync(content);
         }
 

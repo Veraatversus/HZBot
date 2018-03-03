@@ -24,6 +24,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
                 <local:CharacterStatUserControl />
+                <local:ucLog />
             </StackPanel>
             <local:HideOutUserControl Grid.Column="1" />
             <StackPanel Grid.Column="2">

@@ -87,6 +87,8 @@ namespace HZBot
                 if (quests?.FirstOrDefault() != null)
                 {
                     await StartQuest.TryExecuteAsync(quests.FirstOrDefault());
+                    Account.logs.Add($"[QUEST] START: ID:{quests.FirstOrDefault().id} Duration:{quests.FirstOrDefault().duration / 60}");
+                    
                 }
             }
         }

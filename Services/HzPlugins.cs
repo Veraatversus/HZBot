@@ -14,6 +14,7 @@ namespace HZBot
             Account = RegisterPlugin(new AccountPlugin(hzAccount));
             CharacterStat = RegisterPlugin(new CharacterStatPlugin(hzAccount));
             Quest = RegisterPlugin(new QuestPlugin(hzAccount));
+            Duel = RegisterPlugin(new DuelPlugin(hzAccount));
             HideOut = RegisterPlugin(new HideOutPlugin(hzAccount));
         }
 
@@ -23,6 +24,7 @@ namespace HZBot
 
         public CharacterStatPlugin CharacterStat { get; set; }
         public QuestPlugin Quest { get; set; }
+        public DuelPlugin Duel { get; private set; }
         public HideOutPlugin HideOut { get; private set; }
 
         public bool IsExecuteRunning { get; private set; }
