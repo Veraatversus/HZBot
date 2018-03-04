@@ -30,6 +30,7 @@ namespace HZBot
         public int stat_total_strength { get; set; }
         public int stat_total_critical_rating { get; set; }
         public int stat_total_dodge_rating { get; set; }
+        public int FightStat => stat_total - stat_weapon_damage;
         public int stat_weapon_damage { get; set; }
         public int stat_total { get; set; }
         public int stat_bought_stamina { get; set; }

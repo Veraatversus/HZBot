@@ -52,6 +52,7 @@ namespace HZBot
                 if (trainStat != null)
                 {
                     await TrainCharacterStatCommand.TryExecuteAsync(trainStat);
+                    Account.logs.Add($"[TRAINING] START: TrainStat:{trainStat.StatType}");
                 }
             }
         }

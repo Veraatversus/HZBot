@@ -15,6 +15,7 @@ namespace HZBot
             Plugins = new HzPlugins(this);
             Requests = new HzRequests(this);
             Bot = new HzBot(this);
+            logs = new HZLog();
             OnDataChanged += HzAccount_OnDataChanged;
         }
 
@@ -52,6 +53,8 @@ namespace HZBot
         public HzBot Bot { get; }
 
         public IWorkItem ActiveWorker => Data?.ActiveWorker;
+
+        public HZLog logs { get; }
 
         #endregion Properties
 

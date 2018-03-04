@@ -10,6 +10,8 @@ namespace HZBot
         public Inventory inventory { get; set; }
         public List<Item> items { get; set; }
         public List<Quest> quests { get; set; }
+        public List<opponents> opponents { get; set; }
+        public Battle battle { get; set; }
         public User user { get; set; }
         public long server_time { get; set; }
         public HideOut hideout { get; set; }
@@ -29,5 +31,6 @@ namespace HZBot
 
         public Training training { get; set; }
         public Quest BestQuest => quests.Aggregate((q1, q2) => q1.XPCurrencyPerEneryAverage > q2.XPCurrencyPerEneryAverage ? q1 : q2);
+        public opponents BestDuel => opponents.Where(g1 => character.FightStat > g1.fightStat).OrderBy(g => g.fightStat).FirstOrDefault();
     }
 }
