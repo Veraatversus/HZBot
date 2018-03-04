@@ -1,30 +1,74 @@
-﻿using System;
+﻿using System.Reflection;
+using System.CodeDom;
+using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
 
 namespace HZBot
 {
-    public static class CConstant
+    public class HzConstants 
     {
+        public JObject Constants { get; set; }
+        private HzConstants()
+        {
+            var resourceName = "HzBot.Assets.constantsReadable.json";
+
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                var result = reader.ReadToEnd();
+                Constants = JObject.Parse(result);
+                
+            }
+        }
+
+            private static HzConstants _default;
+        public static HzConstants Default
+        {
+            get
+            {
+                if (_default == null)
+                {
+                    _default = new HzConstants();
+                }
+                return default;
+            }
+        }
         #region Fields
 
-        public const double coins_per_time_base = 0.02f;
-        public const double coins_per_time_scale = 0.01f;
-        public const double coins_per_time_level_scale = 0.35f;
-        public const double coins_per_time_level_exp = 1.55f;
-        public const int quest_energy_refill_amount = 50;
-        public const int quest_energy_refill1_cost_factor = 1800;
-        public const int quest_energy_refill2_cost_factor = 6300;
-        public const int quest_energy_refill3_cost_factor = 10800;
-        public const int quest_energy_refill4_cost_factor = 15300;
-        public const int quest_energy_refill5_cost_factor = 30600;
-        public const int quest_energy_refill6_cost_factor = 45900;
-        public const int quest_energy_refill7_cost_factor = 61200;
-        public const int quest_energy_refill8_cost_factor = 76500;
+        public double coins_per_time_base => Constants["coins_per_time_base"].Value<double>();
+        public double coins_per_time_scale => Constants["coins_per_time_scale"].Value<double>();
+        public double coins_per_time_level_scale => Constants["coins_per_time_level_scale"].Value<double>();
+        public double coins_per_time_level_exp => Constants["coins_per_time_level_exp"].Value<double>();
+        public int quest_energy_refill_amount => Constants["quest_energy_refill_amount"].Value<int>();
+        public int quest_energy_refill1_cost_factor => Constants["quest_energy_refill1_cost_factor"].Value<int>();
+        public int quest_energy_refill2_cost_factor => Constants["quest_energy_refill2_cost_factor"].Value<int>();
+        public int quest_energy_refill3_cost_factor => Constants["quest_energy_refill3_cost_factor"].Value<int>();
+        public int quest_energy_refill4_cost_factor => Constants["quest_energy_refill4_cost_factor"].Value<int>();
+        public int quest_energy_refill5_cost_factor => Constants["quest_energy_refill5_cost_factor"].Value<int>();
+        public int quest_energy_refill6_cost_factor => Constants["quest_energy_refill6_cost_factor"].Value<int>();
+        public int quest_energy_refill7_cost_factor => Constants["quest_energy_refill7_cost_factor"].Value<int>();
+        public int quest_energy_refill8_cost_factor => Constants["quest_energy_refill8_cost_factor"].Value<int>();
 
+
+        //public double coins_per_time_base = 0.02f;
+        //public double coins_per_time_scale = 0.01f;
+        //public double coins_per_time_level_scale = 0.35f;
+        //public double coins_per_time_level_exp = 1.55f;
+        //public int quest_energy_refill_amount = 50;
+        //public int quest_energy_refill1_cost_factor = 1800;
+        //public int quest_energy_refill2_cost_factor = 6300;
+        //public int quest_energy_refill3_cost_factor = 10800;
+        //public int quest_energy_refill4_cost_factor = 15300;
+        //public int quest_energy_refill5_cost_factor = 30600;
+        //public int quest_energy_refill6_cost_factor = 45900;
+        //public int quest_energy_refill7_cost_factor = 61200;
+        //public int quest_energy_refill8_cost_factor = 76500;
         #endregion Fields
 
         #region Methods
 
-        public static int GameCurrencyCostEnergyRefill(int level, int refillToday)
+        public int GameCurrencyCostEnergyRefill(int level, int refillToday)
         {
             var loc5 = refillToday / quest_energy_refill_amount;
             var loc4 = 0;
@@ -66,12 +110,12 @@ namespace HZBot
             return (int)Math.Round(loc3);
         }
 
-        public static double GameCurrencyPerTime(int level)
+        public double GameCurrencyPerTime(int level)
         {
-            const double loc6 = coins_per_time_base;
-            const double loc3 = coins_per_time_scale;
-            const double loc4 = coins_per_time_level_scale;
-            const double loc5 = coins_per_time_level_exp;
+           var loc6 = coins_per_time_base;
+           var loc3 = coins_per_time_scale;
+           var loc4 = coins_per_time_level_scale;
+           var loc5 = coins_per_time_level_exp;
             var loc2 = loc6 + (loc3 * Math.Pow(loc4 * level, loc5));
             return RoundDecimal(loc2, 3);
         }

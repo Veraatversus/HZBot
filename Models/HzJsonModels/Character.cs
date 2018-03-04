@@ -145,7 +145,7 @@ namespace HZBot
         public CharacterStat CriticalRating => new CharacterStat() { StatType = StatType.CriticalRating, Gewichtung = 1, BaseValue = stat_base_critical_rating, BoughtValue = stat_bought_critical_rating, TotalValue = stat_total_critical_rating, TrainingValue = training_progress_value_critical_rating, TrainingMaxValue = training_progress_end_critical_rating };
         public CharacterStat DodgeRating => new CharacterStat() { StatType = StatType.DodgeRating, Gewichtung = 1, BaseValue = stat_base_dodge_rating, BoughtValue = stat_bought_dodge_rating, TotalValue = stat_total_dodge_rating, TrainingValue = training_progress_value_dodge_rating, TrainingMaxValue = training_progress_end_dodge_rating };
         public List<CharacterStat> Stats => new List<CharacterStat>() { Stamina, Strength, CriticalRating, DodgeRating };
-        public int CurrentGameCurrencyCostEnergyRefill => CConstant.GameCurrencyCostEnergyRefill(level, quest_energy_refill_amount_today);
+        public int CurrentGameCurrencyCostEnergyRefill => HzConstants.Default.GameCurrencyCostEnergyRefill(level, quest_energy_refill_amount_today);
 
         #endregion Properties
 
