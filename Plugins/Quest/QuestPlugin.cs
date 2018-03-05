@@ -110,11 +110,11 @@ namespace HZBot
                 quests = quests.OrderByDescending(q => q.XPCurrencyPerEneryAverage);
                 //Skip when Battle is to hart
                 quests = quests.SkipWhile(q => q.fight_difficulty > 2);
-
-                if (quests?.FirstOrDefault() != null)
+                var quest = quests?.FirstOrDefault();
+                if (quest != null)
                 {
-                    await StartQuest.TryExecuteAsync(quests.FirstOrDefault());
-                    Account.Log.Add($"[QUEST] START: ID:{quests.FirstOrDefault().id} Duration:{quests.FirstOrDefault().duration / 60}");
+                    await StartQuest.TryExecuteAsync(quest);
+                    Account.Log.Add($"[QUEST] START: ID:{quest.id} Duration:{quest.duration / 60}");
                 }
             }
         }
