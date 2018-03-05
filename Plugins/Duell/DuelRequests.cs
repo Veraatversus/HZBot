@@ -28,7 +28,7 @@ namespace HZBot
         public static async Task<JObject> CheckForDuelCompleteAsync(this HzPluginBase plugin)
         {
             var error = await plugin.Account.DefaultRequestContent("checkForDuelComplete")
-                .AddKeyValue("rct", "1")
+                .AddKeyValue("rct", "2")
                 .PostToHzAsync();
             //plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.Account.Data.BestDuel.name} Gewonnen:{plugin.Account.Data.battle.winner}");
             return error;
@@ -41,6 +41,7 @@ namespace HZBot
         {
             var error = await plugin.Account.DefaultRequestContent("claimDuelRewards")
                 .AddKeyValue("rct", "2")
+                .AddKeyValue("discard_item", "false")
                 .PostToHzAsync();
             //plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.Account.Data.BestDuel.name} Gewonnen:{plugin.Account.Data.battle.winner}");
             return error;
@@ -53,6 +54,7 @@ namespace HZBot
         {
             var error = await plugin.Account.DefaultRequestContent("getDuelOpponents")
                 .AddKeyValue("rct", "1")
+               
                 .PostToHzAsync();
             return error;
         }

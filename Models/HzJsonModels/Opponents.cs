@@ -1,6 +1,6 @@
 ﻿namespace HZBot
 {
-    public class opponents
+    public class Opponents
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -17,13 +17,5 @@
         public int fightStat => total_stats - stat_weapon_damage;
     }
 
-    public class Battle
-    {
-        public int id { get; set; }
-        public int ts_creation { get; set; }
-        public string profile_a_stats { get; set; }
-        public string profile_b_stats { get; set; }
-        public string winner { get; set; }
-        public string rounds { get; set; }
-    }
+
 }

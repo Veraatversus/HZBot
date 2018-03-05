@@ -21,7 +21,7 @@ namespace HZBot
                 async () => await this.ClaimDuelRewardsAsync());
         }
 
-        public opponents FindOpponent()
+        public Opponents FindOpponent()
         {
             // Find all Opponents where MyStats > OpStats
             var fo = Account.Data.opponents.Where(g1 => Account.Data.character.FightStat > g1.fightStat);
@@ -41,28 +41,53 @@ namespace HZBot
         public AsyncRelayCommand StartBestDuel { get; private set; }
         public AsyncRelayCommand CheckForDuelComplete { get; private set; }
         public AsyncRelayCommand claimDuelReward { get; private set; }
+        public Opponents GetOpponent { get; private set; }
 
         #endregion
 
         public async override Task OnBotStarted()
         {
-        
-            if (Account.Character.duel_stamina >= 20)
+            if (Account.Character.duel_stamina >= 20 && Account.Data.character.active_duel_id == 0)
             {
                 await this.GetDuelOpponentsAsync();
-                Account.Data.GetOpponent = FindOpponent();
-                if (Account.Data.GetOpponent != null)
+                GetOpponent = FindOpponent();
+                if (GetOpponent != null)
                 {
                     await StartBestDuel.TryExecuteAsync();
-                    Account.Log.Add($"[Duel]Start: Gegner-{Account.Data.GetOpponent.name} Stats:{Account.Data.GetOpponent.fightStat - Account.Character.FightStat}");
+                    await CheckForDuelComplete.TryExecuteAsync();
+                    await claimDuelReward.TryExecuteAsync();
+                    Account.Log.Add($"[Duel]Start: http://Gegner-{GetOpponent.name} Stats:{GetOpponent.fightStat - Account.Character.FightStat}");
                 }
                 else
                 {
                     Account.Log.Add($"[Duel] KEIN PASSENDER GEGNER GEFUNDEN!");
                 }
-                await CheckForDuelComplete.TryExecuteAsync();
-                await claimDuelReward.TryExecuteAsync();
+
             }
+
+            //if (Account.Character.duel_stamina >= 20)
+            //{
+            //    if (Account.Character.active_duel_id == 0)
+            //    {
+            //        await this.GetDuelOpponentsAsync();
+            //        Account.Data.GetOpponent = FindOpponent();
+            //        if (Account.Data.GetOpponent != null)
+            //        {
+            //            await StartBestDuel.TryExecuteAsync();
+            //            //Account.Log.Add($"[Duel]Start: Gegner-{Account.Data.GetOpponent.name} Stats:{Account.Data.GetOpponent.fightStat - Account.Character.FightStat}");
+
+            //        }
+            //        else
+            //        {
+            //            Account.Log.Add($"[Duel] KEIN PASSENDER GEGNER GEFUNDEN!");
+            //        }
+            //    }
+            //    if (Account.Character.active_duel_id != 0)
+            //    {
+            //        await CheckForDuelComplete.TryExecuteAsync();
+            //        await claimDuelReward.TryExecuteAsync();
+            //    }
+           // }
         }
     }
 }
