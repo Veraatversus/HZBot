@@ -10,7 +10,8 @@ namespace HZBot
         public Inventory inventory { get; set; }
         public List<Item> items { get; set; }
         public List<Quest> quests { get; set; }
-        public List<opponents> opponents { get; set; }
+        public Duel duel { get; set; }
+        public List<Opponents> opponents { get; set; }
         public Battle battle { get; set; }
         public User user { get; set; }
         public long server_time { get; set; }
@@ -18,6 +19,7 @@ namespace HZBot
         public List<HideOutRoom> hideout_rooms { get; set; }
         public Quest ActiveQuest => quests.FirstOrDefault(quest => quest.id == character.active_quest_id);
         public Training ActiveTraining => character.active_training_id == training?.id ? training : null;
+        public Duel ActiveDuel => character.active_duel_id == duel?.id ? duel : null;
 
         public IWorkItem ActiveWorker
         {
@@ -32,7 +34,7 @@ namespace HZBot
         public Training training { get; set; }
         public Quest BestQuest => quests.Aggregate((q1, q2) => q1.XPCurrencyPerEneryAverage > q2.XPCurrencyPerEneryAverage ? q1 : q2);
         //public opponents BestDuel => opponents.Where(g1 => character.FightStat > g1.fightStat).OrderBy(g => g.fightStat);
-        
+        public Opponents GetOpponent { get; set; }
 
     }
 }
