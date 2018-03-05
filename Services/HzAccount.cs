@@ -81,6 +81,15 @@ namespace HZBot
                     quests.Remove();
                 }
             }
+             if (jobj.SelectToken("data.opponents")?.HasValues ?? false)
+            {
+                var opponents = JsonData.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "opponents");
+                if (opponents != null)
+                {
+                    opponents.Remove();
+                }
+            }
+
 
             JsonData.Merge(jobj);
             MainData = JsonData.ToObject<JsonRoot>();

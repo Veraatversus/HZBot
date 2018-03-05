@@ -141,8 +141,8 @@ namespace HZBot
         public async Task<JObject> CheckForDuelCompleteAsync()
         {
             var content = GetDefaultContent("checkForDuelComplete");
-            content.Add(new KeyValuePair<string, string>("rct", "1"));
-            //Account.logs.Add($"[DUELL]END: Gegner:{Account.Data.BestDuel.name} Gewonnen:{Account.Data.battle.winner}");
+            content.Add(new KeyValuePair<string, string>("rct", "2"));
+            //Account.logs.Add($"[DUELL]END: Gegner:{Account.Data.GetOpponent.name} Gewonnen:{Account.Data.battle.winner}");
             return await PostAsync(content);
         }
 
@@ -151,8 +151,10 @@ namespace HZBot
         public async Task<JObject> claimDuelRewardseAsync()
         {
             var content = GetDefaultContent("claimDuelRewards");
+            content.Add(new KeyValuePair<string, string>("discard_item", "false"));
             content.Add(new KeyValuePair<string, string>("rct", "2"));
-            Account.logs.Add($"[DUELL]END: Gegner:{Account.Data.BestDuel.name} Gewonnen:{Account.Data.battle.winner}");
+            string Dueloutput = (Account.Data.battle.winner == "a") ? "Gewonnen" : "Verloren";
+            Account.logs.Add($"[DUELL]END: Gegner:{Account.Data.GetOpponent.name} {Dueloutput}!");
             return await PostAsync(content);
         }
 
@@ -272,7 +274,7 @@ namespace HZBot
                         return null;
                     }
                     Account.MergeNewData(obj);
-                    ServerTimeOffset = Account.Data.server_time - DateTimeOffset.Now.ToUnixTimeSeconds();
+                    ServerTimeOffset = DateTimeOffset.Now.ToUnixTimeSeconds() - Account.Data.server_time;
                     return obj;
                 }
             }
