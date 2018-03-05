@@ -13,6 +13,7 @@ namespace HZBot
         {
             InitializeComponent();
             this.account = account;
+            this.DataContext = null;
         }
 
         #endregion Constructors

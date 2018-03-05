@@ -12,6 +12,7 @@ namespace HZBot
         /// <returns></returns>
         public static async Task<JObject> LoginRequestAsync(this HzPluginBase plugin)
         {
+            plugin.Account.Log.Add($"[Loggin] User:{plugin.Account.Username}");
             return await plugin.Account.DefaultRequestContent("loginUser")
              .AddKeyValue("platform_user_id", "0")
              .AddKeyValue("platform", "web")

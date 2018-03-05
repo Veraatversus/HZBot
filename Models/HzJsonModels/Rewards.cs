@@ -9,5 +9,6 @@
         public int statPoints { get; set; }
         public int item { get; set; }
         public string event_item { get; set; }
+        public string dungeon_key { get; set; }
     }
 }

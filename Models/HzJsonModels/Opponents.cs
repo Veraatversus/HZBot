@@ -2,6 +2,8 @@
 {
     public class Opponents
     {
+        #region Properties
+
         public int id { get; set; }
         public string name { get; set; }
         public int level { get; set; }
@@ -15,7 +17,7 @@
         public int online_status { get; set; }
         public int total_stats { get; set; }
         public int fightStat => total_stats - stat_weapon_damage;
+
+        #endregion Properties
     }
-
-
 }

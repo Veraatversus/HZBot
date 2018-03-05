@@ -108,7 +108,7 @@
     </Compile>
     <Compile Include="CodeBase\ViewBase\HzUserControl.cs" />
     <Compile Include="Services\AccountManger.cs" />
-    <Compile Include="Services\HZLog.cs" />
+    <Compile Include="Plugins\Log\LogPlugin.cs" />
     <Compile Include="Services\HzPlugins.cs" />
     <Compile Include="Services\HzAccount.cs" />
     <Compile Include="Services\HzConstants.cs" />

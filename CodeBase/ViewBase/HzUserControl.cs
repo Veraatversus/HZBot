@@ -13,12 +13,6 @@ namespace HZBot
         public static readonly DependencyProperty AccountProperty =
             DependencyProperty.Register(nameof(Account), typeof(HzAccount), typeof(HzUserControl), new PropertyMetadata(null));
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            Account = DataContext as HzAccount;
-        }
-
         #endregion Fields
 
         #region Events
@@ -38,6 +32,12 @@ namespace HZBot
         #endregion Properties
 
         #region Methods
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            Account = DataContext as HzAccount;
+        }
 
         public void RaisePropertyChanged([CallerMemberName] string name = "")
         {

@@ -19,7 +19,7 @@ namespace HZBot
                 {
                     _default = new HzConstants();
                 }
-                return default;
+                return _default;
             }
         }
 
@@ -150,8 +150,7 @@ namespace HZBot
 
         private HzConstants()
         {
-            var resourceName = "HzBot.Assets.constantsReadable.json";
-
+            var resourceName = "HZBot.Assets.constantsReadable.json";
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
             {

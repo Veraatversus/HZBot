@@ -41,7 +41,9 @@ namespace HZBot
                 var trainCount = Account.Character.stat_points_available;
                 for (int i = 0; i < trainCount; i++)
                 {
-                    await ImproveCharacterStatCommand.TryExecuteAsync(Account.Character.GetNextImroveStat());
+                    var stat = Account.Character.GetNextImroveStat();
+                    Account.Log.Add($"[TRAINING] START: TrainStat:{stat.StatType}");
+                    await ImproveCharacterStatCommand.TryExecuteAsync(stat);
                 }
             }
 
@@ -51,8 +53,8 @@ namespace HZBot
                 var trainStat = Account.Character.Stats.FirstOrDefault(stat => stat.TrainingValue > 0) ?? Account.Character.GetNextImroveStat();
                 if (trainStat != null)
                 {
-                    await TrainCharacterStatCommand.TryExecuteAsync(trainStat);
                     Account.Log.Add($"[TRAINING] START: TrainStat:{trainStat.StatType}");
+                    await TrainCharacterStatCommand.TryExecuteAsync(trainStat);
                 }
             }
         }

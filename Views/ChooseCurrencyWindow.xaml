@@ -8,6 +8,7 @@
     x:Name="ChooseCurrencyWin"
     Title="ChooseCurrencyWindow"
     Width="400"
+    d:DataContext="{d:DesignInstance local:HzAccount}"
     Background="Transparent"
     WindowStartupLocation="CenterOwner"
     WindowStyle="None"
@@ -16,8 +17,7 @@
         Background="SkyBlue"
         BorderBrush="Black"
         BorderThickness="5"
-        CornerRadius="10"
-        DataContext="{Binding ElementName=ChooseCurrencyWin}">
+        CornerRadius="10">
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -56,16 +56,16 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         HorizontalAlignment="Center"
-                        Text="{Binding Account.Character.game_currency, StringFormat=Gold: {0}}" />
+                        Text="{Binding Character.game_currency, StringFormat=Gold: {0}}" />
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="1"
                         HorizontalAlignment="Center"
-                        Text="{Binding Account.User.premium_currency, StringFormat=Premium: {0}}" />
+                        Text="{Binding User.premium_currency, StringFormat=Premium: {0}}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
-                        Text="{Binding Account.Character.CurrentGameCurrencyCostEnergyRefill, StringFormat=Cost: {0}}" />
+                        Text="{Binding Character.CurrentGameCurrencyCostEnergyRefill, StringFormat=Cost: {0}}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
@@ -76,14 +76,14 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         Margin="1"
-                        Command="{Binding Account.Commands.BuyEnergyFromGold}"
+                        Command="{Binding Plugins.Quest.BuyEnergyFromGold}"
                         Content="Gold" />
                     <Button
                         x:Name="btnPremium"
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="1"
-                        Command="{Binding Account.Commands.BuyEnergyFromPremium}"
+                        Command="{Binding Plugins.Quest.BuyEnergyFromPremium}"
                         Content="Premium" />
                     <Button
                         x:Name="Cancel"

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HZBot
+﻿namespace HZBot
 {
     public class Duel
     {
+        #region Properties
+
         public int id { get; set; }
         public int ts_creation { get; set; }
         public int battle_id { get; set; }
@@ -17,7 +13,7 @@ namespace HZBot
         public int character_b_status { get; set; }
         public string character_a_rewards { get; set; }
         public string character_b_rewards { get; set; }
+
+        #endregion Properties
     }
 }
-
-  

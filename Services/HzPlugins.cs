@@ -10,6 +10,7 @@ namespace HZBot
         public HzPlugins(HzAccount account)
         {
             hzAccount = account;
+            LogPlugin = RegisterPlugin(new LogPlugin(hzAccount));
             Account = RegisterPlugin(new AccountPlugin(hzAccount));
             CharacterStat = RegisterPlugin(new CharacterStatPlugin(hzAccount));
             Quest = RegisterPlugin(new QuestPlugin(hzAccount));
@@ -26,6 +27,8 @@ namespace HZBot
         public DuelPlugin Duel { get; private set; }
         public HideOutPlugin HideOut { get; private set; }
         public AccountPlugin Account { get; private set; }
+
+        public LogPlugin LogPlugin { get; }
 
         #endregion Properties
 

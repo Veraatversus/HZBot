@@ -19,7 +19,6 @@ namespace HZBot
             AccountManger.Accounts.Add(this);
             Plugins = new HzPlugins(this);
             PrimaryWorkerTimer = new PrimaryWorkerTimer(this);
-            Log = new HZLog();
             OnDataChanged += HzAccount_OnDataChanged;
         }
 
@@ -42,6 +41,7 @@ namespace HZBot
         public string Username { get => _username; set { _username = value; RaisePropertyChanged(); } }
 
         public string Password { get => _password; set { _password = value; RaisePropertyChanged(); } }
+        public LogPlugin Log => Plugins.LogPlugin;
 
         //Bot data
         public bool IsLogined
@@ -74,7 +74,6 @@ namespace HZBot
 
         public PrimaryWorkerTimer PrimaryWorkerTimer { get; }
 
-        public HZLog Log { get; }
         public JObject JsonData { get; } = new JObject();
 
         public JsonRoot MainData
@@ -91,6 +90,7 @@ namespace HZBot
         private bool _isLogined;
         private string _username;
         private string _password;
+        private bool IsRunning;
 
         ~HzAccount()
         {
@@ -111,7 +111,13 @@ namespace HZBot
                 {
                     if (Plugins.Account.IsBotEnabled)
                     {
-                        await Plugins.RaiseOnPrimaryWorkerComplete();
+                        if (!IsRunning)
+                        {
+                            IsRunning = true;
+                            await Plugins.RaiseOnPrimaryWorkerComplete();
+                            IsRunning = false;
+                        }
+                       
                     }
                 }
             }

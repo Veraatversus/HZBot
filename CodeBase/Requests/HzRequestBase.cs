@@ -75,7 +75,7 @@ namespace HZBot
                         return JObject.Parse(error.ToString());
                     }
                     content.Account.MergeNewData(obj);
-
+                    content.Account.Log.Add($"Success");
                     //   return obj;
                 }
             }

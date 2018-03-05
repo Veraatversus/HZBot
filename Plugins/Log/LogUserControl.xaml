@@ -16,8 +16,9 @@
             FontSize="18"
             FontWeight="Bold"
             Text="Log:" Grid.Row="0" />
-        <ScrollViewer Grid.Row="1">
+        <ListView Grid.Row="1" ItemsSource="{Binding Log.LogList}"/>
+        <!--<ScrollViewer Grid.Row="1">
             <TextBlock Text="{Binding Log.GetLogsAsString}"/>
-        </ScrollViewer>
+        </ScrollViewer>-->
     </Grid>
 </local:HzUserControl>

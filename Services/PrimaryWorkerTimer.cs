@@ -86,6 +86,13 @@ namespace HZBot
                     if (Account.ActiveWorker?.status == 4)
                     {
                         await Account.Plugins.Quest.ClaimWorkerReward.TryExecuteAsync();
+                        //if (Account.ActiveWorker == null &&  Account.Plugins.Account.IsBotEnabled)
+                        //{
+                        //    IsTimerEnabled = false;
+                        //    UIContext.Post(async (o) => Account.Plugins.RaiseOnPrimaryWorkerComplete(), null);
+                        //    return;
+
+                        //}
                     }
                 }
                 //Worker is working, update Timer Text
@@ -98,6 +105,7 @@ namespace HZBot
             else
             {
                 IsTimerEnabled = false;
+                return;
             }
             //If Timer enabled start new timer tick
             if (IsTimerEnabled)
