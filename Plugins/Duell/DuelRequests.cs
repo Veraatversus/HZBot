@@ -37,13 +37,13 @@ namespace HZBot
         /// <summary>Claims the duel rewards asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> ClaimDuelRewardsAsync(this HzPluginBase plugin)
+        public static async Task<JObject> ClaimDuelRewardsAsync(this DuelPlugin plugin)
         {
             var error = await plugin.Account.DefaultRequestContent("claimDuelRewards")
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("discard_item", "false")
                 .PostToHzAsync();
-            //plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.Account.Data.BestDuel.name} Gewonnen:{plugin.Account.Data.battle.winner}");
+            plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.GetOpponent.name} Gewonnen:{plugin.Account.Data.battle.winner}");
             return error;
         }
 
