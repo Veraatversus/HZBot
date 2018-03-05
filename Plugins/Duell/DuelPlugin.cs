@@ -11,7 +11,7 @@ namespace HZBot
         public DuelPlugin(HzAccount account) : base(account)
         {
             StartBestDuel = new AsyncRelayCommand(
-                async () => await this.StartDuellAsync(Account.Data.GetOpponent.id.ToString()),
+                async () => await this.StartDuellAsync(GetOpponent.id.ToString()),
                 () => Account.IsLogined);
 
             CheckForDuelComplete = new AsyncRelayCommand(
@@ -26,7 +26,7 @@ namespace HZBot
             // Find all Opponents where MyStats > OpStats
             var fo = Account.Data.opponents.Where(g1 => Account.Data.character.FightStat > g1.fightStat);
             // Find Opponent where lower Crit rating as my
-            fo = fo.SkipWhile(o => o.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating);
+            //fo = fo.SkipWhile(o => o.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating);
             fo = fo.OrderBy(g => g.fightStat);
 
             if (fo.FirstOrDefault() != null)
@@ -41,27 +41,28 @@ namespace HZBot
         public AsyncRelayCommand StartBestDuel { get; private set; }
         public AsyncRelayCommand CheckForDuelComplete { get; private set; }
         public AsyncRelayCommand claimDuelReward { get; private set; }
-
+        public opponents GetOpponent { get; set; }
         #endregion
 
         public async override Task OnBotStarted()
         {
         
-            if (Account.Character.duel_stamina >= 20)
+            if (Account.Character.duel_stamina >= 20 && Account.Data.character.active_duel_id == 0)
             {
                 await this.GetDuelOpponentsAsync();
-                Account.Data.GetOpponent = FindOpponent();
-                if (Account.Data.GetOpponent != null)
+                GetOpponent = FindOpponent();
+                if (GetOpponent != null)
                 {
                     await StartBestDuel.TryExecuteAsync();
-                    Account.Log.Add($"[Duel]Start: Gegner-{Account.Data.GetOpponent.name} Stats:{Account.Data.GetOpponent.fightStat - Account.Character.FightStat}");
+                    await CheckForDuelComplete.TryExecuteAsync();
+                    await claimDuelReward.TryExecuteAsync();
+                    Account.Log.Add($"[Duel]Start: Gegner-{GetOpponent.name} Stats:{GetOpponent.fightStat - Account.Character.FightStat}");
                 }
                 else
                 {
                     Account.Log.Add($"[Duel] KEIN PASSENDER GEGNER GEFUNDEN!");
                 }
-                await CheckForDuelComplete.TryExecuteAsync();
-                await claimDuelReward.TryExecuteAsync();
+                
             }
         }
     }

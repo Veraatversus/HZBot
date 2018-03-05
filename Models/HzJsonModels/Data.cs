@@ -32,7 +32,7 @@ namespace HZBot
         public Training training { get; set; }
         public Quest BestQuest => quests.Aggregate((q1, q2) => q1.XPCurrencyPerEneryAverage > q2.XPCurrencyPerEneryAverage ? q1 : q2);
         //public opponents BestDuel => opponents.Where(g1 => character.FightStat > g1.fightStat).OrderBy(g => g.fightStat);
-        public opponents GetOpponent { get; set; }
+        
 
     }
 }
