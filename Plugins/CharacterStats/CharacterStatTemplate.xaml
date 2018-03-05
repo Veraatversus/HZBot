@@ -30,8 +30,10 @@
                 Grid.Column="1"
                 HorizontalAlignment="Center"
                 Text="&lt;----" />
-            <TextBlock Grid.Column="2" HorizontalAlignment="Center"
-                        Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+            <TextBlock
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
                 ToolTipService.ShowOnDisabled="True">
                 <TextBlock.ToolTip>
                     <ToolTip DataContext="{Binding Path=PlacementTarget, RelativeSource={RelativeSource Self}}">

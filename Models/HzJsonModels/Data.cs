@@ -12,14 +12,16 @@ namespace HZBot
         public Inventory inventory { get; set; }
         public List<Item> items { get; set; }
         public List<Quest> quests { get; set; }
-        public List<opponents> opponents { get; set; }
+        public List<Opponents> opponents { get; set; }
         public Battle battle { get; set; }
         public User user { get; set; }
         public long server_time { get; set; }
+        public Duel duel { get; set; }
         public HideOut hideout { get; set; }
         public List<HideOutRoom> hideout_rooms { get; set; }
         public Quest ActiveQuest => quests.FirstOrDefault(quest => quest.id == character.active_quest_id);
         public Training ActiveTraining => character.active_training_id == training?.id ? training : null;
+        public Duel ActiveDuel => character.active_duel_id == duel?.id ? duel : null;
 
         public IWorkItem ActiveWorker
         {
