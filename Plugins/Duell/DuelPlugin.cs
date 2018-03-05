@@ -11,14 +11,14 @@ namespace HZBot
         public DuelPlugin(HzAccount account) : base(account)
         {
             StartBestDuel = new AsyncRelayCommand(
-                async () => await Account.Requests.StartDuellAsync(Account.Data.GetOpponent.id.ToString()),
+                async () => await this.StartDuellAsync(Account.Data.GetOpponent.id.ToString()),
                 () => Account.IsLogined);
 
             CheckForDuelComplete = new AsyncRelayCommand(
-                async () => await Account.Requests.CheckForDuelCompleteAsync());
+                async () => await this.CheckForDuelCompleteAsync());
 
             claimDuelReward = new AsyncRelayCommand(
-                async () => await Account.Requests.claimDuelRewardseAsync());
+                async () => await this.ClaimDuelRewardsAsync());
         }
 
         public opponents FindOpponent()
@@ -41,23 +41,24 @@ namespace HZBot
         public AsyncRelayCommand StartBestDuel { get; private set; }
         public AsyncRelayCommand CheckForDuelComplete { get; private set; }
         public AsyncRelayCommand claimDuelReward { get; private set; }
-        
+
         #endregion
 
-        public async override Task OnExcecuteAsync()
+        public async override Task OnBotStarted()
         {
+        
             if (Account.Character.duel_stamina >= 20)
             {
-                await Account.Requests.GetDuelOpponentsAsync();
+                await this.GetDuelOpponentsAsync();
                 Account.Data.GetOpponent = FindOpponent();
                 if (Account.Data.GetOpponent != null)
                 {
                     await StartBestDuel.TryExecuteAsync();
-                    Account.logs.Add($"[Duel]Start: Gegner-{Account.Data.GetOpponent.name} Stats:{Account.Data.GetOpponent.fightStat - Account.Character.FightStat}");
+                    Account.Log.Add($"[Duel]Start: Gegner-{Account.Data.GetOpponent.name} Stats:{Account.Data.GetOpponent.fightStat - Account.Character.FightStat}");
                 }
                 else
                 {
-                    Account.logs.Add($"[Duel] KEIN PASSENDER GEGNER GEFUNDEN!");
+                    Account.Log.Add($"[Duel] KEIN PASSENDER GEGNER GEFUNDEN!");
                 }
                 await CheckForDuelComplete.TryExecuteAsync();
                 await claimDuelReward.TryExecuteAsync();

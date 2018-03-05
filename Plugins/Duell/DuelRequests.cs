@@ -30,7 +30,7 @@ namespace HZBot
             var error = await plugin.Account.DefaultRequestContent("checkForDuelComplete")
                 .AddKeyValue("rct", "1")
                 .PostToHzAsync();
-            plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.Account.Data.BestDuel.name} Gewonnen:{plugin.Account.Data.battle.winner}");
+            //plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.Account.Data.BestDuel.name} Gewonnen:{plugin.Account.Data.battle.winner}");
             return error;
         }
 
@@ -42,7 +42,7 @@ namespace HZBot
             var error = await plugin.Account.DefaultRequestContent("claimDuelRewards")
                 .AddKeyValue("rct", "2")
                 .PostToHzAsync();
-            plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.Account.Data.BestDuel.name} Gewonnen:{plugin.Account.Data.battle.winner}");
+            //plugin.Account.Log.Add($"[DUELL]END: Gegner:{plugin.Account.Data.BestDuel.name} Gewonnen:{plugin.Account.Data.battle.winner}");
             return error;
         }
 
