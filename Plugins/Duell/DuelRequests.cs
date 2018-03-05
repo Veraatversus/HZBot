@@ -54,6 +54,7 @@ namespace HZBot
         {
             var error = await plugin.Account.DefaultRequestContent("getDuelOpponents")
                 .AddKeyValue("rct", "1")
+               
                 .PostToHzAsync();
             return error;
         }

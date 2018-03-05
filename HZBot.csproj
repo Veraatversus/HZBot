@@ -72,13 +72,15 @@
     <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
     <Compile Include="CodeBase\Requests\HzRequestBase.cs" />
     <Compile Include="CodeBase\Requests\PostContent.cs" />
+    <Compile Include="Models\HzJsonModels\Battle.cs" />
+    <Compile Include="Models\HzJsonModels\Duel.cs" />
     <Compile Include="Plugins\Account\AccountRequests.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatRequests.cs" />
     <Compile Include="Plugins\Duell\DuelRequests.cs" />
     <Compile Include="Plugins\Log\LogUserControl.xaml.cs">
       <DependentUpon>LogUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\HzJsonModels\Duell.cs" />
+    <Compile Include="Models\HzJsonModels\Opponents.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatPlugin.cs" />
     <Compile Include="Plugins\Duell\DuelUserControl.xaml.cs">
@@ -89,7 +91,7 @@
     </Compile>
     <Compile Include="Plugins\Duell\DuelPlugin.cs" />
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
-    <Compile Include="Services\ActiveWorkerTimer.cs" />
+    <Compile Include="Services\PrimaryWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestRequests.cs" />
     <Compile Include="Plugins\Statusbar\StatusbarUserControl.xaml.cs">
