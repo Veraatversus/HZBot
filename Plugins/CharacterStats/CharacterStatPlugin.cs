@@ -10,11 +10,11 @@ namespace HZBot
         public CharacterStatPlugin(HzAccount account) : base(account)
         {
             ImproveCharacterStatCommand = new AsyncRelayCommand<CharacterStat>(
-                async stat => await Account.Requests.ImproveCharacterStatAsync(stat.StatType),
+                async stat => await this.ImproveCharacterStatAsync(stat.StatType),
                 stat => Account.Character?.CanImproveCharacterStat() ?? false);
 
             TrainCharacterStatCommand = new AsyncRelayCommand<CharacterStat>(
-                async (stat) => await Account.Requests.StartTrainingAsync(stat.StatType),
+                async (stat) => await this.StartTrainingAsync(stat.StatType),
                 (stat) => Account.ActiveWorker == null && (Account.Character?.CanTrain() ?? false));
         }
 
@@ -33,7 +33,7 @@ namespace HZBot
 
         #region Methods
 
-        public async override Task OnExcecuteAsync()
+        public async override Task OnPrimaryWorkerComplete()
         {
             // IsAutoSkill
             if (IsAutoSkill && Account.Character.CanImproveCharacterStat())
@@ -52,7 +52,7 @@ namespace HZBot
                 if (trainStat != null)
                 {
                     await TrainCharacterStatCommand.TryExecuteAsync(trainStat);
-                    Account.logs.Add($"[TRAINING] START: TrainStat:{trainStat.StatType}");
+                    Account.Log.Add($"[TRAINING] START: TrainStat:{trainStat.StatType}");
                 }
             }
         }

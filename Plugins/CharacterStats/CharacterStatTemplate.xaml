@@ -76,12 +76,9 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </StackPanel>
-                        
-                        
                     </ToolTip>
                 </Button.ToolTip>
             </Button>
         </Grid>
     </DataTemplate>
-
 </ResourceDictionary>

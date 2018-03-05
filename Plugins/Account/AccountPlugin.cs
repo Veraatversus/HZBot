@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 
 namespace HZBot
 {
@@ -10,7 +10,7 @@ namespace HZBot
         {
             //Command for Login into Account
             LoginCommand = new AsyncRelayCommand(
-                async () => Account.IsLogined = await Account.Requests.LoginRequestAsync(),
+                async () => Account.IsLogined = !(await this.LoginRequestAsync()).HasValues,
                 () => !Account.IsLogined);
         }
 
@@ -21,14 +21,43 @@ namespace HZBot
         //Command for Login into Account
         public AsyncRelayCommand LoginCommand { get; private set; }
 
-        #endregion Properties
+        public bool IsAutoReconnect { get; set; }
 
-        #region Methods
-
-        public async override Task OnExcecuteAsync()
+        public bool IsBotEnabled
         {
+            get
+            {
+                return _isBotEnabled;
+            }
+
+            set
+            {
+                _isBotEnabled = value;
+                RaisePropertyChanged();
+                if (IsBotEnabled)
+                {
+                    Action onstartet = async () => await Account.Plugins.RaiseOnBotStarted();
+                    onstartet();
+                    if (Account.ActiveWorker == null)
+                    {
+                        Action workerComplete = async () => await Account.Plugins.RaiseOnPrimaryWorkerComplete();
+                        workerComplete();
+                    }
+                }
+                else
+                {
+                    Action botstopped = async () => await Account.Plugins.RaiseOnBotStoped();
+                    botstopped();
+                }
+            }
         }
 
-        #endregion Methods
+        #endregion Properties
+
+        #region Fields
+
+        private bool _isBotEnabled;
+
+        #endregion Fields
     }
 }

@@ -1,21 +1,25 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace HZBot
 {
     public class HzAccount : ViewModelBase
     {
+        #region Fields
+
+        public long ServerTimeOffset;
+
+        #endregion Fields
+
         #region Constructors
 
         public HzAccount()
         {
             AccountManger.Accounts.Add(this);
             Plugins = new HzPlugins(this);
-            Requests = new HzRequests(this);
-            Bot = new HzBot(this);
-            logs = new HZLog();
+            PrimaryWorkerTimer = new PrimaryWorkerTimer(this);
+            Log = new HZLog();
             OnDataChanged += HzAccount_OnDataChanged;
         }
 
@@ -29,6 +33,8 @@ namespace HZBot
 
         #region Properties
 
+        public long ServerTime => DateTimeOffset.Now.ToUnixTimeSeconds() + ServerTimeOffset;
+
         //Commands
         public HzPlugins Plugins { get; }
 
@@ -38,7 +44,25 @@ namespace HZBot
         public string Password { get => _password; set { _password = value; RaisePropertyChanged(); } }
 
         //Bot data
-        public bool IsLogined { get => _isLogined; set { _isLogined = value; RaisePropertyChanged(); } }
+        public bool IsLogined
+        {
+            get => _isLogined;
+            set
+            {
+                _isLogined = value;
+                RaisePropertyChanged();
+                if (IsLogined)
+                {
+                    Action onlogin = async () => await Plugins.RaiseOnLogined();
+                    onlogin();
+                }
+                else
+                {
+                    Action onlogoff = async () => await Plugins.RaiseOnlogoffed();
+                    onlogoff();
+                }
+            }
+        }
 
         public Data Data => MainData?.data;
 
@@ -48,87 +72,49 @@ namespace HZBot
 
         public List<Quest> Quests => MainData?.data.quests;
 
-        public HzRequests Requests { get; }
+        public PrimaryWorkerTimer PrimaryWorkerTimer { get; }
 
-        public HzBot Bot { get; }
+        public HZLog Log { get; }
+        public JObject JsonData { get; } = new JObject();
+
+        public JsonRoot MainData
+        {
+            get => _mainData;
+            set { _mainData = value; RaisePropertyChanged(); OnDataChanged?.Invoke(); }
+        }
 
         public IWorkItem ActiveWorker => Data?.ActiveWorker;
 
-        public HZLog logs { get; }
-
         #endregion Properties
-
-        #region Methods
-
-        /// <summary>Merges the new data into the Accout</summary>
-        /// <param name="jobj">The new JObject to merge.</param>
-        public void MergeNewData(JObject jobj)
-        {
-            var updateQuest = jobj.SelectToken("data.quest");
-            if (updateQuest != null)
-            {
-                var questToUpdate = JsonData["data"]?["quests"]?.OfType<JContainer>().FirstOrDefault(quest => quest["id"]?.Value<int>() == updateQuest["id"]?.Value<int>());
-                if (questToUpdate != null)
-                {
-                    questToUpdate.Merge(updateQuest);
-                }
-            }
-            if (jobj.SelectToken("data.quests")?.HasValues ?? false)
-            {
-                var quests = JsonData.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "quests");
-                if (quests != null)
-                {
-                    quests.Remove();
-                }
-            }
-            if (jobj.SelectToken("data.opponents")?.HasValues ?? false)
-            {
-                var opponents = JsonData.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "opponents");
-                if (opponents != null)
-                {
-                    opponents.Remove();
-                }
-            }
-
-            JsonData.Merge(jobj);
-            MainData = JsonData.ToObject<JsonRoot>();
-        }
-
-        #endregion Methods
-
-        #region Fields
 
         private JsonRoot _mainData;
         private bool _isLogined;
         private string _username;
         private string _password;
 
-        #endregion Fields
-
-        #region Destructors
-
         ~HzAccount()
         {
             AccountManger.Accounts.Remove(this);
         }
 
-        #endregion Destructors
-
-        private JObject JsonData { get; } = new JObject();
-
-        private JsonRoot MainData
-        {
-            get => _mainData;
-            set { _mainData = value; RaisePropertyChanged(); OnDataChanged?.Invoke(); }
-        }
-
-        private void HzAccount_OnDataChanged()
+        private async void HzAccount_OnDataChanged()
         {
             RaisePropertyChanged(nameof(Data));
             RaisePropertyChanged(nameof(User));
             RaisePropertyChanged(nameof(Character));
             RaisePropertyChanged(nameof(Quests));
             RaisePropertyChanged(nameof(ActiveWorker));
+
+            if (Data != null)
+            {
+                if (ActiveWorker == null)
+                {
+                    if (Plugins.Account.IsBotEnabled)
+                    {
+                        await Plugins.RaiseOnPrimaryWorkerComplete();
+                    }
+                }
+            }
         }
     }
 }

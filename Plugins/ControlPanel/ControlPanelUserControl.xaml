@@ -26,7 +26,7 @@
             Grid.RowSpan="2"
             Grid.Column="0">
             <WrapPanel Orientation="Horizontal">
-                <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding Bot.IsBotEnabled}">Enable Bot</CheckBox>
+                <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding Plugins.Account.IsBotEnabled}">Enable Bot</CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"

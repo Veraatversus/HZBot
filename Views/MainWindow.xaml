@@ -22,10 +22,14 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <local:CharacterStatUserControl />
-                <local:ucLog />
-            </StackPanel>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <local:CharacterStatUserControl Grid.Row="0" />
+                <local:LogUserControl Grid.Row="1" />
+            </Grid>
             <local:HideOutUserControl Grid.Column="1" />
             <StackPanel Grid.Column="2">
                 <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding Data.quests}" />

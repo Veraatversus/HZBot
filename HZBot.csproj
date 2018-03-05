@@ -67,19 +67,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CodeBase\HzPluginBase.cs" />
+    <Compile Include="CodeBase\HzServiceBase.cs" />
+    <Compile Include="CodeBase\Plugins\HzPluginBase.cs" />
+    <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
+    <Compile Include="CodeBase\Requests\HzRequestBase.cs" />
+    <Compile Include="CodeBase\Requests\PostContent.cs" />
+    <Compile Include="Plugins\Account\AccountRequests.cs" />
+    <Compile Include="Plugins\CharacterStats\CharacterStatRequests.cs" />
+    <Compile Include="Plugins\Duell\DuelRequests.cs" />
+    <Compile Include="Plugins\Log\LogUserControl.xaml.cs">
+      <DependentUpon>LogUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\HzJsonModels\Duell.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatPlugin.cs" />
-    <Compile Include="Plugins\Duell\DuellUserControl.xaml.cs">
-      <DependentUpon>DuellUserControl.xaml</DependentUpon>
+    <Compile Include="Plugins\Duell\DuelUserControl.xaml.cs">
+      <DependentUpon>DuelUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\ControlPanel\ControlPanelUserControl.xaml.cs">
       <DependentUpon>ControlPanelUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Duell\DuelPlugin.cs" />
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
+    <Compile Include="Services\ActiveWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
+    <Compile Include="Plugins\Quest\QuestRequests.cs" />
     <Compile Include="Plugins\Statusbar\StatusbarUserControl.xaml.cs">
       <DependentUpon>StatusbarUserControl.xaml</DependentUpon>
     </Compile>
@@ -98,9 +110,6 @@
     <Compile Include="Services\HzPlugins.cs" />
     <Compile Include="Services\HzAccount.cs" />
     <Compile Include="Services\HzConstants.cs" />
-    <Compile Include="Plugins\Log\ucLog.xaml.cs">
-      <DependentUpon>ucLog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ChooseCurrencyWindow.xaml.cs">
       <DependentUpon>ChooseCurrencyWindow.xaml</DependentUpon>
     </Compile>
@@ -111,11 +120,10 @@
     <Compile Include="Plugins\CharacterStats\CharacterStat.cs" />
     <Compile Include="Models\HzJsonModels\HideOut.cs" />
     <Compile Include="Models\HzJsonModels\HideOutRoom.cs" />
-    <Compile Include="Models\IWorkItem.cs" />
+    <Compile Include="Plugins\Quest\IWorkItem.cs" />
     <Compile Include="Models\HzJsonModels\Training.cs" />
     <Compile Include="Plugins\CharacterStats\StatType.cs" />
-    <Compile Include="Models\WorkType.cs" />
-    <Compile Include="Services\HzBot.cs" />
+    <Compile Include="Plugins\Quest\WorkType.cs" />
     <Compile Include="Models\HzJsonModels\Bank_Inventory.cs" />
     <Compile Include="Models\HzJsonModels\Character.cs" />
     <Compile Include="Models\HzJsonModels\Data.cs" />
@@ -126,11 +134,15 @@
     <Compile Include="Models\HzJsonModels\Rewards.cs" />
     <Compile Include="Models\HzJsonModels\User.cs" />
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
+    <Page Include="Plugins\Log\LogUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Plugins\CharacterStats\CharacterStatTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Duell\DuellUserControl.xaml">
+    <Page Include="Plugins\Duell\DuelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,10 +166,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Log\ucLog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ChooseCurrencyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,7 +178,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Services\HzRequests.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -217,6 +224,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Plugins\PrimaryWorker\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

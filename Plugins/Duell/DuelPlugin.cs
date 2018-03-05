@@ -1,44 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace HZBot
 {
     public class DuelPlugin : HzPluginBase
     {
+        #region Constructors
+
         public DuelPlugin(HzAccount account) : base(account)
         {
             StartBestDuel = new AsyncRelayCommand(
-                async () => await Account.Requests.StartDuellAsync(Account.Data.BestDuel.id.ToString()),
-                () => Account.ActiveWorker == null && Account.IsLogined);
+                async () => await this.StartDuellAsync(Account.Data.BestDuel.id.ToString()));
 
             CheckForDuelComplete = new AsyncRelayCommand(
-                async () => await Account.Requests.CheckForDuelCompleteAsync());
+                async () => await this.CheckForDuelCompleteAsync());
 
-            claimDuelReward = new AsyncRelayCommand(
-                async () => await Account.Requests.claimDuelRewardseAsync());
+            ClaimDuelReward = new AsyncRelayCommand(
+                async () => await this.ClaimDuelRewardsAsync());
         }
 
+        #endregion Constructors
+
         #region Properties
+
         public AsyncRelayCommand StartBestDuel { get; private set; }
         public AsyncRelayCommand CheckForDuelComplete { get; private set; }
-        public AsyncRelayCommand claimDuelReward { get; private set; }
-        #endregion
+        public AsyncRelayCommand ClaimDuelReward { get; private set; }
+        public bool IsAutoDuel { get; set; }
 
-        public async override Task OnExcecuteAsync()
+        #endregion Properties
+
+        #region Methods
+
+        public async override Task OnPrimaryWorkerComplete()
         {
-            if (Account.Character.duel_stamina >= 20)
+            if (IsAutoDuel)
             {
-                await Account.Requests.GetDuelOpponentsAsync();
-                await StartBestDuel.TryExecuteAsync();
-                Account.logs.Add($"[Duell]Start: Gegner-{Account.Data.BestDuel.name} Stats:{Account.Data.BestDuel.fightStat - Account.Character.FightStat}");
-                await CheckForDuelComplete.TryExecuteAsync();
-                await claimDuelReward.TryExecuteAsync();
+                if (Account.Character.duel_stamina >= 20)
+                {
+                    await this.GetDuelOpponentsAsync();
+                    await StartBestDuel.TryExecuteAsync();
+                    Account.Log.Add($"[Duell]Start: Gegner-{Account.Data.BestDuel.name} Stats:{Account.Data.BestDuel.fightStat - Account.Character.FightStat}");
+                    await CheckForDuelComplete.TryExecuteAsync();
+                    await ClaimDuelReward.TryExecuteAsync();
+                }
             }
         }
 
-        
+        #endregion Methods
     }
 }

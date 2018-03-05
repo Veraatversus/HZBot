@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HZBot
 {
-    public class HzPlugins : ViewModelBase
+    public class HzPlugins
     {
         #region Constructors
 
@@ -22,55 +21,84 @@ namespace HZBot
 
         #region Properties
 
-        public CharacterStatPlugin CharacterStat { get; set; }
-        public QuestPlugin Quest { get; set; }
+        public CharacterStatPlugin CharacterStat { get; private set; }
+        public QuestPlugin Quest { get; private set; }
         public DuelPlugin Duel { get; private set; }
         public HideOutPlugin HideOut { get; private set; }
-
-        public bool IsExecuteRunning { get; private set; }
-
         public AccountPlugin Account { get; private set; }
 
         #endregion Properties
 
         #region Methods
 
-        public T RegisterPlugin<T>(T plugin) where T : HzPluginBase
+        /// <summary>Registers the plugin.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="plugin">The plugin.</param>
+        /// <returns></returns>
+        public T RegisterPlugin<T>(T plugin) where T : IHzPlugin
         {
             // ExecuteEvent += plugin.OnExcecuteAsync;
-            registeredPlugins.Add(plugin.OnExcecuteAsync);
+            AllPlugins.Add(plugin);
             return plugin;
         }
 
-        public async Task RaiseExcecuteEvent()
+        /// <summary>Raises the on plugin loaded.</summary>
+        /// <returns></returns>
+        public async Task RaiseOnLogined()
         {
-            IsExecuteRunning = true;
-            //Check for Data
-            if (hzAccount.Data == null)
+            foreach (var item in AllPlugins)
             {
-                hzAccount.Bot.IsBotEnabled = false;
-                IsExecuteRunning = false;
-                return;
+                await item.OnLogined();
             }
-            //Trigger Plugins
-            foreach (var item in registeredPlugins)
-            {
-                await item();
-            }
+        }
 
-            // Check for work complete
-            if (hzAccount.Data.ActiveWorker == null)
+        public async Task RaiseOnlogoffed()
+        {
+            foreach (var item in AllPlugins)
             {
-                hzAccount.Bot.IsBotEnabled = false;
+                await item.OnLogoffed();
             }
-            IsExecuteRunning = false;
+        }
+
+        /// <summary>Raises the on primary worker complete.</summary>
+        /// <returns></returns>
+        public async Task RaiseOnPrimaryWorkerComplete()
+        {
+            foreach (var item in AllPlugins)
+            {
+                await item.OnPrimaryWorkerComplete();
+            }
+            //if (hzAccount.Data.ActiveWorker == null)
+            //{
+            //    hzAccount.ActiveWorkerTimer.IsBotEnabled = false;
+            //}
+        }
+
+        /// <summary>Raises the on bot started.</summary>
+        /// <returns></returns>
+        public async Task RaiseOnBotStarted()
+        {
+            foreach (var item in AllPlugins)
+            {
+                await item.OnBotStarted();
+            }
+        }
+
+        /// <summary>Raises the on bot stoped.</summary>
+        /// <returns></returns>
+        public async Task RaiseOnBotStoped()
+        {
+            foreach (var item in AllPlugins)
+            {
+                await item.OnBotStoped();
+            }
         }
 
         #endregion Methods
 
         #region Fields
 
-        private List<Func<Task>> registeredPlugins = new List<Func<Task>>();
+        private List<IHzPlugin> AllPlugins = new List<IHzPlugin>();
         private HzAccount hzAccount;
 
         #endregion Fields

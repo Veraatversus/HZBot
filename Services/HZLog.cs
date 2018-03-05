@@ -3,28 +3,39 @@ using System.Collections.Generic;
 
 namespace HZBot
 {
-    public class HZLog : HzUserControl
+    public class HZLog : ViewModelBase
     {
-        List<string> logList = new List<string>();
-
-
-        public string GetLogs
-        {
-            get
-            {
-                return String.Join("\n", logList);
-            }
-        }
+        #region Constructors
 
         public HZLog()
         {
         }
 
+        #endregion Constructors
+
+        #region Properties
+
+        public List<string> LogList { get; } = new List<string>();
+
+        public string GetLogsAsString
+        {
+            get
+            {
+                return String.Join("\n", LogList);
+            }
+        }
+
+        #endregion Properties
+
+        #region Methods
 
         public void Add(string text)
         {
-            logList.Add(text);
-            RaisePropertyChanged(nameof(GetLogs));
+            LogList.Add(text);
+            RaisePropertyChanged(nameof(GetLogsAsString));
+            RaisePropertyChanged(nameof(LogList));
         }
+
+        #endregion Methods
     }
 }

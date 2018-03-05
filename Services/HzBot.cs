@@ -87,7 +87,7 @@ namespace HZBot
                     //check for status complete
                     if (HZData.ActiveWorker.status != 4)
                     {
-                        await Account.Requests.CheckForWorkerCompleteAsync(HZData.ActiveWorker.WorkerType);
+                        await Account.Plugins.Quest.CheckForWorkerCompleteAsync(HZData.ActiveWorker.WorkerType);
                     }
                     //when status is complete then start new Bot Action
                     if (HZData?.ActiveWorker.status == 4)

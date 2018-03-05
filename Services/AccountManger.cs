@@ -14,6 +14,11 @@ namespace HZBot
 
         #region Methods
 
+        public static HzAccount GetAccountByCharacterID(int characterId)
+        {
+            return Accounts.FirstOrDefault(acc => acc.Character?.id == characterId);
+        }
+
         /// <summary>Gets the item by item id.</summary>
         /// <param name="itemId">The item id.</param>
         /// <param name="characterId">The character id.</param>

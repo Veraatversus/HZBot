@@ -14,6 +14,7 @@ namespace HZBot
         {
             InitializeComponent();
         }
+
         public MainWindow(HzAccount account)
         {
             Account = account;
@@ -31,7 +32,6 @@ namespace HZBot
 
         #region Properties
 
-
         public HzAccount Account
         {
             get { return (HzAccount)GetValue(AccountProperty); }
@@ -41,8 +41,6 @@ namespace HZBot
         // Using a DependencyProperty as the backing store for Account.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AccountProperty =
             DependencyProperty.Register(nameof(Account), typeof(HzAccount), typeof(MainWindow), new PropertyMetadata(null));
-
-
 
         //public HzAccount Account
         //{
@@ -54,7 +52,7 @@ namespace HZBot
 
         #region Fields
 
-       // private HzAccount account;
+        // private HzAccount account;
 
         #endregion Fields
     }

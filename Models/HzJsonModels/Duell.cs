@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HZBot
+﻿namespace HZBot
 {
-
     public class opponents
     {
         public int id { get; set; }
@@ -24,7 +17,6 @@ namespace HZBot
         public int fightStat => total_stats - stat_weapon_damage;
     }
 
-
     public class Battle
     {
         public int id { get; set; }
@@ -34,5 +26,4 @@ namespace HZBot
         public string winner { get; set; }
         public string rounds { get; set; }
     }
-
 }

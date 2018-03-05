@@ -21,7 +21,7 @@ namespace HZBot
 
         #region Methods
 
-        public async override Task OnExcecuteAsync()
+        public async override Task OnPrimaryWorkerComplete()
         {
             // AutoHideOutCollect
             if (IsAutoHideOutCollect)

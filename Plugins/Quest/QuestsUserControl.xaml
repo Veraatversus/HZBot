@@ -26,6 +26,6 @@
         <TextBlock Text="{Binding Data.ActiveWorker.XPCurrencyPerEneryAverage, StringFormat=XPCurrencyPerEneryAverage: {0}}" />
         <TextBlock Text="{Binding Data.ActiveWorker.status, StringFormat=Status: {0}}" />
         <TextBlock Text="{Binding Data.ActiveWorker.StatType, StringFormat=Type: {0}}" />
-        <TextBlock Text="{Binding Bot.TimerText, StringFormat=Remaining Time: {0}}" />
+        <TextBlock Text="{Binding PrimaryWorkerTimer.TimerText, StringFormat=Remaining Time: {0}}" />
     </StackPanel>
 </local:HzUserControl>
