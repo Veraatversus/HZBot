@@ -13,7 +13,7 @@ namespace HZBot
             Account = RegisterPlugin(new AccountPlugin(hzAccount));
             CharacterStat = RegisterPlugin(new CharacterStatPlugin(hzAccount));
             Quest = RegisterPlugin(new QuestPlugin(hzAccount));
-            Duel = RegisterPlugin(new DuelPlugin(hzAccount));
+            //Duel = RegisterPlugin(new DuelPlugin(hzAccount));
             HideOut = RegisterPlugin(new HideOutPlugin(hzAccount));
         }
 
