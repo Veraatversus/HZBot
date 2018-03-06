@@ -75,7 +75,7 @@ namespace HZBot
             if (Account.ActiveWorker != null)
             {
                 //Worker Remaining Time Left
-                if (Account.ActiveWorker.RemainingTime <= -1)
+                if (Account.ActiveWorker.RemainingTime <= 0)
                 {
                     //check for status complete
                     if (Account.ActiveWorker.status == 2)

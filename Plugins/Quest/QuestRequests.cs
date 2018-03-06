@@ -41,7 +41,7 @@ namespace HZBot
                    .AddKeyValue("discard_item", "false")
                    .AddKeyValue("create_new", "true");
                 var rewards = plugin.Account.Data.ActiveQuest.GetRewards;
-                plugin.Account.Log.Add($"[Claim] Rewards: XP:{rewards.xp} Coins:{rewards.coins} Premium:{rewards.premium} Honor:{rewards.honor} Item:{rewards.item}");
+                plugin.Account.Log.Add($"[Quest] Reward:");
             }
             else if (workType == WorkType.Training)
             {
