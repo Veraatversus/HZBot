@@ -58,8 +58,8 @@ namespace HZBot
         /// <summary>Posts the specified content to the server.</summary>
         /// <param name="content">The content.</param>
         /// <param name="account">The account.</param>
-        /// <returns>The error Object</returns>
-        public static async Task<JObject> PostToHzAsync(this PostContent content)
+        /// <returns>The error string or null</returns>
+        public static async Task<string> PostToHzAsync(this PostContent content)
         {
             using (var formUrlEncodedContent = new FormUrlEncodedContent(content.Content))
             {
@@ -72,7 +72,7 @@ namespace HZBot
                     if (!string.IsNullOrWhiteSpace(error.ToString()))
                     {
                         MessageBox.Show(error.Value<string>());
-                        return JObject.Parse(error.ToString());
+                        return error.Value<string>();
                     }
                     content.Account.MergeNewData(obj);
                     content.Account.Log.Add($"Action {content.Content.FirstOrDefault(a => a.Key == "action").Value} Success");
@@ -80,7 +80,7 @@ namespace HZBot
                     //   return obj;
                 }
             }
-            return JObject.Parse("{}");
+            return null;
         }
 
         /// <summary>Merges the new data into the Accout</summary>

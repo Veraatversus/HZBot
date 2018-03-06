@@ -12,7 +12,7 @@ namespace HZBot
         /// <param name="skillAmount">The skill amount.</param>
         /// <param name="plugin">The HzPlugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> ImproveCharacterStatAsync(this HzPluginBase plugin, StatType statType, int skillAmount = 1)
+        public static async Task<string> ImproveCharacterStatAsync(this HzPluginBase plugin, StatType statType, int skillAmount = 1)
         {
             plugin.Account.Log.Add($"[Skill] Start Skill:{statType}");
             return await plugin.Account.DefaultRequestContent("improveCharacterStat")
@@ -27,7 +27,7 @@ namespace HZBot
         /// <param name="iterations">The iterations.</param>
         /// <param name="plugin">The HzPlugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> StartTrainingAsync(this HzPluginBase plugin, StatType statType, int iterations = 1)
+        public static async Task<string> StartTrainingAsync(this HzPluginBase plugin, StatType statType, int iterations = 1)
         {
             plugin.Account.Log.Add($"[Training] Start Training:{statType}");
             return await plugin.Account.DefaultRequestContent("startTraining")

@@ -108,22 +108,6 @@ namespace HZBot
             RaisePropertyChanged(nameof(Quests));
             RaisePropertyChanged(nameof(ActiveWorker));
 
-            //if (Data != null)
-            //{
-            //    if (ActiveWorker == null)
-            //    {
-            //        if (Plugins.Account.IsBotEnabled)
-            //        {
-            //            if (!IsRunning)
-            //            {
-            //                IsRunning = true;
-            //                await Plugins.RaiseOnPrimaryWorkerComplete();
-            //                IsRunning = false;
-            //            }
-                       
-            //        }
-            //    }
-            //}
         }
     }
 }

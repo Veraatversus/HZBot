@@ -89,8 +89,8 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Item1, StringFormat={}{0} :}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Item2.id}" />
+                        <TextBlock Grid.Column="0" Text="{Binding Item1, StringFormat={}{0} : }" />
+                        <TextBlock Grid.Column="1" Text="{Binding Item2.id, StringFormat={}Start {0}}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

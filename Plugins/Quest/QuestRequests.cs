@@ -11,7 +11,7 @@ namespace HZBot
         /// <param name="plugin">The plugin.</param>
         /// <param name="workType">Type of the work.</param>
         /// <returns></returns>
-        public static async Task<JObject> CheckForWorkerCompleteAsync(this HzPluginBase plugin, WorkType workType)
+        public static async Task<string> CheckForWorkerCompleteAsync(this HzPluginBase plugin, WorkType workType)
         {
             var content = new PostContent();
             if (workType == WorkType.Quest)
@@ -32,7 +32,7 @@ namespace HZBot
         /// <param name="plugin">The plugin.</param>
         /// <param name="workType">Type of the work.</param>
         /// <returns></returns>
-        public static async Task<JObject> ClaimWorkerRewardAsync(this HzPluginBase plugin, WorkType workType)
+        public static async Task<string> ClaimWorkerRewardAsync(this HzPluginBase plugin, WorkType workType)
         {
             var content = new PostContent();
             if (workType == WorkType.Quest)
@@ -58,7 +58,7 @@ namespace HZBot
         /// <param name="plugin">The plugin.</param>
         /// <param name="usePremiumCurrency">if set to <c>true</c> [use premium currency].</param>
         /// <returns></returns>
-        public static async Task<JObject> BuyQuestEnergyAsync(this HzPluginBase plugin, bool usePremiumCurrency)
+        public static async Task<string> BuyQuestEnergyAsync(this HzPluginBase plugin, bool usePremiumCurrency)
         {
             plugin.Account.Log.Add($"[Buy] QuestEnergy");
             var error = await plugin.Account.DefaultRequestContent("buyQuestEnergy")
@@ -72,7 +72,7 @@ namespace HZBot
         /// <param name="plugin">The plugin.</param>
         /// <param name="quest">The quest.</param>
         /// <returns></returns>
-        public static async Task<JObject> StartQuestAsync(this HzPluginBase plugin, Quest quest)
+        public static async Task<string> StartQuestAsync(this HzPluginBase plugin, Quest quest)
         {
             plugin.Account.Log.Add($"[Quest] StartQuest: {quest.id}");
             var error = await plugin.Account.DefaultRequestContent("startQuest")

@@ -74,17 +74,20 @@
     <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
     <Compile Include="CodeBase\Requests\HzRequestBase.cs" />
     <Compile Include="CodeBase\Requests\PostContent.cs" />
-    <Compile Include="Models\HzJsonModels\Battle.cs" />
-    <Compile Include="Models\HzJsonModels\Duel.cs" />
-    <Compile Include="Models\HzJsonModels\GetCharacter.cs" />
-    <Compile Include="Models\HzJsonModels\Leaderboard.cs" />
+    <Compile Include="Models\HzJsonModels\Duel\Battle.cs" />
+    <Compile Include="Models\HzJsonModels\Duel\Duel.cs" />
+    <Compile Include="Models\HzJsonModels\Duel\LeaderCharacter.cs" />
+    <Compile Include="Models\HzJsonModels\Duel\Leaderboard.cs" />
+    <Compile Include="Models\HzJsonModels\WorldBoss\WorldbossCharacterEvent.cs" />
+    <Compile Include="Models\HzJsonModels\WorldBoss\WorldbossEvent.cs" />
+    <Compile Include="Models\HzJsonModels\WorldBoss\WorldbossReward.cs" />
     <Compile Include="Plugins\Account\AccountRequests.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatRequests.cs" />
     <Compile Include="Plugins\Duell\DuelRequests.cs" />
     <Compile Include="Plugins\Log\LogUserControl.xaml.cs">
       <DependentUpon>LogUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\HzJsonModels\Opponents.cs" />
+    <Compile Include="Models\HzJsonModels\Duel\Opponents.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatPlugin.cs" />
     <Compile Include="Plugins\Duell\DuelUserControl.xaml.cs">
@@ -103,6 +106,7 @@
     <Compile Include="Plugins\Quest\QuestUserControl.xaml.cs">
       <DependentUpon>QuestUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Worldboss\WorldbossRequests.cs" />
     <Compile Include="Services\PrimaryWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestRequests.cs" />
@@ -135,7 +139,7 @@
     <Compile Include="Models\HzJsonModels\HideOut.cs" />
     <Compile Include="Models\HzJsonModels\HideOutRoom.cs" />
     <Compile Include="Plugins\Quest\IWorkItem.cs" />
-    <Compile Include="Models\HzJsonModels\Training.cs" />
+    <Compile Include="Models\HzJsonModels\Quest\Training.cs" />
     <Compile Include="Plugins\CharacterStats\StatType.cs" />
     <Compile Include="Plugins\Quest\WorkType.cs" />
     <Compile Include="Models\HzJsonModels\Bank_Inventory.cs" />
@@ -144,8 +148,8 @@
     <Compile Include="Models\HzJsonModels\Inventory.cs" />
     <Compile Include="Models\HzJsonModels\Item.cs" />
     <Compile Include="Models\HzJsonModels\JsonRoot.cs" />
-    <Compile Include="Models\HzJsonModels\Quest.cs" />
-    <Compile Include="Models\HzJsonModels\Rewards.cs" />
+    <Compile Include="Models\HzJsonModels\Quest\Quest.cs" />
+    <Compile Include="Models\HzJsonModels\Quest\Rewards.cs" />
     <Compile Include="Models\HzJsonModels\User.cs" />
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
     <Page Include="Plugins\Log\LogUserControl.xaml">

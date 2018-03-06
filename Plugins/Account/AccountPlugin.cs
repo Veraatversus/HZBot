@@ -10,7 +10,7 @@ namespace HZBot
         {
             //Command for Login into Account
             LoginCommand = new AsyncRelayCommand(
-                async () => Account.IsLogined = !(await this.LoginRequestAsync()).HasValues,
+                async () => Account.IsLogined = string.IsNullOrWhiteSpace(await this.LoginRequestAsync()),
                 () => !Account.IsLogined);
         }
 

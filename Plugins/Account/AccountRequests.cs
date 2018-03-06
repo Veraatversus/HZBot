@@ -10,7 +10,7 @@ namespace HZBot
         /// <summary>Logins the Account asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> LoginRequestAsync(this HzPluginBase plugin)
+        public static async Task<string> LoginRequestAsync(this HzPluginBase plugin)
         {
             plugin.Account.Log.Add($"[Loggin] User:{plugin.Account.Username}");
             return await plugin.Account.DefaultRequestContent("loginUser")

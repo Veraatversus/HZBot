@@ -17,6 +17,9 @@ namespace HZBot
         public LeaderCharacter requested_character { get; set; }
         public int centered_rank { get; set; }
         public Battle battle { get; set; }
+        public List<WorldbossEvent> worldboss_events { get; set; }
+        public List<WorldbossReward> worldboss_rewards { get; set; }
+        public List<WorldbossCharacterEvent> worldboss_event_character_data { get; set; }
         public User user { get; set; }
         public long server_time { get; set; }
         public Duel duel { get; set; }
@@ -25,6 +28,7 @@ namespace HZBot
         public Quest ActiveQuest => quests.FirstOrDefault(quest => quest.id == character.active_quest_id);
         public Training ActiveTraining => character.active_training_id == training?.id ? training : null;
         public Duel ActiveDuel => character.active_duel_id == duel?.id ? duel : null;
+        public WorldbossEvent ActiveWorldBoss => character.worldboss_event_id != 0 ? worldboss_events?.FirstOrDefault(e=> e.id == character.worldboss_event_id) : null;
         public IWorkItem ActiveWorker
         {
             get

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HZBot
 {
@@ -47,10 +48,14 @@ namespace HZBot
 
         public QuestMode QuestMode { get; set; } = QuestMode.Balanced;
         public QuestDifficulty QuestDifficulty { get; set; } = QuestDifficulty.Medium;
-        public bool IsAutoQuest { get; set; }
+
+        public bool IsAutoQuest
+        {
+            get { return isAutoQuest; }
+            set { isAutoQuest = value; RaisePropertyChanged(); }
+        }
 
         public bool IsAutoBuyEnergyFromGold { get; set; }
-
         public bool IsAutoBuyEnergyFromPremium { get; set; }
         public ObservableCollection<Tuple<DateTime, Quest>> QuestLog { get; } = new ObservableCollection<Tuple<DateTime, Quest>>();
 
@@ -58,14 +63,12 @@ namespace HZBot
         public AsyncRelayCommand StartBestQuest { get; private set; }
 
         public AsyncRelayCommand<Quest> StartQuest { get; private set; }
-
         public AsyncRelayCommand ClaimWorkerReward { get; private set; }
 
         //Buy Quest Energy Commands
         public AsyncRelayCommand BuyEnergyFromGold { get; private set; }
 
         public AsyncRelayCommand BuyEnergyFromPremium { get; private set; }
-
         public RelayCommand ShowBuyQuestEnergyWindow { get; private set; }
 
         #endregion Properties
@@ -74,6 +77,10 @@ namespace HZBot
 
         public async override Task OnPrimaryWorkerDoWork()
         {
+            if (Account.Data.ActiveWorldBoss != null)
+            {
+                MessageBox.Show("WorldBoss ist da ruf Vera an!!!");
+            }
             //IsAutoBuyEnergyFromGold
             if (IsAutoBuyEnergyFromGold && BuyEnergyFromGold.CanExecute)
             {
@@ -139,7 +146,7 @@ namespace HZBot
         #region Fields
 
         private readonly Timer ActiveWorkerTimer;
-
+        private bool isAutoQuest;
         private bool _isTimerEnabled;
 
         #endregion Fields
