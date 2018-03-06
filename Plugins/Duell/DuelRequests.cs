@@ -46,7 +46,7 @@ namespace HZBot
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("discard_item", "false")
                 .PostToHzAsync();
-            
+
             return error;
         }
 
@@ -59,6 +59,34 @@ namespace HZBot
             var error = await plugin.Account.DefaultRequestContent("getDuelOpponents")
                 .AddKeyValue("rct", "1")
 
+                .PostToHzAsync();
+            return error;
+        }
+
+        /// <summary>Gets Leaderboard asynchronous.</summary>
+        /// <param name="plugin">The plugin.</param>
+        /// <returns></returns>
+        public static async Task<JObject> GetLeaderboardAsync(this HzPluginBase plugin)
+        {
+            plugin.Account.Log.Add($"[DUEL]GET Leaderboard!");
+            var error = await plugin.Account.DefaultRequestContent("retrieveLeaderboard")
+                .AddKeyValue("rct", "2")
+                .AddKeyValue("level_sort", "true")
+                .AddKeyValue("character_name", plugin.Account.Character.name.ToString())
+                .AddKeyValue("same_locale", "false")
+                .PostToHzAsync();
+            return error;
+        }
+
+        /// <summary>Get Character asynchronous.</summary>
+        /// <param name="plugin">The plugin.</param>
+        /// <returns></returns>
+        public static async Task<JObject> GetCharacterAsync(this HzPluginBase plugin, string CharID)
+        {
+            plugin.Account.Log.Add($"[DUEL]GET Leaderboard!");
+            var error = await plugin.Account.DefaultRequestContent("getCharacter")
+                .AddKeyValue("rct", "2")
+                .AddKeyValue("character_id", CharID)
                 .PostToHzAsync();
             return error;
         }

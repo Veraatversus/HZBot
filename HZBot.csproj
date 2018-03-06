@@ -74,6 +74,8 @@
     <Compile Include="CodeBase\Requests\PostContent.cs" />
     <Compile Include="Models\HzJsonModels\Battle.cs" />
     <Compile Include="Models\HzJsonModels\Duel.cs" />
+    <Compile Include="Models\HzJsonModels\GetCharacter.cs" />
+    <Compile Include="Models\HzJsonModels\Leaderboard.cs" />
     <Compile Include="Plugins\Account\AccountRequests.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatRequests.cs" />
     <Compile Include="Plugins\Duell\DuelRequests.cs" />
@@ -205,6 +207,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Assets\constantsReadable.json" />
     <None Include="Assets\TestJsons\Battle.json" />
+    <None Include="Assets\TestJsons\GetCharacter.json" />
+    <None Include="Assets\TestJsons\Leaderboard.json" />
     <None Include="Assets\TestJsons\startDuell.json" />
     <None Include="Assets\TestJsons\Worldboss\checkForWorldbossAttackComplete.json" />
     <None Include="Assets\TestJsons\Worldboss\finishWorldbossAttack.json" />
