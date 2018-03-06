@@ -67,7 +67,7 @@ namespace HZBot
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var obj = JObject.Parse(json);                 
+                    var obj = JObject.Parse(json);
                     var error = obj["error"];
                     if (!string.IsNullOrWhiteSpace(error.ToString()))
                     {
@@ -117,7 +117,6 @@ namespace HZBot
 
             account.JsonData.Merge(jobj);
             account.MainData = account.JsonData.ToObject<JsonRoot>();
-           
         }
 
         #endregion Methods

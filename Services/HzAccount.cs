@@ -53,13 +53,15 @@ namespace HZBot
                 RaisePropertyChanged();
                 if (IsLogined)
                 {
-                    Action onlogin = async () => await Plugins.RaiseOnLogined();
-                    onlogin();
+                    Plugins.RaiseOnLogined();
+                    //Action onlogin = async () => await Plugins.RaiseOnLogined();
+                    //onlogin();
                 }
                 else
                 {
-                    Action onlogoff = async () => await Plugins.RaiseOnlogoffed();
-                    onlogoff();
+                    Plugins.RaiseOnlogoffed();
+                    //Action onlogoff = async () => await Plugins.RaiseOnlogoffed();
+                    //onlogoff();
                     Plugins.Account.IsBotEnabled = false;
                 }
             }

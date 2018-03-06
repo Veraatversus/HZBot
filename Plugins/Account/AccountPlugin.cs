@@ -36,18 +36,21 @@ namespace HZBot
                 RaisePropertyChanged();
                 if (IsBotEnabled)
                 {
-                    Action onstartet = async () => await Account.Plugins.RaiseOnBotStarted();
-                    onstartet();
+                    //Action onstartet = async () => await Account.Plugins.RaiseOnBotStarted();
+                    //onstartet();
+                    Account.Plugins.RaiseOnBotStarted();
                     if (Account.ActiveWorker == null)
                     {
-                        Action workerComplete = async () => await Account.Plugins.RaiseOnPrimaryWorkerComplete();
-                        workerComplete();
+                        Account.Plugins.RaiseOnPrimaryWorkerComplete();
+                        //Action workerComplete = async () => await Account.Plugins.RaiseOnPrimaryWorkerComplete();
+                        //workerComplete();
                     }
                 }
                 else
                 {
-                    Action botstopped = async () => await Account.Plugins.RaiseOnBotStoped();
-                    botstopped();
+                    Account.Plugins.RaiseOnBotStoped();
+                    //Action botstopped = async () => await Account.Plugins.RaiseOnBotStoped();
+                    //botstopped();
                 }
             }
         }

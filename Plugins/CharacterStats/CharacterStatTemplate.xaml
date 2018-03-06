@@ -6,9 +6,9 @@
         <Grid x:Name="statGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="skillColumn" />
-                <ColumnDefinition SharedSizeGroup="skillSpacer" />
-                <ColumnDefinition Width="*" SharedSizeGroup="statNameColumn" />
-                <ColumnDefinition SharedSizeGroup="skillSpacer" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition SharedSizeGroup="statNameColumn" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" SharedSizeGroup="trainColumn" />
             </Grid.ColumnDefinitions>
             <Button

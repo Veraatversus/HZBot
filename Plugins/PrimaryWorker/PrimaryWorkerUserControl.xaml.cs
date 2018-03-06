@@ -3,11 +3,11 @@
     /// <summary>
     /// Interaktionslogik für ucQuests.xaml
     /// </summary>
-    public partial class QuestsUserControl : HzUserControl
+    public partial class PrimaryWorkerUserControl : HzUserControl
     {
         #region Constructors
 
-        public QuestsUserControl()
+        public PrimaryWorkerUserControl()
         {
             InitializeComponent();
         }

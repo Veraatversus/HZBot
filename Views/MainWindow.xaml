@@ -32,8 +32,8 @@
             </Grid>
             <local:HideOutUserControl Grid.Column="1" />
             <StackPanel Grid.Column="2">
-                <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding Data.quests}" />
-                <local:QuestsUserControl Margin="10" />
+                <local:QuestUserControl />
+                <local:PrimaryWorkerUserControl Margin="10" />
             </StackPanel>
         </Grid>
     </Grid>

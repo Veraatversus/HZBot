@@ -38,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -91,14 +92,22 @@
     </Compile>
     <Compile Include="Plugins\Duell\DuelPlugin.cs" />
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
+    <Compile Include="Plugins\Quest\Enums\EnumBindingSourceExtension.cs" />
+    <Compile Include="Plugins\Quest\Enums\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Plugins\Quest\Enums\FriendlyTimeConverter.cs" />
+    <Compile Include="Plugins\Quest\Enums\QuestDifficulty.cs" />
+    <Compile Include="Plugins\Quest\Enums\QuestMode.cs" />
+    <Compile Include="Plugins\Quest\QuestUserControl.xaml.cs">
+      <DependentUpon>QuestUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\PrimaryWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestRequests.cs" />
     <Compile Include="Plugins\Statusbar\StatusbarUserControl.xaml.cs">
       <DependentUpon>StatusbarUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Quest\QuestsUserControl.xaml.cs">
-      <DependentUpon>QuestsUserControl.xaml</DependentUpon>
+    <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerUserControl.xaml.cs">
+      <DependentUpon>PrimaryWorkerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\CharacterStats\CharacterStatUserControl.xaml.cs">
       <DependentUpon>CharacterStatUserControl.xaml</DependentUpon>
@@ -156,7 +165,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Quest\QuestsUserControl.xaml">
+    <Page Include="Plugins\PrimaryWorker\PrimaryWorkerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Plugins\HideOut\HideOutUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugins\Quest\QuestUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,8 +239,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\PrimaryWorker\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

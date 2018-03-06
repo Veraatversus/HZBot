@@ -19,7 +19,7 @@ namespace HZBot
 
             StartQuest = new AsyncRelayCommand<Quest>(
                 async quest => await this.StartQuestAsync(quest),
-                quest => Account.ActiveWorker == null && Account.IsLogined && quest.energy_cost <= Account.Character?.quest_energy);
+                quest => Account.ActiveWorker == null && Account.IsLogined && quest?.energy_cost <= Account.Character?.quest_energy);
 
             ClaimWorkerReward = new AsyncRelayCommand(
                 async () => await this.ClaimWorkerRewardAsync(Account.ActiveWorker.WorkerType),
@@ -42,7 +42,8 @@ namespace HZBot
         #endregion Constructors
 
         #region Properties
-
+        public QuestMode QuestMode { get; set; } = QuestMode.Balanced;
+        public QuestDifficulty QuestDifficulty { get; set; } = QuestDifficulty.Medium;
         public bool IsAutoQuest { get; set; }
 
         public bool IsAutoBuyEnergyFromGold { get; set; }

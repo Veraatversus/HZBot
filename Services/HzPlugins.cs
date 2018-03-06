@@ -15,7 +15,7 @@ namespace HZBot
             Account = RegisterPlugin(new AccountPlugin(hzAccount));
             CharacterStat = RegisterPlugin(new CharacterStatPlugin(hzAccount));
             Quest = RegisterPlugin(new QuestPlugin(hzAccount));
-            //Duel = RegisterPlugin(new DuelPlugin(hzAccount));
+            Duel = RegisterPlugin(new DuelPlugin(hzAccount));
             HideOut = RegisterPlugin(new HideOutPlugin(hzAccount));
             DefaultContext = System.Threading.SynchronizationContext.Current;
         }
@@ -52,7 +52,7 @@ namespace HZBot
 
         /// <summary>Raises the on plugin loaded.</summary>
         /// <returns></returns>
-        public async Task RaiseOnLogined()
+        public void RaiseOnLogined()
         {
             DefaultContext.Send(async (o) =>
             {
@@ -63,7 +63,7 @@ namespace HZBot
             }, null);
         }
 
-        public async Task RaiseOnlogoffed()
+        public void RaiseOnlogoffed()
         {
             DefaultContext.Send(async (o) =>
             {
@@ -76,7 +76,7 @@ namespace HZBot
 
         /// <summary>Raises the on primary worker complete.</summary>
         /// <returns></returns>
-        public async Task RaiseOnPrimaryWorkerComplete()
+        public void RaiseOnPrimaryWorkerComplete()
         {
             DefaultContext.Send(async (o) =>
             {
@@ -101,7 +101,7 @@ namespace HZBot
 
         /// <summary>Raises the on bot started.</summary>
         /// <returns></returns>
-        public async Task RaiseOnBotStarted()
+        public void RaiseOnBotStarted()
         {
             DefaultContext.Send(async (o) =>
             {
@@ -114,7 +114,7 @@ namespace HZBot
 
         /// <summary>Raises the on bot stoped.</summary>
         /// <returns></returns>
-        public async Task RaiseOnBotStoped()
+        public void RaiseOnBotStoped()
         {
             DefaultContext.Send(async (o) =>
             {

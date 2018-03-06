@@ -17,13 +17,40 @@ namespace HZBot
                 async (stat) => await this.StartTrainingAsync(stat.StatType),
                 (stat) => Account.ActiveWorker == null && (Account.Character?.CanTrain() ?? false));
         }
+        bool isAutoTrain;
 
         #endregion Constructors
 
         #region Properties
 
-        public bool IsAutoTrain { get; set; }
-        public bool IsAutoSkill { get; set; }
+        public bool IsAutoTrain
+        {
+            get
+            {
+                return isAutoTrain;
+            }
+
+            set
+            {
+                isAutoTrain = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsAutoSkill
+        {
+            get
+            {
+                return isAutoSkill;
+            }
+
+            set
+            {
+                isAutoSkill = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public AsyncRelayCommand<CharacterStat> ImproveCharacterStatCommand { get; private set; }
 
         //Train Stats Commands
@@ -60,5 +87,11 @@ namespace HZBot
         }
 
         #endregion Methods
+
+        #region Fields
+
+        private bool isAutoSkill;
+
+        #endregion Fields
     }
 }
