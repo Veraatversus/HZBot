@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace HZBot
 {
@@ -11,9 +6,11 @@ namespace HZBot
     public enum QuestDifficulty
     {
         [Description("Easy")]
-        Easy,
+        Easy = 1,
+
         [Description("Medium")]
         Medium,
+
         [Description("TryHard")]
         Hard
     }

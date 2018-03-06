@@ -1,22 +1,22 @@
-﻿using System.Windows.Data;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
 
 namespace HZBot
 {
-
     public class EnumDescriptionTypeConverter : EnumConverter
     {
+        #region Constructors
+
         public EnumDescriptionTypeConverter(Type type)
             : base(type)
         {
         }
+
+        #endregion Constructors
+
+        #region Methods
+
         public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -36,5 +36,7 @@ namespace HZBot
 
             return base.ConvertTo(context, culture, value, destinationType);
         }
+
+        #endregion Methods
     }
 }

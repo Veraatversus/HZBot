@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace HZBot
 {
     public class FriendlyTimeConverter : IValueConverter
     {
+        #region Methods
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             TimeSpan ts = TimeSpan.FromSeconds((int)value);
@@ -21,5 +19,6 @@ namespace HZBot
             throw new NotImplementedException();
         }
 
+        #endregion Methods
     }
 }

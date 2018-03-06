@@ -69,6 +69,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodeBase\HzServiceBase.cs" />
+    <Compile Include="CodeBase\List\ListBoxBehavior.cs" />
     <Compile Include="CodeBase\Plugins\HzPluginBase.cs" />
     <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
     <Compile Include="CodeBase\Requests\HzRequestBase.cs" />

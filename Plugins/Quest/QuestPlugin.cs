@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,6 +44,7 @@ namespace HZBot
         #endregion Constructors
 
         #region Properties
+
         public QuestMode QuestMode { get; set; } = QuestMode.Balanced;
         public QuestDifficulty QuestDifficulty { get; set; } = QuestDifficulty.Medium;
         public bool IsAutoQuest { get; set; }
@@ -49,6 +52,7 @@ namespace HZBot
         public bool IsAutoBuyEnergyFromGold { get; set; }
 
         public bool IsAutoBuyEnergyFromPremium { get; set; }
+        public ObservableCollection<Tuple<DateTime, Quest>> QuestLog { get; } = new ObservableCollection<Tuple<DateTime, Quest>>();
 
         //Quest Commands
         public AsyncRelayCommand StartBestQuest { get; private set; }
@@ -67,26 +71,6 @@ namespace HZBot
         #endregion Properties
 
         #region Methods
-
-        public override Task OnLogined()
-        {
-            return base.OnLogined();
-        }
-
-        public override Task OnBotStarted()
-        {
-            return base.OnBotStarted();
-        }
-
-        public override Task OnBotStoped()
-        {
-            return base.OnBotStoped();
-        }
-
-        public override Task OnLogoffed()
-        {
-            return base.OnLogoffed();
-        }
 
         public async override Task OnPrimaryWorkerDoWork()
         {
@@ -107,15 +91,45 @@ namespace HZBot
             {
                 //Enough Energie?
                 var quests = Account.Quests.Where(q => q.energy_cost <= Account.Character.quest_energy);
-                //Sort By Max Value Quest
-                quests = quests.OrderByDescending(q => q.XPCurrencyPerEneryAverage);
-                //Skip when Battle is to hart
-                quests = quests.SkipWhile(q => q.fight_difficulty > 2);
+
+                //QuestMode
+                switch (this.QuestMode)
+                {
+                    case QuestMode.MostGold:
+                        quests = quests.OrderBy(q => q.CurrencyPerEnergy);
+                        break;
+
+                    case QuestMode.MostXP:
+                        quests = quests.OrderBy(q => q.XPPerEnergy);
+                        break;
+
+                    case QuestMode.Balanced:
+                        quests = quests.OrderBy(q => q.XPCurrencyPerEneryAverage);
+                        break;
+                }
+
+                //Quest Difficulty
+                switch (this.QuestDifficulty)
+                {
+                    case QuestDifficulty.Easy:
+                        quests = quests.SkipWhile(q => q.fight_difficulty > (int)QuestDifficulty.Easy);
+                        break;
+
+                    case QuestDifficulty.Medium:
+                        quests = quests.SkipWhile(q => q.fight_difficulty > (int)QuestDifficulty.Medium);
+                        break;
+
+                    case QuestDifficulty.Hard:
+                        quests = quests.SkipWhile(q => q.fight_difficulty > (int)QuestDifficulty.Hard);
+                        break;
+                }
+
                 var quest = quests?.FirstOrDefault();
                 if (quest != null)
                 {
+                    QuestLog.Add(new Tuple<DateTime, Quest>(DateTime.Now, quest));
                     await StartQuest.TryExecuteAsync(quest);
-                   // Account.Log.Add($"[QUEST] START: ID:{quest.id} Duration:{quest.duration / 60}");
+                    // Account.Log.Add($"[QUEST] START: ID:{quest.id} Duration:{quest.duration / 60}");
                 }
             }
         }

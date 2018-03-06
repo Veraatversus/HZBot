@@ -49,7 +49,7 @@ namespace HZBot
                 plugin.Account.Log.Add($"[Claim] TrainPoint:{plugin.Account.Data.ActiveTraining.stat_type}");
             }
             content.AddKeyValue("rct", "2");
-            
+
             var error = await content.PostToHzAsync();
             return error;
         }

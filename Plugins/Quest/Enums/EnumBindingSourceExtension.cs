@@ -1,18 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
 namespace HZBot
 {
     public class EnumBindingSourceExtension : MarkupExtension
     {
-        private Type _enumType;
+        #region Constructors
+
+        public EnumBindingSourceExtension()
+        {
+        }
+
+        public EnumBindingSourceExtension(Type enumType)
+        {
+            this.EnumType = enumType;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
         public Type EnumType
         {
-            get { return this._enumType; }
+            get
+            {
+                return this._enumType;
+            }
             set
             {
                 if (value != this._enumType)
@@ -29,12 +42,9 @@ namespace HZBot
             }
         }
 
-        public EnumBindingSourceExtension() { }
+        #endregion Properties
 
-        public EnumBindingSourceExtension(Type enumType)
-        {
-            this.EnumType = enumType;
-        }
+        #region Methods
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -51,5 +61,13 @@ namespace HZBot
             enumValues.CopyTo(tempArray, 1);
             return tempArray;
         }
+
+        #endregion Methods
+
+        #region Fields
+
+        private Type _enumType;
+
+        #endregion Fields
     }
 }
