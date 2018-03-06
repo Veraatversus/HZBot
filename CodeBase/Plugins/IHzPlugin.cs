@@ -16,11 +16,15 @@ namespace HZBot
 
         Task OnLogoffed();
 
-        Task OnPrimaryWorkerComplete();
-
         Task OnBotStarted();
 
         Task OnBotStoped();
+
+        Task OnPrimaryWorkerDoWork();
+
+        Task AfterPrimaryWorkerWork();
+
+        Task BeforPrimaryWorkerWork();
 
         #endregion Methods
     }

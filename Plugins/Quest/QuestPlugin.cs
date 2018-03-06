@@ -32,11 +32,11 @@ namespace HZBot
 
             BuyEnergyFromGold = new AsyncRelayCommand(
               async () => await this.BuyQuestEnergyAsync(false),
-              () => Account.ActiveWorker == null && Account.Character?.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill);
+              () => Account.Character?.quest_energy < 50 && Account.ActiveWorker == null && Account.Character?.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill);
 
             BuyEnergyFromPremium = new AsyncRelayCommand(
                 async () => await this.BuyQuestEnergyAsync(true),
-                () => Account.ActiveWorker == null && Account.User?.premium_currency >= 2);
+                () => Account.Character?.quest_energy < 50 && Account.ActiveWorker == null && Account.User?.premium_currency >= 2);
         }
 
         #endregion Constructors
@@ -87,7 +87,7 @@ namespace HZBot
             return base.OnLogoffed();
         }
 
-        public async override Task OnPrimaryWorkerComplete()
+        public async override Task OnPrimaryWorkerDoWork()
         {
             //IsAutoBuyEnergyFromGold
             if (IsAutoBuyEnergyFromGold && BuyEnergyFromGold.CanExecute)
@@ -114,7 +114,7 @@ namespace HZBot
                 if (quest != null)
                 {
                     await StartQuest.TryExecuteAsync(quest);
-                    Account.Log.Add($"[QUEST] START: ID:{quest.id} Duration:{quest.duration / 60}");
+                   // Account.Log.Add($"[QUEST] START: ID:{quest.id} Duration:{quest.duration / 60}");
                 }
             }
         }

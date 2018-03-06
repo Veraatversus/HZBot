@@ -82,7 +82,15 @@ namespace HZBot
             {
                 foreach (var item in AllPlugins)
                 {
-                    await item.OnPrimaryWorkerComplete();
+                    await item.BeforPrimaryWorkerWork();
+                }
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnPrimaryWorkerDoWork();
+                }
+                foreach (var item in AllPlugins)
+                {
+                    await item.AfterPrimaryWorkerWork();
                 }
             }, null);
             //if (hzAccount.Data.ActiveWorker == null)

@@ -33,7 +33,7 @@ namespace HZBot
 
         #region Methods
 
-        public async override Task OnPrimaryWorkerComplete()
+        public async override Task OnPrimaryWorkerDoWork()
         {
             // IsAutoSkill
             if (IsAutoSkill && Account.Character.CanImproveCharacterStat())

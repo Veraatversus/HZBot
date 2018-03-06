@@ -28,7 +28,7 @@ namespace HZBot
             return;
         }
 
-        public async virtual Task OnPrimaryWorkerComplete()
+        public async virtual Task OnPrimaryWorkerDoWork()
         {
             return;
         }
@@ -44,6 +44,16 @@ namespace HZBot
         }
 
         public async virtual Task OnLogoffed()
+        {
+            return;
+        }
+
+        public async virtual Task AfterPrimaryWorkerWork()
+        {
+            return;
+        }
+
+        public async virtual Task BeforPrimaryWorkerWork()
         {
             return;
         }

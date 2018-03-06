@@ -60,6 +60,7 @@ namespace HZBot
                 {
                     Action onlogoff = async () => await Plugins.RaiseOnlogoffed();
                     onlogoff();
+                    Plugins.Account.IsBotEnabled = false;
                 }
             }
         }
