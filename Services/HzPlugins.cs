@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HZBot
@@ -16,6 +17,7 @@ namespace HZBot
             Quest = RegisterPlugin(new QuestPlugin(hzAccount));
             Duel = RegisterPlugin(new DuelPlugin(hzAccount));
             HideOut = RegisterPlugin(new HideOutPlugin(hzAccount));
+            DefaultContext = System.Threading.SynchronizationContext.Current;
         }
 
         #endregion Constructors
@@ -26,6 +28,9 @@ namespace HZBot
         public QuestPlugin Quest { get; private set; }
         public DuelPlugin Duel { get; private set; }
         public HideOutPlugin HideOut { get; private set; }
+
+        private SynchronizationContext DefaultContext;
+
         public AccountPlugin Account { get; private set; }
 
         public LogPlugin LogPlugin { get; }
@@ -49,28 +54,37 @@ namespace HZBot
         /// <returns></returns>
         public async Task RaiseOnLogined()
         {
-            foreach (var item in AllPlugins)
+            DefaultContext.Send(async (o) =>
             {
-                await item.OnLogined();
-            }
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnLogined();
+                }
+            }, null);
         }
 
         public async Task RaiseOnlogoffed()
         {
-            foreach (var item in AllPlugins)
+            DefaultContext.Send(async (o) =>
             {
-                await item.OnLogoffed();
-            }
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnLogoffed();
+                }
+            }, null);
         }
 
         /// <summary>Raises the on primary worker complete.</summary>
         /// <returns></returns>
         public async Task RaiseOnPrimaryWorkerComplete()
         {
-            foreach (var item in AllPlugins)
+            DefaultContext.Send(async (o) =>
             {
-                await item.OnPrimaryWorkerComplete();
-            }
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnPrimaryWorkerComplete();
+                }
+            }, null);
             //if (hzAccount.Data.ActiveWorker == null)
             //{
             //    hzAccount.ActiveWorkerTimer.IsBotEnabled = false;
@@ -81,20 +95,26 @@ namespace HZBot
         /// <returns></returns>
         public async Task RaiseOnBotStarted()
         {
-            foreach (var item in AllPlugins)
+            DefaultContext.Send(async (o) =>
             {
-                await item.OnBotStarted();
-            }
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnBotStarted();
+                }
+            }, null);
         }
 
         /// <summary>Raises the on bot stoped.</summary>
         /// <returns></returns>
         public async Task RaiseOnBotStoped()
         {
-            foreach (var item in AllPlugins)
+            DefaultContext.Send(async (o) =>
             {
-                await item.OnBotStoped();
-            }
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnBotStoped();
+                }
+            }, null);
         }
 
         #endregion Methods

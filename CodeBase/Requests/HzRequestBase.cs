@@ -67,7 +67,7 @@ namespace HZBot
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var obj = JObject.Parse(json);
+                    var obj = JObject.Parse(json);                 
                     var error = obj["error"];
                     if (!string.IsNullOrWhiteSpace(error.ToString()))
                     {
@@ -75,7 +75,8 @@ namespace HZBot
                         return JObject.Parse(error.ToString());
                     }
                     content.Account.MergeNewData(obj);
-                    content.Account.Log.Add($"Success");
+                    content.Account.Log.Add($"Action {content.Content.FirstOrDefault(a => a.Key == "action").Value} Success");
+
                     //   return obj;
                 }
             }
@@ -87,6 +88,7 @@ namespace HZBot
         /// <param name="account">The account.</param>
         public static void MergeNewData(this HzAccount account, JObject jobj)
         {
+            account.ServerTimeOffset = jobj["data"]["server_time"].Value<long>() - DateTimeOffset.Now.ToUnixTimeSeconds();
             var updateQuest = jobj.SelectToken("data.quest");
             if (updateQuest != null)
             {
@@ -115,7 +117,7 @@ namespace HZBot
 
             account.JsonData.Merge(jobj);
             account.MainData = account.JsonData.ToObject<JsonRoot>();
-            account.ServerTimeOffset = account.Data.server_time - DateTimeOffset.Now.ToUnixTimeSeconds();
+           
         }
 
         #endregion Methods
