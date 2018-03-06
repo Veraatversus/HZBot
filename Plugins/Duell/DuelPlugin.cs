@@ -12,7 +12,7 @@ namespace HZBot
         {
             StartBestDuel = new AsyncRelayCommand(
                 async () => await this.StartDuellAsync(GetOpponent.id.ToString()),
-                () => Account.IsLogined);
+                () => Account.ActiveWorker != null);
 
             CheckForDuelComplete = new AsyncRelayCommand(
                 async () => await this.CheckForDuelCompleteAsync());
@@ -38,7 +38,7 @@ namespace HZBot
                         if (GetOpponent != null)
                         {
                             await StartBestDuel.TryExecuteAsync();
-                            Account.Log.Add($"[Duel]Start: Gegner-{GetOpponent.name} Stats:{GetOpponent.fightStat - Account.Character.FightStat}");
+                            //Account.Log.Add($"[Duel]Start: Gegner-{GetOpponent.name} Stats:{GetOpponent.fightStat - Account.Character.FightStat}");
                         }
                     }
                 }
