@@ -56,28 +56,70 @@ namespace HZBot
 
                         int MyRank = Account.Data.centered_rank;
                         int AktRank = Account.Data.centered_rank;
+                        int DiffRank = 0;
                         bool OpponentFound = false;
+                        bool goBetterRank = true;
 
                         while(!OpponentFound)
                         {
-                            AktRank--;
-
-                            string LCharID = Account.Data.leaderboard_characters.FirstOrDefault(ch => ch.rank == AktRank).id.ToString();
                             
-                            await this.GetCharacterAsync(LCharID);
-
-                            if (Account.Data.requested_character != null)
+                            if (goBetterRank)
                             {
-                                int StatTotal = Account.Data.requested_character.stat_total_critical_rating +
-                                                Account.Data.requested_character.stat_total_dodge_rating +
-                                                Account.Data.requested_character.stat_total_stamina +
-                                                Account.Data.requested_character.stat_total_strength;
-                                if (StatTotal < Account.Character.FightStat && Account.Data.requested_character.stat_total_critical_rating < Account.Character.stat_total_critical_rating && Account.Data.requested_character.stat_total_dodge_rating < Account.Character.stat_total_dodge_rating)
+                                AktRank--;
+                                DiffRank = MyRank - AktRank;
+                                
+
+                                string LCharID = Account.Data.leaderboard_characters.FirstOrDefault(ch => ch.rank == AktRank).id.ToString();
+
+                                await this.GetCharacterAsync(LCharID);
+
+                                if (Account.Data.requested_character != null)
                                 {
-                                    OpponentFound = true;
-                                    GegnerID = Account.Data.requested_character.id.ToString();
-                                    Account.Log.Add($"[Duel] Folgender Gegner wurde in der Rangliste gefunden: {Account.Data.requested_character.name}");
-                                    await StartBestDuel.TryExecuteAsync();
+                                    int StatTotal = Account.Data.requested_character.stat_total_critical_rating +
+                                                    Account.Data.requested_character.stat_total_dodge_rating +
+                                                    Account.Data.requested_character.stat_total_stamina +
+                                                    Account.Data.requested_character.stat_total_strength;
+                                    if (StatTotal < Account.Character.FightStat && Account.Data.requested_character.stat_total_critical_rating < Account.Character.stat_total_critical_rating && Account.Data.requested_character.stat_total_dodge_rating < Account.Character.stat_total_dodge_rating)
+                                    {
+                                        OpponentFound = true;
+                                        GegnerID = Account.Data.requested_character.id.ToString();
+                                        Account.Log.Add($"[Duel] Folgender Gegner wurde in der Rangliste gefunden: {Account.Data.requested_character.name}");
+                                        await StartBestDuel.TryExecuteAsync();
+                                    }
+                                }
+                                if (DiffRank >= 20)
+                                {
+                                    goBetterRank = false;
+                                    AktRank = MyRank;
+                                }
+                            } else
+                            {
+                                AktRank++;
+                                DiffRank = AktRank - MyRank;
+
+                                string LCharID = Account.Data.leaderboard_characters.FirstOrDefault(ch => ch.rank == AktRank).id.ToString();
+
+                                await this.GetCharacterAsync(LCharID);
+
+                                if (Account.Data.requested_character != null)
+                                {
+                                    int StatTotal = Account.Data.requested_character.stat_total_critical_rating +
+                                                    Account.Data.requested_character.stat_total_dodge_rating +
+                                                    Account.Data.requested_character.stat_total_stamina +
+                                                    Account.Data.requested_character.stat_total_strength;
+                                    if (StatTotal < Account.Character.FightStat && Account.Data.requested_character.stat_total_critical_rating < Account.Character.stat_total_critical_rating && Account.Data.requested_character.stat_total_dodge_rating < Account.Character.stat_total_dodge_rating)
+                                    {
+                                        OpponentFound = true;
+                                        GegnerID = Account.Data.requested_character.id.ToString();
+                                        Account.Log.Add($"[Duel] Folgender Gegner wurde in der Rangliste gefunden: {Account.Data.requested_character.name}");
+                                        await StartBestDuel.TryExecuteAsync();
+                                    }
+                                }
+
+                                if (DiffRank >= 20)
+                                {
+                                    FindOpponent(false);
+                                    return;
                                 }
                             }
                         }
@@ -95,12 +137,12 @@ namespace HZBot
             }
         }
 
-        public Opponents FindOpponent()
+        public Opponents FindOpponent(bool LookStats=true)
         {
-            // Find all Opponents where MyStats > OpStats
-            var fo = Account.Data.opponents.Where(g1 => Account.Data.character.FightStat > g1.fightStat && g1.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating && g1.stat_total_dodge_rating <= Account.Data.character.stat_total_dodge_rating);
-            // Find Opponent where lower Crit/Dodge rating as my
-            //fo = fo.SkipWhile(o => o.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating && o.stat_total_dodge_rating <= Account.Data.character.stat_total_dodge_rating);
+            var fo = Account.Data.opponents.Where(g1 => Account.Data.character.FightStat > g1.fightStat);
+            if (LookStats)
+                fo.Where(g1 => g1.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating && g1.stat_total_dodge_rating <= Account.Data.character.stat_total_dodge_rating);
+
             fo = fo.OrderBy(g => g.fightStat);
 
             if (fo.FirstOrDefault() != null)

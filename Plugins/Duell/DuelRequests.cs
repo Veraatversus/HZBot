@@ -12,7 +12,7 @@ namespace HZBot
         /// <param name="charID">The character identifier.</param>
         /// <param name="usePremiumCurrency">if set to <c>true</c> [use premium currency].</param>
         /// <returns></returns>
-        public static async Task<JObject> StartDuellAsync(this DuelPlugin plugin, string charID, bool usePremiumCurrency = false)
+        public static async Task<string> StartDuellAsync(this DuelPlugin plugin, string charID, bool usePremiumCurrency = false)
         {
             plugin.Account.Log.Add($"[DUEL]Start Duel!");
             var error = await plugin.Account.DefaultRequestContent("startDuel")
@@ -26,7 +26,7 @@ namespace HZBot
         /// <summary>Checks for duel complete asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> CheckForDuelCompleteAsync(this DuelPlugin plugin)
+        public static async Task<string> CheckForDuelCompleteAsync(this DuelPlugin plugin)
         {
             plugin.Account.Log.Add($"[DUEL]CheckForComplete");
             var error = await plugin.Account.DefaultRequestContent("checkForDuelComplete")
@@ -39,7 +39,7 @@ namespace HZBot
         /// <summary>Claims the duel rewards asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> ClaimDuelRewardsAsync(this DuelPlugin plugin)
+        public static async Task<string> ClaimDuelRewardsAsync(this DuelPlugin plugin)
         {
             plugin.Account.Log.Add($"[DUEL]Claim Rewards!");
             var error = await plugin.Account.DefaultRequestContent("claimDuelRewards")
@@ -53,7 +53,7 @@ namespace HZBot
         /// <summary>Gets the duel opponents asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> GetDuelOpponentsAsync(this HzPluginBase plugin)
+        public static async Task<string> GetDuelOpponentsAsync(this HzPluginBase plugin)
         {
             plugin.Account.Log.Add($"[DUEL]GET OPPONENTS ");
             var error = await plugin.Account.DefaultRequestContent("getDuelOpponents")
@@ -66,7 +66,7 @@ namespace HZBot
         /// <summary>Gets Leaderboard asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> GetLeaderboardAsync(this HzPluginBase plugin)
+        public static async Task<string> GetLeaderboardAsync(this HzPluginBase plugin)
         {
             plugin.Account.Log.Add($"[DUEL]GET Leaderboard!");
             var error = await plugin.Account.DefaultRequestContent("retrieveLeaderboard")
@@ -81,7 +81,7 @@ namespace HZBot
         /// <summary>Get Character asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <returns></returns>
-        public static async Task<JObject> GetCharacterAsync(this HzPluginBase plugin, string CharID)
+        public static async Task<string> GetCharacterAsync(this HzPluginBase plugin, string CharID)
         {
             plugin.Account.Log.Add($"[DUEL]GET Leaderboard!");
             var error = await plugin.Account.DefaultRequestContent("getCharacter")
