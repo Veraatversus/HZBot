@@ -107,6 +107,7 @@
       <DependentUpon>QuestUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Worldboss\WorldbossRequests.cs" />
+    <Compile Include="Services\GameUtils.cs" />
     <Compile Include="Services\PrimaryWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestRequests.cs" />

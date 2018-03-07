@@ -138,6 +138,33 @@ namespace HZBot
             return RoundDecimal(loc2, 3);
         }
 
+        public double getCriticalHitPercentage(double param1, double param2)
+        {
+            var _loc8_ = Constants["battle_critical_probability_min"].Value<double>();
+            var _loc6_ = Constants["battle_critical_probability_base"].Value<double>();
+            var _loc3_ = Constants["battle_critical_probability_max"].Value<double>();
+            var _loc4_ = Constants["battle_critical_probability_exp_low"].Value<double>();
+            var _loc5_ = Constants["battle_critical_probability_exp_high"].Value<double>();
+            var _loc9_ = param1 / param2;
+            double _loc7_ = 0;
+            if (_loc9_ <= 1)
+            {
+                _loc7_ = (Math.Pow(_loc9_, _loc4_) * (_loc6_ - _loc8_) + _loc8_);
+            }
+            else
+            {
+                _loc7_ = ((1 - Math.Pow(1 / _loc9_, _loc5_)) * (_loc3_ - _loc6_) + _loc6_);
+            }
+            return RoundDecimal(_loc7_, 3);
+        }
+
+        public double RoundDecimal(double param1, int param2)
+        {
+            var _loc4_ = Math.Pow(10, param2);
+            var _loc3_ = Math.Round(param1 * _loc4_) / _loc4_;
+            return _loc3_;
+        }
+
         #endregion Methods
 
         #region Fields
@@ -160,12 +187,5 @@ namespace HZBot
         }
 
         #endregion Constructors
-
-        private static double RoundDecimal(double param1, int param2)
-        {
-            var _loc4_ = Math.Pow(10, param2);
-            var _loc3_ = Math.Round(param1 * _loc4_) / _loc4_;
-            return _loc3_;
-        }
     }
 }
