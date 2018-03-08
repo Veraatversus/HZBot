@@ -26,7 +26,7 @@ namespace HZBot
 
             ClaimWorkerReward = new AsyncRelayCommand(
                 async () => await this.ClaimWorkerRewardAsync(Account.ActiveWorker.WorkerType),
-                () => Account.ActiveWorker?.status == 4);
+                () => Account.ActiveWorker?.status == WorkStatus.Finished);
 
             //Buy Quest Energy Commands
             ShowBuyQuestEnergyWindow = new RelayCommand(
@@ -47,7 +47,7 @@ namespace HZBot
         #region Properties
 
         public QuestMode QuestMode { get; set; } = QuestMode.Balanced;
-        public QuestDifficulty QuestDifficulty { get; set; } = QuestDifficulty.Medium;
+        public FightQuestDifficulty QuestDifficulty { get; set; } = FightQuestDifficulty.Medium;
 
         public bool IsAutoQuest
         {
@@ -118,25 +118,28 @@ namespace HZBot
                 //Quest Difficulty
                 switch (this.QuestDifficulty)
                 {
-                    case QuestDifficulty.Easy:
-                        quests = quests.SkipWhile(q => q.fight_difficulty > (int)QuestDifficulty.Easy);
+                    case FightQuestDifficulty.Easy:
+                        quests = quests.SkipWhile(q => q.fight_difficulty > FightQuestDifficulty.Easy);
                         break;
 
-                    case QuestDifficulty.Medium:
-                        quests = quests.SkipWhile(q => q.fight_difficulty > (int)QuestDifficulty.Medium);
+                    case FightQuestDifficulty.Medium:
+                        quests = quests.SkipWhile(q => q.fight_difficulty > FightQuestDifficulty.Medium);
                         break;
 
-                    case QuestDifficulty.Hard:
-                        quests = quests.SkipWhile(q => q.fight_difficulty > (int)QuestDifficulty.Hard);
+                    case FightQuestDifficulty.Hard:
+                        quests = quests.SkipWhile(q => q.fight_difficulty > FightQuestDifficulty.Hard);
                         break;
                 }
 
-                var quest = quests?.FirstOrDefault();
+                //Premium Or Statpoint Quest
+                var PremiumOrStatpoint = quests.FirstOrDefault(q => q.GetRewards.premium > 0) ?? quests.FirstOrDefault(q=> q.GetRewards.statPoints > 0);
+
+                var quest = PremiumOrStatpoint ?? quests.FirstOrDefault();
                 if (quest != null)
                 {
                     QuestLog.Add(new Tuple<DateTime, Quest>(DateTime.Now, quest));
                     await StartQuest.TryExecuteAsync(quest);
-                    // Account.Log.Add($"[QUEST] START: ID:{quest.id} Duration:{quest.duration / 60}");
+                    // Account.Log.Add($"[Quest] START: ID:{quest.id} Duration:{quest.duration / 60}");
                 }
             }
         }

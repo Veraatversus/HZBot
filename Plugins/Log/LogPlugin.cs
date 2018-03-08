@@ -17,7 +17,7 @@ namespace HZBot
 
         #region Properties
 
-        public ObservableCollection<string> LogList { get; } = new ObservableCollection<string>();
+        public ObservableCollection<LogObject> LogList { get; } = new ObservableCollection<LogObject>();
 
         public string GetLogsAsString
         {
@@ -33,10 +33,14 @@ namespace HZBot
 
         public void Add(string text)
         {
-            Context.Send(o => LogList.Add(text), null);
+            Add(new LogObject() { Text = text, Time = DateTime.Now });
             //LogList.Add(text);
             RaisePropertyChanged(nameof(GetLogsAsString));
-            // RaisePropertyChanged(nameof(LogList));
+        }
+
+        public void Add(LogObject logObject)
+        {
+            Context.Send(o => LogList.Add(logObject), null);
         }
 
         #endregion Methods

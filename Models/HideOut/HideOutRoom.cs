@@ -6,7 +6,7 @@
         public int hideout_id { get; set; }
         public int ts_creation { get; set; }
         public string identifier { get; set; }
-        public int status { get; set; }
+        public HideoutRoomStatus status { get; set; }
         public int level { get; set; }
         public int current_resource_amount { get; set; }
         public int max_resource_amount { get; set; }

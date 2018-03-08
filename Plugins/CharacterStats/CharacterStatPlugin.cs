@@ -17,7 +17,6 @@ namespace HZBot
                 async (stat) => await this.StartTrainingAsync(stat.StatType),
                 (stat) => Account.ActiveWorker == null && (Account.Character?.CanTrain() ?? false));
         }
-        bool isAutoTrain;
 
         #endregion Constructors
 
@@ -25,30 +24,14 @@ namespace HZBot
 
         public bool IsAutoTrain
         {
-            get
-            {
-                return isAutoTrain;
-            }
-
-            set
-            {
-                isAutoTrain = value;
-                RaisePropertyChanged();
-            }
+            get { return isAutoTrain; }
+            set { isAutoTrain = value; RaisePropertyChanged(); }
         }
 
         public bool IsAutoSkill
         {
-            get
-            {
-                return isAutoSkill;
-            }
-
-            set
-            {
-                isAutoSkill = value;
-                RaisePropertyChanged();
-            }
+            get { return isAutoSkill; }
+            set { isAutoSkill = value; RaisePropertyChanged(); }
         }
 
         public AsyncRelayCommand<CharacterStat> ImproveCharacterStatCommand { get; private set; }
@@ -69,7 +52,6 @@ namespace HZBot
                 for (int i = 0; i < trainCount; i++)
                 {
                     var stat = Account.Character.GetNextImroveStat();
-                    Account.Log.Add($"[TRAINING] START: TrainStat:{stat.StatType}");
                     await ImproveCharacterStatCommand.TryExecuteAsync(stat);
                 }
             }
@@ -80,7 +62,6 @@ namespace HZBot
                 var trainStat = Account.Character.Stats.FirstOrDefault(stat => stat.TrainingValue > 0) ?? Account.Character.GetNextImroveStat();
                 if (trainStat != null)
                 {
-                    Account.Log.Add($"[TRAINING] START: TrainStat:{trainStat.StatType}");
                     await TrainCharacterStatCommand.TryExecuteAsync(trainStat);
                 }
             }
@@ -90,6 +71,7 @@ namespace HZBot
 
         #region Fields
 
+        private bool isAutoTrain;
         private bool isAutoSkill;
 
         #endregion Fields

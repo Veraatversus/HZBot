@@ -12,14 +12,14 @@ namespace HZBot
         public int duration_type { get; set; }
         public int energy_cost { get; set; }
         public int fight_battle_id { get; set; }
-        public int fight_difficulty { get; set; }
+        public FightQuestDifficulty fight_difficulty { get; set; }
         public string fight_npc_identifier { get; set; }
         public int id { get; set; }
         public string identifier { get; set; }
         public int level { get; set; }
         public string rewards { get; set; }
         public int stage { get; set; }
-        public int status { get; set; }
+        public WorkStatus status { get; set; }
         public int ts_complete { get; set; }
         public int type { get; set; }
         public int used_resources { get; set; }

@@ -41,7 +41,7 @@
                 IsChecked="{Binding Plugins.Quest.IsAutoQuest}" />
             <ComboBox
                 Grid.Column="2"
-                ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:QuestDifficulty}}}"
+                ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:FightQuestDifficulty}}}"
                 SelectedItem="{Binding Plugins.Quest.QuestDifficulty}" />
             <ComboBox
                 Grid.Column="3"

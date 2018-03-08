@@ -12,7 +12,7 @@ namespace HZBot
         /// <returns></returns>
         public static async Task<string> LoginRequestAsync(this HzPluginBase plugin)
         {
-            plugin.Account.Log.Add($"[Loggin] User:{plugin.Account.Username}");
+
             return await plugin.Account.DefaultRequestContent("loginUser")
              .AddKeyValue("platform_user_id", "0")
              .AddKeyValue("platform", "web")
@@ -22,6 +22,7 @@ namespace HZBot
              .AddKeyValue("app_version", 144)
              .AddKeyValue("password", plugin.Account.Password)
              .AddKeyValue("rct", "1")
+             .AddLog($"[Account] LoginUser:{plugin.Account.Username}")
              .PostToHzAsync();
         }
 

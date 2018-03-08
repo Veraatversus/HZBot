@@ -16,13 +16,13 @@ namespace HZBot
             var content = new PostContent();
             if (workType == WorkType.Quest)
             {
-                content = plugin.Account.DefaultRequestContent("checkForQuestComplete");
-                plugin.Account.Log.Add($"[QUEST] END: ID:{plugin.Account.Data.ActiveQuest.id} Duration:{plugin.Account.Data.ActiveQuest.duration / 60}");
+                content = plugin.Account.DefaultRequestContent("checkForQuestComplete")
+                    .AddLog($"[Quest] END: ID:{plugin.Account.Data.ActiveQuest.id} Duration:{plugin.Account.Data.ActiveQuest.duration / 60}");
             }
             else if (workType == WorkType.Training)
             {
-                content = plugin.Account.DefaultRequestContent("checkForTrainingComplete");
-                plugin.Account.Log.Add($"[TRAINING] END: TrainStat:{plugin.Account.Data.ActiveTraining.StatType}");
+                content = plugin.Account.DefaultRequestContent("checkForTrainingComplete")
+                    .AddLog($"[Train] END: TrainStat:{plugin.Account.Data.ActiveTraining.StatType}");
             }
             var error = await content.PostToHzAsync();
             return error;
@@ -35,18 +35,18 @@ namespace HZBot
         public static async Task<string> ClaimWorkerRewardAsync(this HzPluginBase plugin, WorkType workType)
         {
             var content = new PostContent();
-            if (workType == WorkType.Quest)
+            if (workType == WorkType.Quest)      
             {
+                var rewards = plugin.Account.Data.ActiveQuest.GetRewards;
                 content = plugin.Account.DefaultRequestContent("claimQuestRewards")
                    .AddKeyValue("discard_item", "false")
-                   .AddKeyValue("create_new", "true");
-                var rewards = plugin.Account.Data.ActiveQuest.GetRewards;
-                plugin.Account.Log.Add($"[Quest] Reward:");
+                   .AddKeyValue("create_new", "true")
+                   .AddLog($"[Quest] Claim: XP:{rewards.xp} Coins:{rewards.coins} Premium:{rewards.premium} Honor:{rewards.honor} Item:{rewards.item}");
             }
             else if (workType == WorkType.Training)
             {
-                content = plugin.Account.DefaultRequestContent("claimTrainingRewards");
-                plugin.Account.Log.Add($"[Claim] TrainPoint:{plugin.Account.Data.ActiveTraining.stat_type}");
+                content = plugin.Account.DefaultRequestContent("claimTrainingRewards")
+                    .AddLog($"[Train] Claim Point:{plugin.Account.Data.ActiveTraining.StatType}");
             }
             content.AddKeyValue("rct", "2");
 
@@ -60,10 +60,10 @@ namespace HZBot
         /// <returns></returns>
         public static async Task<string> BuyQuestEnergyAsync(this HzPluginBase plugin, bool usePremiumCurrency)
         {
-            plugin.Account.Log.Add($"[Buy] QuestEnergy");
             var error = await plugin.Account.DefaultRequestContent("buyQuestEnergy")
                 .AddKeyValue("use_premium", usePremiumCurrency.ToString().ToLower())
                 .AddKeyValue("rct", "1")
+                .AddLog($"[Quest] BuyQuestEnergy")
                 .PostToHzAsync();
             return error;
         }
@@ -74,10 +74,10 @@ namespace HZBot
         /// <returns></returns>
         public static async Task<string> StartQuestAsync(this HzPluginBase plugin, Quest quest)
         {
-            plugin.Account.Log.Add($"[Quest] StartQuest: {quest.id}");
             var error = await plugin.Account.DefaultRequestContent("startQuest")
                 .AddKeyValue("quest_id", quest.id.ToString())
                 .AddKeyValue("rct", "1")
+                .AddLog($"[Quest] StartQuest: {quest.id}")
                 .PostToHzAsync();
             return error;
         }

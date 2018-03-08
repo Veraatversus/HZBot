@@ -9,6 +9,9 @@
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
+    <local:HzUserControl.Resources>
+        <local:RequestStateToBrushConverter x:Key="RequestStateToBrushConverter" />
+    </local:HzUserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,7 +22,16 @@
             FontSize="18"
             FontWeight="Bold"
             Text="Log:" />
-        <ListView Grid.Row="1" ItemsSource="{Binding Log.LogList}" />
+        <ListView
+            Grid.Row="1"
+            DisplayMemberPath="Text"
+            ItemsSource="{Binding Log.LogList}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="{Binding RequestState, Converter={StaticResource RequestStateToBrushConverter}}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
         <!--<ScrollViewer Grid.Row="1">
             <TextBlock Text="{Binding Log.GetLogsAsString}"/>
         </ScrollViewer>-->

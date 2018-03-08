@@ -7,7 +7,7 @@
         public int id { get; set; }
         public int ts_finished { get; set; }
         public string identifier { get; set; }
-        public int status { get; set; }
+        public WorldbossEventStatus status { get; set; }
         public int ts_start { get; set; }
         public int ts_end { get; set; }
         public int min_level { get; set; }

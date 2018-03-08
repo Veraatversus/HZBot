@@ -78,12 +78,12 @@ namespace HZBot
                 if (Account.ActiveWorker.RemainingTime <= -1)
                 {
                     //check for status complete
-                    if (Account.ActiveWorker.status == 2)
+                    if (Account.ActiveWorker.status == WorkStatus.Started)
                     {
                         await Account.Plugins.Quest.CheckForWorkerCompleteAsync(Account.ActiveWorker.WorkerType);
                     }
                     //when status is complete then start new Bot Action
-                    if (Account.ActiveWorker?.status == 4)
+                    if (Account.ActiveWorker?.status == WorkStatus.Finished)
                     {
                         await Account.Plugins.Quest.ClaimWorkerReward.TryExecuteAsync();
                         if (Account.Data != null)

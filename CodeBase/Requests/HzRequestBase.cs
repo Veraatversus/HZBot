@@ -27,9 +27,27 @@ namespace HZBot
 
         #region Methods
 
+        /// <summary>Adds the key value.</summary>
+        /// <param name="content">The content.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public static PostContent AddKeyValue(this PostContent content, object key, object value)
         {
             content.Content.Add(new KeyValuePair<string, string>(key.ToString(), value.ToString()));
+            return content;
+        }
+
+        /// <summary>Adds the log.</summary>
+        /// <param name="content">The content.</param>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public static PostContent AddLog(this PostContent content, string text)
+        {
+            content.LogObject.Text = text;
+            content.LogObject.Time = DateTime.Now;
+            content.Account.Plugins.LogPlugin.Add(content.LogObject);
+
             return content;
         }
 
@@ -61,6 +79,7 @@ namespace HZBot
         /// <returns>The error string or null</returns>
         public static async Task<string> PostToHzAsync(this PostContent content)
         {
+            content.LogObject.RequestState = RequestState.Pending;
             using (var formUrlEncodedContent = new FormUrlEncodedContent(content.Content))
             {
                 var response = await client.PostAsync(RequestUrl, formUrlEncodedContent);
@@ -71,13 +90,19 @@ namespace HZBot
                     var error = obj["error"];
                     if (!string.IsNullOrWhiteSpace(error.ToString()))
                     {
+                        content.LogObject.RequestState = RequestState.Error;
                         MessageBox.Show(error.Value<string>());
                         return error.Value<string>();
                     }
                     content.Account.MergeNewData(obj);
-                    content.Account.Log.Add($"Action {content.Content.FirstOrDefault(a => a.Key == "action").Value} Success");
+                    content.LogObject.RequestState = RequestState.Success;
+                    //content.Account.Log.Add($"Action {content.Content.FirstOrDefault(a => a.Key == "action").Value} Success");
 
                     //   return obj;
+                }
+                else
+                {
+                    content.LogObject.RequestState = RequestState.Error;
                 }
             }
             return null;

@@ -14,11 +14,11 @@ namespace HZBot
         /// <returns></returns>
         public static async Task<string> ImproveCharacterStatAsync(this HzPluginBase plugin, StatType statType, int skillAmount = 1)
         {
-            plugin.Account.Log.Add($"[Skill] Start Skill:{statType}");
             return await plugin.Account.DefaultRequestContent("improveCharacterStat")
              .AddKeyValue("skill_value", skillAmount)
              .AddKeyValue("stat_type", (int)statType)
              .AddKeyValue("rct", "2")
+             .AddLog($"[Skill] Start Skill:{statType.ToString()}")
              .PostToHzAsync();
         }
 
@@ -29,11 +29,11 @@ namespace HZBot
         /// <returns></returns>
         public static async Task<string> StartTrainingAsync(this HzPluginBase plugin, StatType statType, int iterations = 1)
         {
-            plugin.Account.Log.Add($"[Training] Start Training:{statType}");
             return await plugin.Account.DefaultRequestContent("startTraining")
            .AddKeyValue("iterations", iterations)
            .AddKeyValue("stat_type", (int)statType)
            .AddKeyValue("rct", "2")
+           .AddLog($"[Train] Start Training:{statType.ToString()}")
            .PostToHzAsync();
         }
 

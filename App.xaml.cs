@@ -22,7 +22,6 @@ namespace HZBot
             }
             var account = config?["account"] != null ? config?["account"].ToObject<HzAccount>() : new HzAccount();
             var window = new MainWindow(account);
-
             window.Show();
         }
 

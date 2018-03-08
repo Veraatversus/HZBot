@@ -8,29 +8,31 @@ namespace HZBot
 
         public static async Task<string> StartWorldbossAttackAsync(this HzPluginBase plugin, int worldboss_event_id)
         {
-            plugin.Account.Log.Add($"[WORLDBOSS]Start Attack!");
+
             var error = await plugin.Account.DefaultRequestContent("startWorldbossAttack")
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("worldboss_event_id", worldboss_event_id)
+                .AddLog($"[WORLDBOSS] Start Attack!")
                 .PostToHzAsync();
             return error;
         }
 
         public static async Task<string> CheckForWorldbossAttackCompleteAsync(this HzPluginBase plugin)
         {
-            plugin.Account.Log.Add($"[WORLDBOSS]Check Complete!");
             var error = await plugin.Account.DefaultRequestContent("checkForWorldbossAttackComplete")
                 .AddKeyValue("rct", "2")
+                .AddLog($"[WORLDBOSS] Check Complete!")
                 .PostToHzAsync();
             return error;
         }
 
         public static async Task<string> FinishWorldbossAttackAsync(this HzPluginBase plugin, int worldboss_event_id)
         {
-            plugin.Account.Log.Add($"[WORLDBOSS]Finish Attack!");
+
             var error = await plugin.Account.DefaultRequestContent("finishWorldbossAttack")
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("worldboss_event_id", worldboss_event_id)
+                .AddLog($"[WORLDBOSS] Finish Attack!")
                 .PostToHzAsync();
             return error;
         }
