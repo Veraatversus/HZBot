@@ -1,5 +1,9 @@
 ﻿namespace HZBot
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public enum WorkStatus
     {
         Unknown,

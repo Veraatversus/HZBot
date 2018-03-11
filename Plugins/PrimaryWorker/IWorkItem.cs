@@ -1,5 +1,8 @@
 ﻿namespace HZBot
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IWorkItem
     {
         int id { get; set; }
