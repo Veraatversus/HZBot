@@ -71,7 +71,7 @@ namespace HZBot
         {
             Context.Send(o =>
             {
-                var keyvalue = RequestLog.FirstOrDefault(kv => kv.Key == error);
+                var keyvalue = ErrorLog.FirstOrDefault(kv => kv.Key == error);
                 if (keyvalue != null)
                 {
                     keyvalue.Value++;

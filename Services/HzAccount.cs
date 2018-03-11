@@ -54,6 +54,10 @@ namespace HZBot
                 RaisePropertyChanged();
                 if (IsLogined)
                     Plugins.RaiseOnLogined();
+                if (Config.IsAutoStartBot)
+                {
+                    IsBotEnabled = true;
+                }
                 else
                 {
                     Plugins.RaiseOnlogoffed();
