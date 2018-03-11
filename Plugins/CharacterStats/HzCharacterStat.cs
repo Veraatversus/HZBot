@@ -1,6 +1,6 @@
 ﻿namespace HZBot
 {
-    public class CharacterStat
+    public class HzCharacterStat
     {
         public StatType StatType { get; set; }
         public int BaseValue { get; set; }

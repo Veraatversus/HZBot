@@ -12,88 +12,66 @@
     <local:HzUserControl.Resources>
         <local:FriendlyTimeConverter x:Key="FriendlyTimeConverter" />
     </local:HzUserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+    <Expander Header="{Binding}">
+        <Expander.HeaderTemplate>
+            <DataTemplate>
+                <Grid HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource AncestorType=ContentPresenter}, Mode=OneWayToSource}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                VerticalAlignment="Center"
-                FontSize="18"
-                FontWeight="Bold"
-                Text="Quests:" />
-            <CheckBox
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Content="AutoQuest"
-                IsChecked="{Binding Plugins.Quest.IsAutoQuest}" />
-            <ComboBox
-                Grid.Column="2"
-                ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:FightQuestDifficulty}}}"
-                SelectedItem="{Binding Plugins.Quest.QuestDifficulty}" />
-            <ComboBox
-                Grid.Column="3"
-                ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:QuestMode}}}"
-                SelectedItem="{Binding Plugins.Quest.QuestMode}" />
-        </Grid>
-
-        <ListView Grid.Row="1" Grid.RowSpan="2">
-            <ListView ItemsSource="{Binding Quests}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" />
-                        <GridViewColumn DisplayMemberBinding="{Binding level}" Header="Level" />
-                        <GridViewColumn DisplayMemberBinding="{Binding energy_cost}" Header="-E" />
-                        <GridViewColumn DisplayMemberBinding="{Binding duration, Converter={StaticResource FriendlyTimeConverter}}" Header="Time" />
-                        <GridViewColumn DisplayMemberBinding="{Binding fight_difficulty}" Header="Dif" />
-                        <GridViewColumn DisplayMemberBinding="{Binding GetRewards.xp}" Header="XP" />
-                        <GridViewColumn DisplayMemberBinding="{Binding GetRewards.coins}" Header="Gold" />
-                        <GridViewColumn DisplayMemberBinding="{Binding GetRewards.premium}" Header="Prem." />
-                        <GridViewColumn DisplayMemberBinding="{Binding GetRewards.statPoints}" Header="Stat" />
-                        <GridViewColumn DisplayMemberBinding="{Binding GetRewards.honor}" Header="Hon." />
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button
-                                        Command="{Binding Account.Plugins.Quest.StartQuest, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
-                                        CommandParameter="{Binding Mode=OneWay}"
-                                        Content="Start" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="Quests:" />
+                    <CheckBox
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="AutoQuest"
+                        IsChecked="{Binding Config.IsAutoQuest}" />
+                    <ComboBox
+                        Grid.Column="2"
+                        ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:FightQuestDifficulty}}}"
+                        SelectedItem="{Binding Config.QuestDifficulty}" />
+                    <ComboBox
+                        Grid.Column="3"
+                        ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:QuestMode}}}"
+                        SelectedItem="{Binding Config.QuestMode}" />
+                </Grid>
+            </DataTemplate>
+        </Expander.HeaderTemplate>
+        <ListView Grid.Row="1" ItemsSource="{Binding Quests}">
+            <ListView.View>
+                <GridView ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" />
+                    <GridViewColumn DisplayMemberBinding="{Binding level}" Header="Level" />
+                    <GridViewColumn DisplayMemberBinding="{Binding energy_cost}" Header="-E" />
+                    <GridViewColumn DisplayMemberBinding="{Binding duration, Converter={StaticResource FriendlyTimeConverter}}" Header="Time" />
+                    <GridViewColumn DisplayMemberBinding="{Binding fight_difficulty}" Header="Dif" />
+                    <GridViewColumn DisplayMemberBinding="{Binding GetRewards.xp}" Header="XP" />
+                    <GridViewColumn DisplayMemberBinding="{Binding GetRewards.coins}" Header="Gold" />
+                    <GridViewColumn DisplayMemberBinding="{Binding GetRewards.premium}" Header="Prem." />
+                    <GridViewColumn DisplayMemberBinding="{Binding GetRewards.statPoints}" Header="Stat" />
+                    <GridViewColumn DisplayMemberBinding="{Binding GetRewards.honor}" Header="Hon." />
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Command="{Binding Account.Plugins.Quest.StartQuest, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                                    CommandParameter="{Binding Mode=OneWay}"
+                                    Content="Start" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
         </ListView>
-
-        <ListView
-            Grid.Row="2"
-            local:ListBoxBehavior.ScrollOnNewItem="True"
-            ItemsSource="{Binding Plugins.Quest.QuestLog}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Item1, StringFormat={}{0} : }" />
-                        <TextBlock Grid.Column="1" Text="{Binding Item2.id, StringFormat={}Start {0}}" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+    </Expander>
 </local:HzUserControl>

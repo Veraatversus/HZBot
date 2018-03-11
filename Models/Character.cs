@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace HZBot
+﻿namespace HZBot
 {
     public class Character
     {
@@ -141,40 +138,10 @@ namespace HZBot
         public string new_user_voucher_ids { get; set; }
         public int current_energy_storage { get; set; }
         public int current_training_storage { get; set; }
-        public CharacterStat Stamina => new CharacterStat() { StatType = StatType.Stamina, Gewichtung = .2f, BaseValue = stat_base_stamina, BoughtValue = stat_bought_stamina, TotalValue = stat_total_stamina, TrainingValue = training_progress_value_stamina, TrainingMaxValue = training_progress_end_stamina };
-        public CharacterStat Strength => new CharacterStat() { StatType = StatType.Strength, Gewichtung = .5f, BaseValue = stat_base_strength, BoughtValue = stat_bought_strength, TotalValue = stat_total_strength, TrainingValue = training_progress_value_strength, TrainingMaxValue = training_progress_end_strength };
-        public CharacterStat CriticalRating => new CharacterStat() { StatType = StatType.CriticalRating, Gewichtung = 1, BaseValue = stat_base_critical_rating, BoughtValue = stat_bought_critical_rating, TotalValue = stat_total_critical_rating, TrainingValue = training_progress_value_critical_rating, TrainingMaxValue = training_progress_end_critical_rating };
-        public CharacterStat DodgeRating => new CharacterStat() { StatType = StatType.DodgeRating, Gewichtung = 1, BaseValue = stat_base_dodge_rating, BoughtValue = stat_bought_dodge_rating, TotalValue = stat_total_dodge_rating, TrainingValue = training_progress_value_dodge_rating, TrainingMaxValue = training_progress_end_dodge_rating };
-        public List<CharacterStat> Stats => new List<CharacterStat>() { Stamina, Strength, CriticalRating, DodgeRating };
-        public int CurrentGameCurrencyCostEnergyRefill => HzConstants.Default.GameCurrencyCostEnergyRefill(level, quest_energy_refill_amount_today);
+
+        public HzCharacterStats HzStats => new HzCharacterStats(this);
+        public int CurrentGameCurrencyCostEnergyRefill => GameUtil.gameCurrencyCostEnergyRefill(level, quest_energy_refill_amount_today);
 
         #endregion Properties
-
-        #region Methods
-
-        /// <summary>Gets the next Character Stat to Improve.</summary>
-        /// <returns></returns>
-        public CharacterStat GetNextImroveStat()
-        {
-            return Stats.OrderBy(stat => stat.BaseValue).FirstOrDefault();
-        }
-
-        /// <summary>Determines whether this Character [can improve character stat].</summary>
-        /// <returns>
-        ///   <c>true</c> if this instance [can improve character stat]; otherwise, <c>false</c>.</returns>
-        public bool CanImproveCharacterStat()
-        {
-            return stat_points_available > 0;
-        }
-
-        /// <summary>Determines whether this Character can train.</summary>
-        /// <returns>
-        ///   <c>true</c> if this instance can train; otherwise, <c>false</c>.</returns>
-        public bool CanTrain()
-        {
-            return training_count > 0;
-        }
-
-        #endregion Methods
     }
 }

@@ -9,35 +9,23 @@ namespace HZBot
 
         public CharacterStatPlugin(HzAccount account) : base(account)
         {
-            ImproveCharacterStatCommand = new AsyncRelayCommand<CharacterStat>(
+            ImproveCharacterStatCommand = new AsyncRelayCommand<HzCharacterStat>(
                 async stat => await this.ImproveCharacterStatAsync(stat.StatType),
-                stat => Account.Character?.CanImproveCharacterStat() ?? false);
+                stat => Account.Character?.HzStats.CanImproveCharacterStat(stat) ?? false);
 
-            TrainCharacterStatCommand = new AsyncRelayCommand<CharacterStat>(
+            TrainCharacterStatCommand = new AsyncRelayCommand<HzCharacterStat>(
                 async (stat) => await this.StartTrainingAsync(stat.StatType),
-                (stat) => Account.ActiveWorker == null && (Account.Character?.CanTrain() ?? false));
+                (stat) => Account.ActiveWorker == null && (Account.Character?.HzStats.CanTrain(stat) ?? false));
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public bool IsAutoTrain
-        {
-            get { return isAutoTrain; }
-            set { isAutoTrain = value; RaisePropertyChanged(); }
-        }
-
-        public bool IsAutoSkill
-        {
-            get { return isAutoSkill; }
-            set { isAutoSkill = value; RaisePropertyChanged(); }
-        }
-
-        public AsyncRelayCommand<CharacterStat> ImproveCharacterStatCommand { get; private set; }
+        public AsyncRelayCommand<HzCharacterStat> ImproveCharacterStatCommand { get; private set; }
 
         //Train Stats Commands
-        public AsyncRelayCommand<CharacterStat> TrainCharacterStatCommand { get; private set; }
+        public AsyncRelayCommand<HzCharacterStat> TrainCharacterStatCommand { get; private set; }
 
         #endregion Properties
 
@@ -46,21 +34,21 @@ namespace HZBot
         public async override Task OnPrimaryWorkerDoWork()
         {
             // IsAutoSkill
-            if (IsAutoSkill && Account.Character.CanImproveCharacterStat())
+            if (Account.Config.IsAutoSkill)
             {
                 var trainCount = Account.Character.stat_points_available;
                 for (int i = 0; i < trainCount; i++)
                 {
-                    var stat = Account.Character.GetNextImroveStat();
+                    var stat = Account.Character.HzStats.GetNextImroveStat();
                     await ImproveCharacterStatCommand.TryExecuteAsync(stat);
                 }
             }
 
             // IsAutoTrain
-            if (IsAutoTrain && Account.Character.CanTrain() && Account.ActiveWorker == null)
+            if (Account.Config.IsAutoTrain && Account.ActiveWorker == null)
             {
-                var trainStat = Account.Character.Stats.FirstOrDefault(stat => stat.TrainingValue > 0) ?? Account.Character.GetNextImroveStat();
-                if (trainStat != null)
+                var trainStat = Account.Character.HzStats.TrainStats.FirstOrDefault(stat => stat.TrainingValue > 0) ?? Account.Character.HzStats.GetNextImroveStat();
+                if (Account.Character.HzStats.CanTrain(trainStat))
                 {
                     await TrainCharacterStatCommand.TryExecuteAsync(trainStat);
                 }
@@ -68,12 +56,5 @@ namespace HZBot
         }
 
         #endregion Methods
-
-        #region Fields
-
-        private bool isAutoTrain;
-        private bool isAutoSkill;
-
-        #endregion Fields
     }
 }

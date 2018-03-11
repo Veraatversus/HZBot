@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HZBot
+﻿namespace HZBot
 {
     public class AccountPlugin : HzPluginBase
     {
@@ -21,46 +19,6 @@ namespace HZBot
         //Command for Login into Account
         public AsyncRelayCommand LoginCommand { get; private set; }
 
-        public bool IsAutoReconnect { get; set; }
-
-        public bool IsBotEnabled
-        {
-            get
-            {
-                return _isBotEnabled;
-            }
-
-            set
-            {
-                _isBotEnabled = value;
-                RaisePropertyChanged();
-                if (IsBotEnabled)
-                {
-                    //Action onstartet = async () => await Account.Plugins.RaiseOnBotStarted();
-                    //onstartet();
-                    Account.Plugins.RaiseOnBotStarted();
-                    if (Account.ActiveWorker == null)
-                    {
-                        Account.Plugins.RaiseOnPrimaryWorkerComplete();
-                        //Action workerComplete = async () => await Account.Plugins.RaiseOnPrimaryWorkerComplete();
-                        //workerComplete();
-                    }
-                }
-                else
-                {
-                    Account.Plugins.RaiseOnBotStoped();
-                    //Action botstopped = async () => await Account.Plugins.RaiseOnBotStoped();
-                    //botstopped();
-                }
-            }
-        }
-
         #endregion Properties
-
-        #region Fields
-
-        private bool _isBotEnabled;
-
-        #endregion Fields
     }
 }

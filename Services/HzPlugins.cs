@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace HZBot
 {
@@ -11,12 +10,14 @@ namespace HZBot
         public HzPlugins(HzAccount account)
         {
             hzAccount = account;
-            LogPlugin = RegisterPlugin(new LogPlugin(hzAccount));
+            Log = RegisterPlugin(new LogPlugin(hzAccount));
             Account = RegisterPlugin(new AccountPlugin(hzAccount));
             CharacterStat = RegisterPlugin(new CharacterStatPlugin(hzAccount));
             Quest = RegisterPlugin(new QuestPlugin(hzAccount));
             Duel = RegisterPlugin(new DuelPlugin(hzAccount));
             HideOut = RegisterPlugin(new HideOutPlugin(hzAccount));
+            Item = RegisterPlugin(new ItemPlugin(hzAccount));
+            PrimaryWorker = RegisterPlugin(new PrimaryWorkerPlugin(hzAccount));
             DefaultContext = System.Threading.SynchronizationContext.Current;
         }
 
@@ -28,12 +29,14 @@ namespace HZBot
         public QuestPlugin Quest { get; private set; }
         public DuelPlugin Duel { get; private set; }
         public HideOutPlugin HideOut { get; private set; }
+        public ItemPlugin Item { get; private set; }
+        public PrimaryWorkerPlugin PrimaryWorker { get; private set; }
 
-        private SynchronizationContext DefaultContext;
+        private readonly SynchronizationContext DefaultContext;
 
         public AccountPlugin Account { get; private set; }
 
-        public LogPlugin LogPlugin { get; }
+        public LogPlugin Log { get; }
 
         #endregion Properties
 
@@ -129,8 +132,8 @@ namespace HZBot
 
         #region Fields
 
-        private List<IHzPlugin> AllPlugins = new List<IHzPlugin>();
-        private HzAccount hzAccount;
+        private readonly List<IHzPlugin> AllPlugins = new List<IHzPlugin>();
+        private readonly HzAccount hzAccount;
 
         #endregion Fields
     }

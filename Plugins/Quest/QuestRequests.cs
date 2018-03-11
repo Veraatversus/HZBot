@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace HZBot
 {
@@ -35,7 +34,7 @@ namespace HZBot
         public static async Task<string> ClaimWorkerRewardAsync(this HzPluginBase plugin, WorkType workType)
         {
             var content = new PostContent();
-            if (workType == WorkType.Quest)      
+            if (workType == WorkType.Quest)
             {
                 var rewards = plugin.Account.Data.ActiveQuest.GetRewards;
                 content = plugin.Account.DefaultRequestContent("claimQuestRewards")
@@ -66,6 +65,27 @@ namespace HZBot
                 .AddLog($"[Quest] BuyQuestEnergy")
                 .PostToHzAsync();
             return error;
+        }
+
+        /// <summary>Aborts the worker asynchronous.</summary>
+        /// <param name="plugin">The plugin.</param>
+        /// <returns></returns>
+        public static async Task<string> AbortWorkerAsync(this HzPluginBase plugin)
+        {
+            var content = new PostContent();
+            if (plugin.Account.ActiveWorker?.WorkerType == WorkType.Quest)
+            {
+                content = plugin.Account.DefaultRequestContent("abortQuest")
+                    .AddLog($"[Train] Abbort Training");
+            }
+            else if (plugin.Account.ActiveWorker?.WorkerType == WorkType.Training)
+            {
+                content = plugin.Account.DefaultRequestContent("abortTraining")
+                    .AddLog($"[Train] Abbort Training");
+            }
+
+            return await content.AddKeyValue("rct", "2")
+                .PostToHzAsync();
         }
 
         /// <summary>Starts the quest asynchronous.</summary>

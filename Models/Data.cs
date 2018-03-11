@@ -28,7 +28,8 @@ namespace HZBot
         public Quest ActiveQuest => quests.FirstOrDefault(quest => quest.id == character.active_quest_id);
         public Training ActiveTraining => character.active_training_id == training?.id ? training : null;
         public Duel ActiveDuel => character.active_duel_id == duel?.id ? duel : null;
-        public WorldbossEvent ActiveWorldBoss => character.worldboss_event_id != 0 ? worldboss_events?.FirstOrDefault(e=> e.id == character.worldboss_event_id) : null;
+        public WorldbossEvent ActiveWorldBoss => character.worldboss_event_id != 0 ? worldboss_events?.FirstOrDefault(e => e.id == character.worldboss_event_id) : null;
+
         public IWorkItem ActiveWorker
         {
             get
@@ -39,12 +40,12 @@ namespace HZBot
             }
         }
 
+        public HzInventory HzInventory => new HzInventory(this);
         public Training training { get; set; }
         public Quest BestQuest => quests.Aggregate((q1, q2) => q1.XPCurrencyPerEneryAverage > q2.XPCurrencyPerEneryAverage ? q1 : q2);
 
-        //public opponents BestDuel => opponents.Where(g1 => character.FightStat > g1.fightStat).OrderBy(g => g.fightStat);
-        
-
         #endregion Properties
+
+        //public opponents BestDuel => opponents.Where(g1 => character.FightStat > g1.fightStat).OrderBy(g => g.fightStat);
     }
 }

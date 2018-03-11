@@ -6,8 +6,7 @@
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="UserControl"
-    d:DataContext="{d:DesignInstance local:HzAccount,
-                                     IsDesignTimeCreatable=True}"
+    d:DataContext="{d:DesignInstance local:HzAccount}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -26,54 +25,67 @@
             Grid.RowSpan="2"
             Grid.Column="0">
             <WrapPanel Orientation="Horizontal">
-                <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding Plugins.Account.IsBotEnabled}">Enable Bot</CheckBox>
-                <CheckBox
+                <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding IsBotEnabled}">Enable Bot</CheckBox>
+                <!--<CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Plugins.CharacterStat.IsAutoTrain}">
+                    IsChecked="{Binding Config.IsAutoTrain}">
                     AutoTrain
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Plugins.Quest.IsAutoQuest}">
+                    IsChecked="{Binding Config.IsAutoQuest}">
                     AutoQuest
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Plugins.CharacterStat.IsAutoSkill}">
+                    IsChecked="{Binding Config.IsAutoSkill}">
                     AutoSkill
-                </CheckBox>
+                </CheckBox>-->
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Plugins.HideOut.IsAutoHideOutCollect}">
+                    IsChecked="{Binding Config.IsAutoHideOutCollect}">
                     AutoHideOutCollect
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Plugins.HideOut.IsAutoHideOutBuild}">
+                    IsChecked="{Binding Config.IsAutoHideOutBuild}">
                     AutoHideOutBuild
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Plugins.Quest.IsAutoBuyEnergyFromGold}">
+                    IsChecked="{Binding Config.IsAutoBuyEnergyFromGold}">
                     Buy Energy for Gold
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Plugins.Quest.IsAutoBuyEnergyFromPremium}">
+                    IsChecked="{Binding Config.IsAutoBuyEnergyFromPremium}">
                     Buy Energy for Premium
                 </CheckBox>
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Bot.IsAutoReconnect}">
+                    IsChecked="{Binding Config.IsAutoReconnect}">
                     AutoReconect
+                </CheckBox>
+                <!--<CheckBox
+                    Margin="5,0,0,0"
+                    HorizontalContentAlignment="Left"
+                    IsChecked="{Binding Config.IsAutoEquip}">
+                    AutoEquip
+                </CheckBox>-->
+
+                <CheckBox
+                    Margin="5,0,0,0"
+                    HorizontalContentAlignment="Left"
+                    IsChecked="{Binding Config.IsAutoDuel}">
+                    AutoDuel
                 </CheckBox>
             </WrapPanel>
             <Grid.Style>
@@ -127,14 +139,14 @@
                 Grid.Column="0"
                 BorderBrush="Black"
                 BorderThickness="2"
-                Text="{Binding Username}" />
+                Text="{Binding Config.Username}" />
             <TextBox
                 x:Name="tbPassword"
                 Grid.Row="1"
                 Grid.Column="1"
                 BorderBrush="Black"
                 BorderThickness="2"
-                Text="{Binding Password}" />
+                Text="{Binding Config.Password}" />
         </Grid>
         <Label
             Grid.Row="0"

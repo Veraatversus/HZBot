@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System.IO;
-using System.Windows;
+﻿using System.Windows;
 
 namespace HZBot
 {
@@ -14,15 +12,15 @@ namespace HZBot
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var configFilePath = "config.json";
-            JObject config = null;
-            if (File.Exists(configFilePath))
-            {
-                config = JObject.Parse(File.ReadAllText(configFilePath));
-            }
-            var account = config?["account"] != null ? config?["account"].ToObject<HzAccount>() : new HzAccount();
-            var window = new MainWindow(account);
+            HzAccountManger.Load();
+            var window = new MainWindow();
             window.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            HzAccountManger.Save();
         }
 
         #endregion Methods

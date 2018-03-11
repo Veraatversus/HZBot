@@ -18,10 +18,10 @@ namespace HZBot
 
         #region Properties
 
-        public TimeSpan TimerText
+        public TimeSpan Text
         {
-            get { return _timerText; }
-            set { _timerText = value; RaisePropertyChanged(); }
+            get { return _Text; }
+            set { _Text = value; RaisePropertyChanged(); }
         }
 
         public bool IsTimerEnabled
@@ -36,7 +36,7 @@ namespace HZBot
                 if (!_isTimerEnabled)
                 {
                     //workerTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-                    TimerText = TimeSpan.FromSeconds(0);
+                    Text = TimeSpan.FromSeconds(0);
                 }
             }
         }
@@ -45,12 +45,12 @@ namespace HZBot
 
         #region Fields
 
-        private Timer workerTimer;
+        private readonly Timer workerTimer;
 
         private bool _isTimerEnabled;
 
-        private TimeSpan _timerText = TimeSpan.FromSeconds(0);
-        private SynchronizationContext UIContext;
+        private TimeSpan _Text = TimeSpan.FromSeconds(0);
+        private readonly SynchronizationContext UIContext;
 
         #endregion Fields
 
@@ -90,12 +90,11 @@ namespace HZBot
                         {
                             if (Account.ActiveWorker == null)
                             {
-                                if (Account.Plugins.Account.IsBotEnabled)
+                                if (Account.IsBotEnabled)
                                 {
                                     IsTimerEnabled = false;
-                                   Account.Plugins.RaiseOnPrimaryWorkerComplete();
+                                    Account.Plugins.RaiseOnPrimaryWorkerComplete();
                                 }
-
                             }
                         }
                     }
@@ -103,7 +102,7 @@ namespace HZBot
                 //Worker is working, update Timer Text
                 else
                 {
-                    TimerText = TimeSpan.FromSeconds(Account.ActiveWorker.RemainingTime);
+                    Text = TimeSpan.FromSeconds(Account.ActiveWorker.RemainingTime);
                 }
             }
             //No Active Worker so Stop Timer and start new Bot Action

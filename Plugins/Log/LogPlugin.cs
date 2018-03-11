@@ -47,7 +47,7 @@ namespace HZBot
 
         #region Fields
 
-        private SynchronizationContext Context;
+        private readonly SynchronizationContext Context;
 
         #endregion Fields
     }

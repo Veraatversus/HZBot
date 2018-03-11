@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -46,17 +45,6 @@ namespace HZBot
 
         #region Properties
 
-        public QuestMode QuestMode { get; set; } = QuestMode.Balanced;
-        public FightQuestDifficulty QuestDifficulty { get; set; } = FightQuestDifficulty.Medium;
-
-        public bool IsAutoQuest
-        {
-            get { return isAutoQuest; }
-            set { isAutoQuest = value; RaisePropertyChanged(); }
-        }
-
-        public bool IsAutoBuyEnergyFromGold { get; set; }
-        public bool IsAutoBuyEnergyFromPremium { get; set; }
         public ObservableCollection<Tuple<DateTime, Quest>> QuestLog { get; } = new ObservableCollection<Tuple<DateTime, Quest>>();
 
         //Quest Commands
@@ -82,25 +70,25 @@ namespace HZBot
                 MessageBox.Show("WorldBoss ist da ruf Vera an!!!");
             }
             //IsAutoBuyEnergyFromGold
-            if (IsAutoBuyEnergyFromGold && BuyEnergyFromGold.CanExecute)
+            if (Account.Config.IsAutoBuyEnergyFromGold && BuyEnergyFromGold.CanExecute)
             {
                 await BuyEnergyFromGold.TryExecuteAsync();
             }
 
             // IsAutoBuyEnergyFromPremium
-            if (IsAutoBuyEnergyFromPremium && BuyEnergyFromPremium.CanExecute)
+            if (Account.Config.IsAutoBuyEnergyFromPremium && BuyEnergyFromPremium.CanExecute)
             {
                 await BuyEnergyFromPremium.TryExecuteAsync();
             }
 
             // IsAutoQuest
-            if (IsAutoQuest && StartBestQuest.CanExecute)
+            if (Account.Config.IsAutoQuest && StartBestQuest.CanExecute)
             {
                 //Enough Energie?
                 var quests = Account.Quests.Where(q => q.energy_cost <= Account.Character.quest_energy);
 
                 //QuestMode
-                switch (this.QuestMode)
+                switch (Account.Config.QuestMode)
                 {
                     case QuestMode.MostGold:
                         quests = quests.OrderBy(q => q.CurrencyPerEnergy);
@@ -116,7 +104,7 @@ namespace HZBot
                 }
 
                 //Quest Difficulty
-                switch (this.QuestDifficulty)
+                switch (Account.Config.QuestDifficulty)
                 {
                     case FightQuestDifficulty.Easy:
                         quests = quests.SkipWhile(q => q.fight_difficulty > FightQuestDifficulty.Easy);
@@ -132,7 +120,7 @@ namespace HZBot
                 }
 
                 //Premium Or Statpoint Quest
-                var PremiumOrStatpoint = quests.FirstOrDefault(q => q.GetRewards.premium > 0) ?? quests.FirstOrDefault(q=> q.GetRewards.statPoints > 0);
+                var PremiumOrStatpoint = quests.FirstOrDefault(q => q.GetRewards.premium > 0) ?? quests.FirstOrDefault(q => q.GetRewards.statPoints > 0);
 
                 var quest = PremiumOrStatpoint ?? quests.FirstOrDefault();
                 if (quest != null)
@@ -145,17 +133,5 @@ namespace HZBot
         }
 
         #endregion Methods
-
-        #region Fields
-
-        private readonly Timer ActiveWorkerTimer;
-        private bool isAutoQuest;
-        private bool _isTimerEnabled;
-
-        #endregion Fields
-
-        private async void onTimerTick(object state)
-        {
-        }
     }
 }

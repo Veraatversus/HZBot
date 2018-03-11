@@ -5,8 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DataContext="{d:DesignInstance local:HzAccount,
-                                     IsDesignTimeCreatable=True}"
+    d:DataContext="{d:DesignInstance local:HzAccount}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -15,17 +14,17 @@
             FontSize="18"
             FontWeight="Bold"
             Text="ActiveWork:" />
-        <TextBlock Text="{Binding Data.ActiveWorker.WorkerType, StringFormat=Type: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.id, StringFormat=ID: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.duration, StringFormat=Duration: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.energy_cost, StringFormat=EnergyCost: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.level, StringFormat=Level: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.stage, StringFormat=Stage: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.XPPerEnergy, StringFormat=XPPerEnergy: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.WorkerType, StringFormat=Type: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.id, StringFormat=ID: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.duration, StringFormat=Duration: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.energy_cost, StringFormat=EnergyCost: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.level, StringFormat=Level: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.stage, StringFormat=Stage: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.XPPerEnergy, StringFormat=XPPerEnergy: {0}}" />
         <TextBlock Text="{Binding Data.ActiveWorker.CurrencyPerEnergy, StringFormat=CurrencyPerEnergy: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.XPCurrencyPerEneryAverage, StringFormat=XPCurrencyPerEneryAverage: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.status, StringFormat=Status: {0}}" />
-        <TextBlock Text="{Binding Data.ActiveWorker.StatType, StringFormat=Type: {0}}" />
-        <TextBlock Text="{Binding PrimaryWorkerTimer.TimerText, StringFormat=Remaining Time: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.XPCurrencyPerEneryAverage, StringFormat=XPCurrencyPerEneryAverage: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.status, StringFormat=Status: {0}}" />
+        <TextBlock Text="{Binding ActiveWorker.StatType, StringFormat=Type: {0}}" />
+        <TextBlock Text="{Binding Plugins.PrimaryWorker.Timer.Text, StringFormat=Remaining Time: {0}}" />
     </StackPanel>
 </local:HzUserControl>

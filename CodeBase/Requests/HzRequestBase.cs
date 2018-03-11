@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace HZBot
 {
@@ -46,7 +45,7 @@ namespace HZBot
         {
             content.LogObject.Text = text;
             content.LogObject.Time = DateTime.Now;
-            content.Account.Plugins.LogPlugin.Add(content.LogObject);
+            content.Account.Plugins.Log.Add(content.LogObject);
 
             return content;
         }
@@ -75,7 +74,6 @@ namespace HZBot
 
         /// <summary>Posts the specified content to the server.</summary>
         /// <param name="content">The content.</param>
-        /// <param name="account">The account.</param>
         /// <returns>The error string or null</returns>
         public static async Task<string> PostToHzAsync(this PostContent content)
         {
@@ -91,7 +89,8 @@ namespace HZBot
                     if (!string.IsNullOrWhiteSpace(error.ToString()))
                     {
                         content.LogObject.RequestState = RequestState.Error;
-                        MessageBox.Show(error.Value<string>());
+                        content.LogObject.Tooltip = error.Value<string>();
+                        // MessageBox.Show(error.Value<string>());
                         return error.Value<string>();
                     }
                     content.Account.MergeNewData(obj);

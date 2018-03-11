@@ -16,9 +16,9 @@ namespace HZBot
 
         public HzAccount()
         {
-            AccountManger.Accounts.Add(this);
+            HzAccountManger.AddAccount(this);
             Plugins = new HzPlugins(this);
-            PrimaryWorkerTimer = new PrimaryWorkerTimer(this);
+            Config = new HzConfig();
             OnDataChanged += HzAccount_OnDataChanged;
         }
 
@@ -34,50 +34,48 @@ namespace HZBot
 
         public long ServerTime => DateTimeOffset.Now.ToUnixTimeSeconds() + ServerTimeOffset;
 
-        //Commands
         public HzPlugins Plugins { get; }
+        public HzConfig Config { get; set; }
+        public Data Data => MainData?.data;
+        public User User => MainData?.data.user;
+        public Character Character => MainData?.data.character;
+        public List<Quest> Quests => MainData?.data.quests;
+        public JObject JsonData { get; } = new JObject();
 
-        //Personal data
-        public string Username { get => _username; set { _username = value; RaisePropertyChanged(); } }
-
-        public string Password { get => _password; set { _password = value; RaisePropertyChanged(); } }
-        public LogPlugin Log => Plugins.LogPlugin;
-
-        //Bot data
         public bool IsLogined
         {
-            get => _isLogined;
+            get => isLogined;
             set
             {
-                _isLogined = value;
+                isLogined = value;
                 RaisePropertyChanged();
                 if (IsLogined)
-                {
                     Plugins.RaiseOnLogined();
-                    //Action onlogin = async () => await Plugins.RaiseOnLogined();
-                    //onlogin();
-                }
                 else
                 {
                     Plugins.RaiseOnlogoffed();
-                    //Action onlogoff = async () => await Plugins.RaiseOnlogoffed();
-                    //onlogoff();
-                    Plugins.Account.IsBotEnabled = false;
+                    IsBotEnabled = false;
                 }
             }
         }
 
-        public Data Data => MainData?.data;
-
-        public User User => MainData?.data.user;
-
-        public Character Character => MainData?.data.character;
-
-        public List<Quest> Quests => MainData?.data.quests;
-
-        public PrimaryWorkerTimer PrimaryWorkerTimer { get; }
-
-        public JObject JsonData { get; } = new JObject();
+        public bool IsBotEnabled
+        {
+            get => isBotEnabled;
+            set
+            {
+                isBotEnabled = value;
+                RaisePropertyChanged();
+                if (IsBotEnabled)
+                {
+                    Plugins.RaiseOnBotStarted();
+                    if (ActiveWorker == null)
+                        Plugins.RaiseOnPrimaryWorkerComplete();
+                }
+                else
+                    Plugins.RaiseOnBotStoped();
+            }
+        }
 
         public JsonRoot MainData
         {
@@ -85,29 +83,27 @@ namespace HZBot
             set { _mainData = value; RaisePropertyChanged(); OnDataChanged?.Invoke(); }
         }
 
+        public LogPlugin Log => Plugins.Log;
         public IWorkItem ActiveWorker => Data?.ActiveWorker;
 
         #endregion Properties
 
         private JsonRoot _mainData;
-        private bool _isLogined;
-        private string _username;
-        private string _password;
-        private bool IsRunning;
+        private bool isBotEnabled;
+        private bool isLogined;
 
         ~HzAccount()
         {
-            AccountManger.Accounts.Remove(this);
+            HzAccountManger.RemoveAccount(this);
         }
 
-        private async void HzAccount_OnDataChanged()
+        private void HzAccount_OnDataChanged()
         {
             RaisePropertyChanged(nameof(Data));
             RaisePropertyChanged(nameof(User));
             RaisePropertyChanged(nameof(Character));
             RaisePropertyChanged(nameof(Quests));
             RaisePropertyChanged(nameof(ActiveWorker));
-
         }
     }
 }

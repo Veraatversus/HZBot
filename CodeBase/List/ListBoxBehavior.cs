@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace HZBot
 {
-   public class ListBoxBehavior
+    public class ListBoxBehavior
     {
-        static readonly Dictionary<ListBox, Capture> Associations =
-               new Dictionary<ListBox, Capture>();
+        #region Fields
+
+        public static readonly DependencyProperty ScrollOnNewItemProperty =
+            DependencyProperty.RegisterAttached(
+                "ScrollOnNewItem",
+                typeof(bool),
+                typeof(ListBoxBehavior),
+                new UIPropertyMetadata(false, OnScrollOnNewItemChanged));
+
+        #endregion Fields
+
+        #region Methods
 
         public static bool GetScrollOnNewItem(DependencyObject obj)
         {
@@ -24,13 +31,6 @@ namespace HZBot
         {
             obj.SetValue(ScrollOnNewItemProperty, value);
         }
-
-        public static readonly DependencyProperty ScrollOnNewItemProperty =
-            DependencyProperty.RegisterAttached(
-                "ScrollOnNewItem",
-                typeof(bool),
-                typeof(ListBoxBehavior),
-                new UIPropertyMetadata(false, OnScrollOnNewItemChanged));
 
         public static void OnScrollOnNewItemChanged(
             DependencyObject d,
@@ -58,6 +58,11 @@ namespace HZBot
             }
         }
 
+        #endregion Methods
+
+        private static readonly Dictionary<ListBox, Capture> Associations =
+                                               new Dictionary<ListBox, Capture>();
+
         private static void ListBox_ItemsSourceChanged(object sender, EventArgs e)
         {
             var listBox = (ListBox)sender;
@@ -66,7 +71,7 @@ namespace HZBot
             Associations[listBox] = new Capture(listBox);
         }
 
-        static void ListBox_Unloaded(object sender, RoutedEventArgs e)
+        private static void ListBox_Unloaded(object sender, RoutedEventArgs e)
         {
             var listBox = (ListBox)sender;
             if (Associations.ContainsKey(listBox))
@@ -74,7 +79,7 @@ namespace HZBot
             listBox.Unloaded -= ListBox_Unloaded;
         }
 
-        static void ListBox_Loaded(object sender, RoutedEventArgs e)
+        private static void ListBox_Loaded(object sender, RoutedEventArgs e)
         {
             var listBox = (ListBox)sender;
             var incc = listBox.Items as INotifyCollectionChanged;
@@ -83,10 +88,9 @@ namespace HZBot
             Associations[listBox] = new Capture(listBox);
         }
 
-        class Capture : IDisposable
+        private class Capture : IDisposable
         {
-            private readonly ListBox listBox;
-            private readonly INotifyCollectionChanged incc;
+            #region Constructors
 
             public Capture(ListBox listBox)
             {
@@ -98,19 +102,32 @@ namespace HZBot
                 }
             }
 
-            void incc_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            #endregion Constructors
+
+            #region Methods
+
+            public void Dispose()
+            {
+                if (incc != null)
+                    incc.CollectionChanged -= incc_CollectionChanged;
+            }
+
+            #endregion Methods
+
+            #region Fields
+
+            private readonly ListBox listBox;
+            private readonly INotifyCollectionChanged incc;
+
+            #endregion Fields
+
+            private void incc_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
             {
                 if (e.Action == NotifyCollectionChangedAction.Add)
                 {
                     listBox.ScrollIntoView(e.NewItems[0]);
                     listBox.SelectedItem = e.NewItems[0];
                 }
-            }
-
-            public void Dispose()
-            {
-                if (incc != null)
-                    incc.CollectionChanged -= incc_CollectionChanged;
             }
         }
     }

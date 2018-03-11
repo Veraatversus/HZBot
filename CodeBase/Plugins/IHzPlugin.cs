@@ -6,7 +6,7 @@ namespace HZBot
     {
         #region Properties
 
-        HzAccount Account { get; set; }
+        HzAccount Account { get; }
 
         #endregion Properties
 

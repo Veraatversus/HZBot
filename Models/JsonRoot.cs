@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace HZBot
+﻿namespace HZBot
 {
     public class JsonRoot
     {

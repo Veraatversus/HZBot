@@ -6,65 +6,78 @@
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="UserControl"
-    d:DataContext="{d:DesignInstance local:CharacterStatPlugin}"
+    d:DataContext="{d:DesignInstance local:HzAccount}"
     d:DesignHeight="196"
     d:DesignWidth="390.667"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <TextBlock
-                FontSize="18"
-                FontWeight="Bold"
-                Text="{Binding Account.Data.character.name, StringFormat=Character: {0}}" />
-            <TextBlock Text="{Binding Account.Character.level, StringFormat=Level: {0}}" />
-            <TextBlock Text="{Binding Account.Character.xp, StringFormat=Xp: {0}}" />
-            <TextBlock Text="{Binding Account.Character.game_currency, StringFormat=Currency: {0}}" />
-            <TextBlock Text="{Binding Account.User.premium_currency, StringFormat=Premium Currency: {0}}" />
-            <TextBlock Text="{Binding Account.Character.honor, StringFormat=Honor: {0}}" />
-            <TextBlock Text="{Binding Account.Character.league_points, StringFormat=LeaguePoints: {0}}" />
-            <Grid>
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Account.Character.quest_energy, StringFormat=Quest Energy: {0}}" />
-                <Button
-                    Width="30"
-                    HorizontalAlignment="Right"
-                    Command="{Binding Account.Plugins.Quest.ShowBuyQuestEnergyWindow}"
-                    Content="+" />
-            </Grid>
-        </StackPanel>
-        <Grid
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center">
+    <Expander Header="{Binding}">
+        <Expander.HeaderTemplate>
+            <DataTemplate>
+                <UniformGrid HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource AncestorType=ContentPresenter}, Mode=OneWayToSource}" Columns="3">
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="CharacterStats:" />
+                    <CheckBox
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="AutoSkill"
+                        FlowDirection="RightToLeft"
+                        IsChecked="{Binding Config.IsAutoSkill}" />
+                    <CheckBox
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="AutoTrain"
+                        FlowDirection="RightToLeft"
+                        IsChecked="{Binding Config.IsAutoTrain}" />
+                </UniformGrid>
+            </DataTemplate>
+        </Expander.HeaderTemplate>
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <CheckBox
-                Grid.Column="0"
-                Content="AutoSkill"
-                IsChecked="{Binding IsAutoSkill}" />
-            <CheckBox
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="{Binding Data.character.name, StringFormat=Character: {0}}" />
+                <TextBlock Text="{Binding Character.level, StringFormat=Level: {0}}" />
+                <TextBlock Text="{Binding Character.xp, StringFormat=Xp: {0}}" />
+                <TextBlock Text="{Binding Character.game_currency, StringFormat=Currency: {0}}" />
+                <TextBlock Text="{Binding User.premium_currency, StringFormat=Premium Currency: {0}}" />
+                <TextBlock Text="{Binding Character.honor, StringFormat=Honor: {0}}" />
+                <TextBlock Text="{Binding Character.league_points, StringFormat=LeaguePoints: {0}}" />
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding Character.quest_energy, StringFormat=Quest Energy: {0}}" />
+                    <Button
+                        Width="30"
+                        Command="{Binding Plugins.Quest.ShowBuyQuestEnergyWindow}"
+                        Content="+"
+                        DockPanel.Dock="Right" />
+                </DockPanel>
+            </StackPanel>
+            <Grid
                 Grid.Column="1"
-                HorizontalAlignment="Right"
-                Content="AutoTrain"
-                FlowDirection="RightToLeft"
-                IsChecked="{Binding IsAutoTrain}" />
-            <ListView
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                Grid.IsSharedSizeScope="True"
-                ItemTemplate="{DynamicResource CharacterStatTemplate}"
-                ItemsSource="{Binding Account.Character.Stats}" />
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ListView
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Grid.IsSharedSizeScope="True"
+                    ItemTemplate="{DynamicResource CharacterStatTemplate}"
+                    ItemsSource="{Binding Character.HzStats.AllStats}" />
+            </Grid>
         </Grid>
-    </Grid>
+    </Expander>
 </local:HzUserControl>

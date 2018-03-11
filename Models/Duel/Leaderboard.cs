@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HZBot
+﻿namespace HZBot
 {
-
     public class LeaderChars
     {
+        #region Properties
+
         public int rank { get; set; }
         public int id { get; set; }
         public object character_id { get; set; }
@@ -31,6 +26,7 @@ namespace HZBot
         public int honor { get; set; }
         public object value { get; set; }
         public int online_status { get; set; }
-    }
 
+        #endregion Properties
+    }
 }

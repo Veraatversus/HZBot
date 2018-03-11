@@ -8,7 +8,6 @@ namespace HZBot
 
         public static async Task<string> StartWorldbossAttackAsync(this HzPluginBase plugin, int worldboss_event_id)
         {
-
             var error = await plugin.Account.DefaultRequestContent("startWorldbossAttack")
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("worldboss_event_id", worldboss_event_id)
@@ -28,7 +27,6 @@ namespace HZBot
 
         public static async Task<string> FinishWorldbossAttackAsync(this HzPluginBase plugin, int worldboss_event_id)
         {
-
             var error = await plugin.Account.DefaultRequestContent("finishWorldbossAttack")
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("worldboss_event_id", worldboss_event_id)

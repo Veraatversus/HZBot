@@ -68,7 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CodeBase\HzServiceBase.cs" />
+    <Compile Include="CodeBase\Plugins\HzServiceBase.cs" />
     <Compile Include="CodeBase\List\ListBoxBehavior.cs" />
     <Compile Include="CodeBase\Plugins\HzPluginBase.cs" />
     <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
@@ -86,8 +86,10 @@
     <Compile Include="Models\Goals\GoalType.cs" />
     <Compile Include="Models\HideOut\HideoutBattleStatus.cs" />
     <Compile Include="Models\HideOut\HideoutRoomStatus.cs" />
-    <Compile Include="Models\Items\AppearanceType.cs" />
+    <Compile Include="Plugins\Item\ItemExtensions.cs" />
+    <Compile Include="Plugins\Item\HzInventorySlotId.cs" />
     <Compile Include="Models\Items\InventoryAction.cs" />
+    <Compile Include="Models\Items\ItemType.cs" />
     <Compile Include="Models\Quest\FightQuestDifficulty.cs" />
     <Compile Include="Models\WorldBoss\WorldbossAttackStatus.cs" />
     <Compile Include="Models\WorldBoss\WorldbossCharacterEvent.cs" />
@@ -96,9 +98,23 @@
     <Compile Include="Models\WorldBoss\WorldbossReward.cs" />
     <Compile Include="Models\WorldBoss\WorldbossRewardType.cs" />
     <Compile Include="Plugins\Account\AccountRequests.cs" />
+    <Compile Include="Plugins\Account\AccountUserControl.xaml.cs">
+      <DependentUpon>AccountUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\CharacterStats\CharacterStatRequests.cs" />
+    <Compile Include="Plugins\CharacterStats\HzCharacterStats.cs" />
     <Compile Include="Plugins\Duell\DuelRequests.cs" />
     <Compile Include="Models\Duel\DuelStatus.cs" />
+    <Compile Include="Plugins\Item\HzBagSlot.cs" />
+    <Compile Include="Plugins\Item\HzGear.cs" />
+    <Compile Include="Plugins\Item\HzInventory.cs" />
+    <Compile Include="Plugins\Item\HzInventorySlotType.cs" />
+    <Compile Include="Plugins\Item\ItemPlugin.cs" />
+    <Compile Include="Plugins\Item\ItemRequests.cs" />
+    <Compile Include="Plugins\Item\ItemUserControl.xaml.cs">
+      <DependentUpon>ItemUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Item\SellMode.cs" />
     <Compile Include="Plugins\Log\LogObject.cs" />
     <Compile Include="CodeBase\Requests\RequestState.cs" />
     <Compile Include="Plugins\Log\LogUserControl.xaml.cs">
@@ -116,6 +132,7 @@
     <Compile Include="Plugins\Duell\DuelPlugin.cs" />
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
     <Compile Include="Plugins\Log\RequestStateToBrushConverter.cs" />
+    <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerPlugin.cs" />
     <Compile Include="Plugins\Quest\Enums\EnumBindingSourceExtension.cs" />
     <Compile Include="Plugins\Quest\Enums\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Plugins\Quest\Enums\FriendlyTimeConverter.cs" />
@@ -123,10 +140,11 @@
     <Compile Include="Plugins\Quest\QuestUserControl.xaml.cs">
       <DependentUpon>QuestUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Quest\WorkStatus.cs" />
+    <Compile Include="Plugins\Quest\Enums\WorkStatus.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossRequests.cs" />
+    <Compile Include="Services\Config.cs" />
     <Compile Include="Services\GameUtils.cs" />
-    <Compile Include="Plugins\Quest\PrimaryWorkerTimer.cs" />
+    <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestRequests.cs" />
     <Compile Include="Plugins\Statusbar\StatusbarUserControl.xaml.cs">
@@ -142,7 +160,7 @@
       <DependentUpon>HideOutUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\ViewBase\HzUserControl.cs" />
-    <Compile Include="Services\AccountManger.cs" />
+    <Compile Include="Services\HzAccountManger.cs" />
     <Compile Include="Plugins\Log\LogPlugin.cs" />
     <Compile Include="Services\HzPlugins.cs" />
     <Compile Include="Services\HzAccount.cs" />
@@ -154,13 +172,13 @@
     <Compile Include="CodeBase\CommandBase\CommandBase.cs" />
     <Compile Include="CodeBase\CommandBase\RelayCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Plugins\CharacterStats\CharacterStat.cs" />
+    <Compile Include="Plugins\CharacterStats\HzCharacterStat.cs" />
     <Compile Include="Models\HideOut\HideOut.cs" />
     <Compile Include="Models\HideOut\HideOutRoom.cs" />
     <Compile Include="Plugins\Quest\IWorkItem.cs" />
     <Compile Include="Models\Quest\Training.cs" />
     <Compile Include="Plugins\CharacterStats\StatType.cs" />
-    <Compile Include="Plugins\Quest\WorkType.cs" />
+    <Compile Include="Plugins\Quest\Enums\WorkType.cs" />
     <Compile Include="Models\Items\Bank_Inventory.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Data.cs" />
@@ -171,6 +189,18 @@
     <Compile Include="Models\Quest\Rewards.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
+    <Page Include="Plugins\Account\AccountUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugins\Item\ItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugins\Item\ItemUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Plugins\Log\LogUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

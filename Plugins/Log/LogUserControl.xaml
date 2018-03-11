@@ -29,11 +29,12 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Background" Value="{Binding RequestState, Converter={StaticResource RequestStateToBrushConverter}}" />
+                    <Setter Property="ToolTip" Value="{Binding Tooltip}" />
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
         <!--<ScrollViewer Grid.Row="1">
-            <TextBlock Text="{Binding Log.GetLogsAsString}"/>
+            <TextBlock Text="{Binding Log.GetLogsAsString}" />
         </ScrollViewer>-->
     </Grid>
 </local:HzUserControl>

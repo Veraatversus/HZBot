@@ -30,13 +30,13 @@ namespace HZBot
         /// <value>The get rewards.</value>
         public Rewards GetRewards => JObject.Parse(rewards).ToObject<Rewards>();
 
-        public Item GetItem => AccountManger.GetItemById(GetRewards.item, character_id);
-        public Item GetEventItem => AccountManger.GetItemById(GetRewards.item, character_id);
+        public Item GetItem => HzAccountManger.GetItemById(GetRewards.item, character_id);
+        public Item GetEventItem => HzAccountManger.GetItemById(GetRewards.item, character_id);
         public int CoinsInclItem => GetRewards.coins + (GetItem?.sell_price ?? 0);
         public double XPPerEnergy => GetRewards.xp / energy_cost;
         public double CurrencyPerEnergy => CoinsInclItem / energy_cost;
         public double XPCurrencyPerEneryAverage => (XPPerEnergy + CurrencyPerEnergy) / 2;
-        public long RemainingTime => (ts_complete != 0 ? ts_complete : AccountManger.GetAccountByCharacterID(character_id).ServerTime) - AccountManger.GetAccountByCharacterID(character_id).ServerTime;
+        public long RemainingTime => (ts_complete != 0 ? ts_complete : HzAccountManger.GetAccountByCharacterID(character_id).ServerTime) - HzAccountManger.GetAccountByCharacterID(character_id).ServerTime;
 
         public WorkType WorkerType => WorkType.Quest;
 

@@ -1,4 +1,4 @@
-﻿namespace HZBot.Models.HzJsonModels.Items
+﻿namespace HZBot
 {
     public enum AppearanceType
     {

@@ -2,33 +2,16 @@
 
 namespace HZBot
 {
-    public abstract class HzPluginBase : ViewModelBase, IHzPlugin
+    public abstract class HzPluginBase : HzServiceBase, IHzPlugin
     {
-        #region Properties
-
-        public HzAccount Account
-        {
-            get
-            {
-                return _account;
-            }
-            set
-            {
-                _account = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion Properties
-
         #region Methods
 
-        public async virtual Task OnLogined()
+        public async virtual Task AfterPrimaryWorkerWork()
         {
             return;
         }
 
-        public async virtual Task OnPrimaryWorkerDoWork()
+        public async virtual Task BeforPrimaryWorkerWork()
         {
             return;
         }
@@ -43,17 +26,17 @@ namespace HZBot
             return;
         }
 
+        public async virtual Task OnLogined()
+        {
+            return;
+        }
+
         public async virtual Task OnLogoffed()
         {
             return;
         }
 
-        public async virtual Task AfterPrimaryWorkerWork()
-        {
-            return;
-        }
-
-        public async virtual Task BeforPrimaryWorkerWork()
+        public async virtual Task OnPrimaryWorkerDoWork()
         {
             return;
         }
@@ -62,17 +45,10 @@ namespace HZBot
 
         #region Constructors
 
-        protected private HzPluginBase(HzAccount account)
+        private protected HzPluginBase(HzAccount account) : base(account)
         {
-            Account = account;
         }
 
         #endregion Constructors
-
-        #region Fields
-
-        private HzAccount _account;
-
-        #endregion Fields
     }
 }

@@ -12,24 +12,17 @@ namespace HZBot
 
         #endregion Constructors
 
-        #region Properties
-
-        public bool IsAutoHideOutCollect { get; set; }
-        public bool IsAutoHideOutBuild { get; set; }
-
-        #endregion Properties
-
         #region Methods
 
         public async override Task OnPrimaryWorkerDoWork()
         {
             // AutoHideOutCollect
-            if (IsAutoHideOutCollect)
+            if (Account.Config.IsAutoHideOutCollect)
             {
             }
 
             // IsAutoHideOutBuild
-            if (IsAutoHideOutBuild)
+            if (Account.Config.IsAutoHideOutBuild)
             {
             }
             return;

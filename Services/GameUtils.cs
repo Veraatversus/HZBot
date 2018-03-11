@@ -14,7 +14,7 @@ namespace HZBot
             var _loc4_ = HzConstants.Default.Constants["coins_per_time_level_scale"].Value<double>();
             var _loc5_ = HzConstants.Default.Constants["coins_per_time_level_exp"].Value<double>();
             var _loc2_ = _loc6_ + _loc3_ * Math.Pow(_loc4_ * level, _loc5_);
-            return HzConstants.Default.RoundDecimal(_loc2_, 3);
+            return RoundDecimal(_loc2_, 3);
         }
 
         public static double calcNeededGameCurrency(int level)
@@ -25,6 +25,13 @@ namespace HZBot
             var _loc4_ = HzConstants.Default.Constants["cost_stat_base_exp"].Value<double>();
             var _loc2_ = Math.Round(_loc5_ + _loc3_ * Math.Pow(_loc6_ * level, _loc4_));
             return _loc2_;
+        }
+
+        public static double RoundDecimal(double param1, int param2)
+        {
+            var _loc4_ = Math.Pow(10, param2);
+            var _loc3_ = Math.Round(param1 * _loc4_) / _loc4_;
+            return _loc3_;
         }
 
         public static double boosterCost(int level, bool smallCost = false)
@@ -72,7 +79,7 @@ namespace HZBot
             {
                 _loc7_ = (1 - Math.Pow(1 / _loc9_, _loc5_)) * (_loc3_ - _loc6_) + _loc6_;
             }
-            return HzConstants.Default.RoundDecimal(_loc7_, 3);
+            return RoundDecimal(_loc7_, 3);
         }
 
         public static double getDodgePercentage(int statTotalDodgeRating, int statTotalDodgeRatingEnemy)
@@ -92,7 +99,7 @@ namespace HZBot
             {
                 _loc3_ = (1 - Math.Pow(1 / _loc9_, _loc8_)) * (_loc4_ - _loc6_) + _loc6_;
             }
-            return HzConstants.Default.RoundDecimal(_loc3_, 3);
+            return RoundDecimal(_loc3_, 3);
         }
 
         public static double getDamage(double statWeaponDamage, double missilesDamage, double statTotalStrength)
@@ -182,7 +189,7 @@ namespace HZBot
             return Math.Round(_loc6_);
         }
 
-        public static double gameCurrencyCostEnergyRefill(int level, int questEnergyRefillAmountToday)
+        public static int gameCurrencyCostEnergyRefill(int level, int questEnergyRefillAmountToday)
         {
             var _loc5_ = questEnergyRefillAmountToday / HzConstants.Default.Constants["quest_energy_refill_amount"].Value<double>();
             double _loc4_ = 0;
@@ -221,7 +228,7 @@ namespace HZBot
                     break;
             }
             var _loc3_ = _loc4_ * gameCurrencyPerTime(level);
-            return Math.Round(_loc3_);
+            return (int)Math.Round(_loc3_);
         }
 
         public static double getGoalRewardAmount(double rewardType, double rewardFactor, int estimatedLevel)
@@ -580,7 +587,7 @@ namespace HZBot
         public static double getSidekickStatPlus(double Quality, int Level, int StatBaseStamina)
         {
             var _loc7_ = StatBaseStamina;
-            var _loc5_ = 0;
+           // var _loc5_ = 0;
             var _loc6_ = GameUtil.getNewSidekickStatValue(Quality, StatBaseStamina, Level - 1);
             var _loc4_ = GameUtil.getNewSidekickStatValue(Quality, StatBaseStamina, Level);
             return _loc4_ - _loc6_;
