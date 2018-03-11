@@ -70,13 +70,13 @@ namespace HZBot
                 MessageBox.Show("WorldBoss ist da ruf Vera an!!!");
             }
             //IsAutoBuyEnergyFromGold
-            if (Account.Config.IsAutoBuyEnergyFromGold && BuyEnergyFromGold.CanExecute)
+            if (Account.Config.BuyEnergyMode.HasFlag(BuyEnergyMode.BuyForGold) && BuyEnergyFromGold.CanExecute)
             {
                 await BuyEnergyFromGold.TryExecuteAsync();
             }
 
             // IsAutoBuyEnergyFromPremium
-            if (Account.Config.IsAutoBuyEnergyFromPremium && BuyEnergyFromPremium.CanExecute)
+            if (Account.Config.BuyEnergyMode.HasFlag(BuyEnergyMode.BuyForPremium) && BuyEnergyFromPremium.CanExecute)
             {
                 await BuyEnergyFromPremium.TryExecuteAsync();
             }

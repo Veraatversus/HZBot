@@ -3,6 +3,7 @@
     public enum WorkType
     {
         Quest,
-        Training
+        Training,
+        Worldboss
     }
 }

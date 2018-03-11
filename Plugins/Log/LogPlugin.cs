@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 
@@ -18,6 +19,8 @@ namespace HZBot
         #region Properties
 
         public ObservableCollection<LogObject> LogList { get; } = new ObservableCollection<LogObject>();
+        public ObservableCollection<KeyValue> RequestLog { get; } = new ObservableCollection<KeyValue>();
+        public ObservableCollection<KeyValue> ErrorLog { get; } = new ObservableCollection<KeyValue>();
 
         public string GetLogsAsString
         {
@@ -41,6 +44,49 @@ namespace HZBot
         public void Add(LogObject logObject)
         {
             Context.Send(o => LogList.Add(logObject), null);
+        }
+
+        public void AddRequestLog(string action)
+        {
+            Context.Send(o =>
+            {
+                var keyvalue =RequestLog.FirstOrDefault(kv => kv.Key == action);
+                if (keyvalue!= null)
+                {
+                    keyvalue.Value++;
+
+                }
+                else
+                {
+                    var keyVal = new KeyValue
+                    {
+                        Key = action,
+                        Value = 1
+                    };
+                    RequestLog.Add(keyVal);
+                }
+            }, null);
+        }
+        public void AddErrorLog(string error)
+        {
+            Context.Send(o =>
+            {
+                var keyvalue = RequestLog.FirstOrDefault(kv => kv.Key == error);
+                if (keyvalue != null)
+                {
+                    keyvalue.Value++;
+
+                }
+                else
+                {
+                    var keyVal = new KeyValue
+                    {
+                        Key = error,
+                        Value = 1
+                    };
+                    ErrorLog.Add(keyVal);
+                }
+            }, null);
         }
 
         #endregion Methods

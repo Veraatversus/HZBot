@@ -2,33 +2,35 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:HZBot">
-
+    <DataTemplate DataType="{x:Type local:Item}">
+        <Image Width="35" Height="35">
+            <Image.Source>
+                <BitmapImage UriSource="{Binding ImageUrl}" />
+            </Image.Source>
+            <Image.ToolTip>
+                <StackPanel>
+                    <TextBlock Text="{Binding type, StringFormat=Type: \{0\}}" />
+                    <TextBlock Text="{Binding identifier, StringFormat=Name: \{0\}}" />
+                    <TextBlock Text="{Binding item_level, StringFormat=ItemLevel: \{0\}}" />
+                    <TextBlock Text="{Binding quality, StringFormat=Quality: \{0\}}" />
+                    <TextBlock Text="{Binding required_level, StringFormat=Required Level: \{0\}}" />
+                    <TextBlock Text="{Binding charges, StringFormat=Charges: \{0\}}" />
+                    <TextBlock Text="{Binding premium_item, StringFormat=IsPremiumItem: \{0\}}" />
+                    <TextBlock Text="{Binding buy_price, StringFormat=Buy Price: \{0\}}" />
+                    <TextBlock Text="{Binding sell_price, StringFormat=Sell Price: \{0\}}" />
+                    <TextBlock Text="{Binding stat_stamina, StringFormat=Stamina: \{0\}}" />
+                    <TextBlock Text="{Binding stat_strength, StringFormat=Strength: \{0\}}" />
+                    <TextBlock Text="{Binding stat_critical_rating, StringFormat=Critical Rating: \{0\}}" />
+                    <TextBlock Text="{Binding stat_dodge_rating, StringFormat=Dodge Rating: \{0\}}" />
+                    <TextBlock Text="{Binding stat_weapon_damage, StringFormat=Weapon Damage: \{0\}}" />
+                    <TextBlock Text="{Binding GearScoreDiffToEquiped, StringFormat=GearScore Diff: \{0\}}" />
+                </StackPanel>
+            </Image.ToolTip>
+        </Image>
+    </DataTemplate>
     <DataTemplate x:Key="HzItemTemplate" DataType="{x:Type local:Item}">
         <StackPanel Orientation="Horizontal">
-            <Image Width="35" Height="35">
-                <Image.Source>
-                    <BitmapImage UriSource="{Binding ImageUrl}" />
-                </Image.Source>
-                <Image.ToolTip>
-                    <StackPanel>
-                        <TextBlock Text="{Binding type, StringFormat=Type: \{0\}}" />
-                        <TextBlock Text="{Binding identifier, StringFormat=Name: \{0\}}" />
-                        <TextBlock Text="{Binding item_level, StringFormat=ItemLevel: \{0\}}" />
-                        <TextBlock Text="{Binding quality, StringFormat=Quality: \{0\}}" />
-                        <TextBlock Text="{Binding required_level, StringFormat=Required Level: \{0\}}" />
-                        <TextBlock Text="{Binding charges, StringFormat=Charges: \{0\}}" />
-                        <TextBlock Text="{Binding premium_item, StringFormat=IsPremiumItem: \{0\}}" />
-                        <TextBlock Text="{Binding buy_price, StringFormat=Buy Price: \{0\}}" />
-                        <TextBlock Text="{Binding sell_price, StringFormat=Sell Price: \{0\}}" />
-                        <TextBlock Text="{Binding stat_stamina, StringFormat=Stamina: \{0\}}" />
-                        <TextBlock Text="{Binding stat_strength, StringFormat=Strength: \{0\}}" />
-                        <TextBlock Text="{Binding stat_critical_rating, StringFormat=Critical Rating: \{0\}}" />
-                        <TextBlock Text="{Binding stat_dodge_rating, StringFormat=Dodge Rating: \{0\}}" />
-                        <TextBlock Text="{Binding stat_weapon_damage, StringFormat=Weapon Damage: \{0\}}" />
-                        <TextBlock Text="{Binding GearScoreDiffToEquiped, StringFormat=GearScore Diff: \{0\}}" />
-                    </StackPanel>
-                </Image.ToolTip>
-            </Image>
+            <ContentPresenter Content="{Binding}"/>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />

@@ -25,6 +25,7 @@
         <ListView
             Grid.Row="1"
             DisplayMemberPath="Text"
+            local:ListBoxBehavior.ScrollOnNewItem="True"
             ItemsSource="{Binding Log.LogList}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

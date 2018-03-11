@@ -41,6 +41,7 @@ namespace HZBot
                    .AddKeyValue("discard_item", "false")
                    .AddKeyValue("create_new", "true")
                    .AddLog($"[Quest] Claim: XP:{rewards.xp} Coins:{rewards.coins} Premium:{rewards.premium} Honor:{rewards.honor} Item:{rewards.item}");
+                content.LogObject.Tooltip = plugin.Account.Data.ActiveQuest.GetItem;
             }
             else if (workType == WorkType.Training)
             {

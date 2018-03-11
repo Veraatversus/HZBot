@@ -27,21 +27,18 @@
 
         //Account
         public string Username { get => username; set { username = value; RaisePropertyChanged(); } }
-
         public string Password { get => password; set { password = value; RaisePropertyChanged(); } }
-        public bool IsAutoReconnect { get; set; }
+        public bool IsAutoLogin { get; set; }
+        public bool IsAutoStartBot { get => isAutoStartBot; set { isAutoStartBot = value; RaisePropertyChanged(); } }
 
         // Quest Plugin
         public QuestMode QuestMode { get; set; } = QuestMode.Balanced;
-
+        public BuyEnergyMode BuyEnergyMode { get; set; }
         public FightQuestDifficulty QuestDifficulty { get; set; } = FightQuestDifficulty.Medium;
         public bool IsAutoQuest { get => isAutoQuest; set { isAutoQuest = value; RaisePropertyChanged(); } }
-        public bool IsAutoBuyEnergyFromGold { get; set; }
-        public bool IsAutoBuyEnergyFromPremium { get; set; }
 
         //Item Plugin
         public bool IsAutoEquip { get; set; }
-
         public SellMode SellMode { get; set; }
         public double StaminaWeight { get; set; } = 0.5f;
         public double StrengthWeight { get; set; } = 0.2f;
@@ -52,7 +49,6 @@
 
         //HideOutPlugin
         public bool IsAutoHideOutCollect { get; set; }
-
         public bool IsAutoHideOutBuild { get; set; }
 
         //Duel Plugin
@@ -60,7 +56,6 @@
 
         //CharacterStat Plugin
         public bool IsAutoTrain { get => isAutoTrain; set { isAutoTrain = value; RaisePropertyChanged(); } }
-
         public bool IsAutoSkill { get => isAutoSkill; set { isAutoSkill = value; RaisePropertyChanged(); } }
 
         #endregion Properties
@@ -72,6 +67,7 @@
         private string password;
         private bool isAutoTrain;
         private bool isAutoSkill;
+        private bool isAutoStartBot;
 
         #endregion Fields
     }

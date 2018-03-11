@@ -18,10 +18,13 @@ namespace HZBot
         {
             HzAccountManger.AddAccount(this);
             Plugins = new HzPlugins(this);
-            Config = new HzConfig();
-            OnDataChanged += HzAccount_OnDataChanged;
+            OnDataChanged += HzAccount_OnDataChanged;         
         }
-
+        public HzAccount(HzConfig config) : this()
+        {
+            Config = config;
+            Plugins.RaiseOnAccountLoaded();
+        }
         #endregion Constructors
 
         #region Events
@@ -35,7 +38,7 @@ namespace HZBot
         public long ServerTime => DateTimeOffset.Now.ToUnixTimeSeconds() + ServerTimeOffset;
 
         public HzPlugins Plugins { get; }
-        public HzConfig Config { get; set; }
+        public HzConfig Config { get; set; }= new HzConfig();
         public Data Data => MainData?.data;
         public User User => MainData?.data.user;
         public Character Character => MainData?.data.character;

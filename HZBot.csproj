@@ -68,8 +68,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Plugins\Account\AccountUserControl.xaml.cs">
+      <DependentUpon>AccountUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CodeBase\Plugins\HzServiceBase.cs" />
-    <Compile Include="CodeBase\List\ListBoxBehavior.cs" />
+    <Compile Include="Plugins\Worldboss\WorldbossPlugin.cs" />
+    <Compile Include="Wpf\ListBoxBehavior.cs" />
     <Compile Include="CodeBase\Plugins\HzPluginBase.cs" />
     <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
     <Compile Include="CodeBase\Requests\HzRequestBase.cs" />
@@ -98,8 +102,9 @@
     <Compile Include="Models\WorldBoss\WorldbossReward.cs" />
     <Compile Include="Models\WorldBoss\WorldbossRewardType.cs" />
     <Compile Include="Plugins\Account\AccountRequests.cs" />
-    <Compile Include="Plugins\Account\AccountUserControl.xaml.cs">
-      <DependentUpon>AccountUserControl.xaml</DependentUpon>
+    <Compile Include="Plugins\Log\KeyValue.cs" />
+    <Compile Include="Views\PluginUserControl.xaml.cs">
+      <DependentUpon>PluginUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\CharacterStats\CharacterStatRequests.cs" />
     <Compile Include="Plugins\CharacterStats\HzCharacterStats.cs" />
@@ -131,16 +136,17 @@
     </Compile>
     <Compile Include="Plugins\Duell\DuelPlugin.cs" />
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
-    <Compile Include="Plugins\Log\RequestStateToBrushConverter.cs" />
+    <Compile Include="Wpf\RequestStateToBrushConverter.cs" />
     <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerPlugin.cs" />
-    <Compile Include="Plugins\Quest\Enums\EnumBindingSourceExtension.cs" />
-    <Compile Include="Plugins\Quest\Enums\EnumDescriptionTypeConverter.cs" />
-    <Compile Include="Plugins\Quest\Enums\FriendlyTimeConverter.cs" />
-    <Compile Include="Plugins\Quest\Enums\QuestMode.cs" />
+    <Compile Include="Plugins\Quest\BuyEnergyMode.cs" />
+    <Compile Include="Wpf\EnumBindingSourceExtension.cs" />
+    <Compile Include="Wpf\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Wpf\FriendlyTimeConverter.cs" />
+    <Compile Include="Plugins\Quest\QuestMode.cs" />
     <Compile Include="Plugins\Quest\QuestUserControl.xaml.cs">
       <DependentUpon>QuestUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Quest\Enums\WorkStatus.cs" />
+    <Compile Include="Plugins\PrimaryWorker\WorkStatus.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossRequests.cs" />
     <Compile Include="Services\Config.cs" />
     <Compile Include="Services\GameUtils.cs" />
@@ -175,10 +181,10 @@
     <Compile Include="Plugins\CharacterStats\HzCharacterStat.cs" />
     <Compile Include="Models\HideOut\HideOut.cs" />
     <Compile Include="Models\HideOut\HideOutRoom.cs" />
-    <Compile Include="Plugins\Quest\IWorkItem.cs" />
+    <Compile Include="Plugins\PrimaryWorker\IWorkItem.cs" />
     <Compile Include="Models\Quest\Training.cs" />
     <Compile Include="Plugins\CharacterStats\StatType.cs" />
-    <Compile Include="Plugins\Quest\Enums\WorkType.cs" />
+    <Compile Include="Plugins\PrimaryWorker\WorkType.cs" />
     <Compile Include="Models\Items\Bank_Inventory.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Data.cs" />
@@ -189,7 +195,12 @@
     <Compile Include="Models\Quest\Rewards.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
+    <Compile Include="Wpf\InverseBooleanConverter.cs" />
     <Page Include="Plugins\Account\AccountUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PluginUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,6 +245,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Plugins\Quest\QuestUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ExpanderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,6 +12,7 @@ namespace HZBot
             hzAccount = account;
             Log = RegisterPlugin(new LogPlugin(hzAccount));
             Account = RegisterPlugin(new AccountPlugin(hzAccount));
+            Worldboss = RegisterPlugin(new WorldbossPlugin(hzAccount));
             CharacterStat = RegisterPlugin(new CharacterStatPlugin(hzAccount));
             Quest = RegisterPlugin(new QuestPlugin(hzAccount));
             Duel = RegisterPlugin(new DuelPlugin(hzAccount));
@@ -35,7 +36,7 @@ namespace HZBot
         private readonly SynchronizationContext DefaultContext;
 
         public AccountPlugin Account { get; private set; }
-
+        public WorldbossPlugin Worldboss { get; private set; }
         public LogPlugin Log { get; }
 
         #endregion Properties
@@ -127,6 +128,33 @@ namespace HZBot
                 }
             }, null);
         }
+
+        /// <summary>Raises the account loaded.</summary>
+        public void RaiseOnAccountLoaded()
+        {
+            DefaultContext.Send(async (o) =>
+            {
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnAccountLoaded();
+                }
+            }, null);
+        }
+
+        public void RaiseOnHandleError(string error)
+        {
+            DefaultContext.Send(async (o) =>
+            {
+                foreach (var item in AllPlugins)
+                {
+                    await item.OnHandleError(error);
+                }
+            }, null);
+        }
+
+
+
+
 
         #endregion Methods
 

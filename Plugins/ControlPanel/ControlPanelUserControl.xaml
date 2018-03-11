@@ -25,7 +25,7 @@
             Grid.RowSpan="2"
             Grid.Column="0">
             <WrapPanel Orientation="Horizontal">
-                <CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding IsBotEnabled}">Enable Bot</CheckBox>
+                <!--<CheckBox HorizontalContentAlignment="Left" IsChecked="{Binding IsBotEnabled}">Enable Bot</CheckBox>-->
                 <!--<CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
@@ -56,31 +56,12 @@
                     IsChecked="{Binding Config.IsAutoHideOutBuild}">
                     AutoHideOutBuild
                 </CheckBox>
-                <CheckBox
-                    Margin="5,0,0,0"
-                    HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Config.IsAutoBuyEnergyFromGold}">
-                    Buy Energy for Gold
-                </CheckBox>
-                <CheckBox
-                    Margin="5,0,0,0"
-                    HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Config.IsAutoBuyEnergyFromPremium}">
-                    Buy Energy for Premium
-                </CheckBox>
-                <CheckBox
-                    Margin="5,0,0,0"
-                    HorizontalContentAlignment="Left"
-                    IsChecked="{Binding Config.IsAutoReconnect}">
-                    AutoReconect
-                </CheckBox>
                 <!--<CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"
                     IsChecked="{Binding Config.IsAutoEquip}">
                     AutoEquip
                 </CheckBox>-->
-
                 <CheckBox
                     Margin="5,0,0,0"
                     HorizontalContentAlignment="Left"

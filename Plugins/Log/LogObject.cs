@@ -9,7 +9,7 @@ namespace HZBot
         public string Text { get; set; }
         public DateTime Time { get; set; }
 
-        public string Tooltip
+        public object Tooltip
         {
             get => tooltip;
             set { tooltip = value; RaisePropertyChanged(); }
@@ -26,7 +26,7 @@ namespace HZBot
         #region Fields
 
         private RequestState requestState;
-        private string tooltip;
+        private object tooltip;
 
         #endregion Fields
     }

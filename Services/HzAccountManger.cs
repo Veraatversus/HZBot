@@ -77,7 +77,7 @@ namespace HZBot
                 var config = JArray.Parse(File.ReadAllText(HzConfig.FilePath));
                 foreach (var item in config.Children())
                 {
-                    new HzAccount() { Config = item.ToObject<HzConfig>() };
+                    new HzAccount(item.ToObject<HzConfig>());
                 }
             }
             if (Accounts.FirstOrDefault() == null)

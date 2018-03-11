@@ -41,6 +41,16 @@ namespace HZBot
             return;
         }
 
+        public async virtual Task OnAccountLoaded()
+        {
+            return;
+        }
+
+        public async virtual Task OnHandleError(string error)
+        {
+            return;
+        }
+
         #endregion Methods
 
         #region Constructors

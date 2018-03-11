@@ -1,4 +1,6 @@
-﻿namespace HZBot
+﻿using System.Threading.Tasks;
+
+namespace HZBot
 {
     public class AccountPlugin : HzPluginBase
     {
@@ -13,9 +15,25 @@
         }
 
         #endregion Constructors
-
+        public async override Task OnAccountLoaded()
+        {
+            if (Account.Config.IsAutoLogin)
+            {
+                await LoginCommand.TryExecuteAsync();
+            }
+            if (Account.Config.IsAutoLogin && Account.Config.IsAutoStartBot)
+            {
+                Account.IsBotEnabled = true;
+            }
+        }
+        public async override Task OnHandleError(string error)
+        {
+            if (error == "errUserNotAuthorized")
+            {
+                await LoginCommand.TryExecuteAsync();
+            }
+        }
         #region Properties
-
         //Command for Login into Account
         public AsyncRelayCommand LoginCommand { get; private set; }
 

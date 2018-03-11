@@ -26,6 +26,10 @@ namespace HZBot
 
         Task BeforPrimaryWorkerWork();
 
+        Task OnAccountLoaded();
+
+        Task OnHandleError(string error);
+
         #endregion Methods
     }
 }
