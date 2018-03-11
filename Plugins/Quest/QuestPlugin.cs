@@ -65,10 +65,6 @@ namespace HZBot
 
         public async override Task OnPrimaryWorkerDoWork()
         {
-            if (Account.Data.ActiveWorldBossEvent != null)
-            {
-                MessageBox.Show("WorldBoss ist da ruf Vera an!!!");
-            }
             //IsAutoBuyEnergyFromGold
             if (Account.Config.BuyEnergyMode.HasFlag(BuyEnergyMode.BuyForGold) && BuyEnergyFromGold.CanExecute)
             {
