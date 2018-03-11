@@ -25,7 +25,6 @@ namespace HZBot
         #endregion Constructors
 
         #region Properties
-
         public AsyncRelayCommand StartBestDuel { get; private set; }
         public AsyncRelayCommand CheckForDuelComplete { get; private set; }
         public AsyncRelayCommand claimDuelReward { get; private set; }
@@ -46,7 +45,6 @@ namespace HZBot
                     if (GetOpponent != null)
                     {
                         GegnerID = GetOpponent.id.ToString();
-                        Account.Log.Add($"[Duel]Start: Gegner-{GetOpponent.name} Stats:{GetOpponent.fightStat - Account.Character.FightStat} Dodge:{GetOpponent.stat_total_dodge_rating - Account.Character.stat_total_dodge_rating} Crit:{GetOpponent.stat_total_critical_rating - Account.Character.stat_total_critical_rating}");
                         await StartBestDuel.TryExecuteAsync();
                         
                     }
@@ -83,7 +81,6 @@ namespace HZBot
                                     {
                                         OpponentFound = true;
                                         GegnerID = Account.Data.requested_character.id.ToString();
-                                        Account.Log.Add($"[Duel] Folgender Gegner wurde in der Rangliste gefunden: {Account.Data.requested_character.name}");
                                         await StartBestDuel.TryExecuteAsync();
                                     }
                                 }
@@ -111,7 +108,6 @@ namespace HZBot
                                     {
                                         OpponentFound = true;
                                         GegnerID = Account.Data.requested_character.id.ToString();
-                                        Account.Log.Add($"[Duel] Folgender Gegner wurde in der Rangliste gefunden: {Account.Data.requested_character.name}");
                                         await StartBestDuel.TryExecuteAsync();
                                     }
                                 }

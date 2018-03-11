@@ -1,4 +1,6 @@
-﻿namespace HZBot
+﻿using Newtonsoft.Json.Linq;
+
+namespace HZBot
 {
     public class Duel
     {
@@ -13,7 +15,8 @@
         public int character_b_status { get; set; }
         public string character_a_rewards { get; set; }
         public string character_b_rewards { get; set; }
-
+        public Rewards Rewards_A => JObject.Parse(character_a_rewards).ToObject<Rewards>();
+        public Rewards Rewards_B => JObject.Parse(character_b_rewards).ToObject<Rewards>();
         #endregion Properties
     }
 }
