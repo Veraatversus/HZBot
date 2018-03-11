@@ -85,7 +85,19 @@ namespace HZBot
                     //when status is complete then start new Bot Action
                     if (Account.ActiveWorker?.status == WorkStatus.Finished)
                     {
-                        await Account.Plugins.Quest.ClaimWorkerReward.TryExecuteAsync();
+                        if (Account.ActiveWorker.WorkerType == WorkType.Quest || Account.ActiveWorker.WorkerType == WorkType.Training)
+                        {
+                            await Account.Plugins.Quest.ClaimWorkerReward.TryExecuteAsync();
+                        }
+                        else if (Account.ActiveWorker.WorkerType == WorkType.WorldbossAttack)
+                        {
+                            await Account.Plugins.Worldboss.FinishWorldbossAttackAsync(Account.Data.ActiveWorldbossAttack.worldboss_event_id);
+                        }
+                        if (Account.Data.ActiveWorldBossEvent?.status == WorldbossEventStatus.Finished)
+                        {
+                            await Account.Plugins.Worldboss.ClaimWorldbossEventRewardsAsync(Account.Data.ActiveWorldBossEvent.id);
+                        }
+                        
                         if (Account.Data != null)
                         {
                             if (Account.ActiveWorker == null)

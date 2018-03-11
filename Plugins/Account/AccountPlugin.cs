@@ -30,6 +30,7 @@ namespace HZBot
         {
             if (error == "errUserNotAuthorized")
             {
+                Account.IsLogined = false;
                 await LoginCommand.TryExecuteAsync();
             }
         }

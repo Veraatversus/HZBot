@@ -7,7 +7,7 @@
     {
         int id { get; set; }
         int character_id { get; set; }
-        WorkStatus status { get; set; }
+        WorkStatus status { get; }
 
         long RemainingTime { get; }
 

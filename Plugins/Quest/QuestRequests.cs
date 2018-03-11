@@ -23,6 +23,13 @@ namespace HZBot
                 content = plugin.Account.DefaultRequestContent("checkForTrainingComplete")
                     .AddLog($"[Train] END: TrainStat:{plugin.Account.Data.ActiveTraining.StatType}");
             }
+            else if (workType == WorkType.WorldbossAttack)
+            {
+                content = plugin.Account.DefaultRequestContent("checkForWorldbossAttackComplete")
+                    .AddLog($"[Worldboss] END: Battle:{plugin.Account.Data.ActiveWorldbossAttack.battle_id}");
+            }
+
+            content.AddKeyValue("rct", 2);
             var error = await content.PostToHzAsync();
             return error;
         }
@@ -48,8 +55,13 @@ namespace HZBot
                 content = plugin.Account.DefaultRequestContent("claimTrainingRewards")
                     .AddLog($"[Train] Claim Point:{plugin.Account.Data.ActiveTraining.StatType}");
             }
-            content.AddKeyValue("rct", "2");
+            else if (workType == WorkType.WorldbossAttack)
+            {
+                content = plugin.Account.DefaultRequestContent("finishWorldbossAttack")
+                    .AddLog($"[Worldboss] Claim Point:{plugin.Account.Data.ActiveTraining.StatType}");
+            }
 
+            content.AddKeyValue("rct", "2");
             var error = await content.PostToHzAsync();
             return error;
         }

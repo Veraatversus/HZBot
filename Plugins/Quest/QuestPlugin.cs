@@ -65,7 +65,7 @@ namespace HZBot
 
         public async override Task OnPrimaryWorkerDoWork()
         {
-            if (Account.Data.ActiveWorldBoss != null)
+            if (Account.Data.ActiveWorldBossEvent != null)
             {
                 MessageBox.Show("WorldBoss ist da ruf Vera an!!!");
             }

@@ -7,6 +7,6 @@
     {
         Quest,
         Training,
-        Worldboss
+        WorldbossAttack
     }
 }

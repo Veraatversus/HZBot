@@ -25,15 +25,17 @@ namespace HZBot
         public Duel duel { get; set; }
         public HideOut hideout { get; set; }
         public List<HideOutRoom> hideout_rooms { get; set; }
+        public WorldbossAttack worldboss_attack { get; set; }
         public Quest ActiveQuest => quests.FirstOrDefault(quest => quest.id == character.active_quest_id);
         public Training ActiveTraining => character.active_training_id == training?.id ? training : null;
         public Duel ActiveDuel => character.active_duel_id == duel?.id ? duel : null;
-        public WorldbossEvent ActiveWorldBoss => character.worldboss_event_id != 0 ? worldboss_events?.FirstOrDefault(e => e.id == character.worldboss_event_id) : null;
-
+        public WorldbossEvent ActiveWorldBossEvent => character.worldboss_event_id != 0 ? worldboss_events?.FirstOrDefault(e => e.id == character.worldboss_event_id) : null;
+        public WorldbossAttack ActiveWorldbossAttack => character.active_worldboss_attack_id == worldboss_attack?.id ? worldboss_attack : null;
         public IWorkItem ActiveWorker
         {
             get
             {
+                if (ActiveWorldbossAttack != null) return ActiveWorldbossAttack;
                 if (ActiveTraining != null) return ActiveTraining;
                 if (ActiveQuest != null) return ActiveQuest;
                 return null;

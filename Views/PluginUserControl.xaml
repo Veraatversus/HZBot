@@ -34,11 +34,13 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <local:AccountUserControl />
                 <local:CharacterStatUserControl Grid.Row="1" />
                 <local:ItemUserControl Grid.Row="2" />
                 <local:QuestUserControl Grid.Row="3" />
+                <local:WorldbossUserControl Grid.Row="4"/>
             </Grid>
             <local:HideOutUserControl Grid.Column="1" />
             <Grid Grid.Column="2">

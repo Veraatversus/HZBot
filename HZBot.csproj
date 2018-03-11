@@ -68,11 +68,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\WorldBoss\WorldbossAttack.cs" />
     <Compile Include="Plugins\Account\AccountUserControl.xaml.cs">
       <DependentUpon>AccountUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\Plugins\HzServiceBase.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossPlugin.cs" />
+    <Compile Include="Plugins\Worldboss\WorldbossUserControl.xaml.cs">
+      <DependentUpon>WorldbossUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\ListBoxBehavior.cs" />
     <Compile Include="CodeBase\Plugins\HzPluginBase.cs" />
     <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
@@ -197,6 +201,10 @@
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
     <Compile Include="Wpf\InverseBooleanConverter.cs" />
     <Page Include="Plugins\Account\AccountUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugins\Worldboss\WorldbossUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

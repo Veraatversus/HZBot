@@ -58,6 +58,8 @@
         public bool IsAutoTrain { get => isAutoTrain; set { isAutoTrain = value; RaisePropertyChanged(); } }
         public bool IsAutoSkill { get => isAutoSkill; set { isAutoSkill = value; RaisePropertyChanged(); } }
 
+        //Worldboss
+        public bool IsAutoAttackWorldboss { get; set; }
         #endregion Properties
 
         #region Fields
