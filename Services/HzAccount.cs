@@ -1,14 +1,17 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace HZBot
 {
-    public class HzAccount : ViewModelBase
+    public class HzAccount : ViewModelBase, IDisposable
     {
         #region Fields
 
         public long ServerTimeOffset;
+
+        public Timer IdleTimer;
 
         #endregion Fields
 
@@ -18,13 +21,16 @@ namespace HZBot
         {
             HzAccountManger.AddAccount(this);
             Plugins = new HzPlugins(this);
-            OnDataChanged += HzAccount_OnDataChanged;         
+            IdleTimer = new Timer(OnIdleTimerTick, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+            OnDataChanged += HzAccount_OnDataChanged;
         }
+
         public HzAccount(HzConfig config) : this()
         {
             Config = config;
             Plugins.RaiseOnAccountLoaded();
         }
+
         #endregion Constructors
 
         #region Events
@@ -38,7 +44,7 @@ namespace HZBot
         public long ServerTime => DateTimeOffset.Now.ToUnixTimeSeconds() + ServerTimeOffset;
 
         public HzPlugins Plugins { get; }
-        public HzConfig Config { get; set; }= new HzConfig();
+        public HzConfig Config { get; set; } = new HzConfig();
         public Data Data => MainData?.data;
         public User User => MainData?.data.user;
         public Character Character => MainData?.data.character;
@@ -95,6 +101,16 @@ namespace HZBot
 
         #endregion Properties
 
+        #region Methods
+
+        public void Dispose()
+        {
+            IdleTimer.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion Methods
+
         private JsonRoot _mainData;
         private bool isBotEnabled;
         private bool isLogined;
@@ -104,6 +120,14 @@ namespace HZBot
             HzAccountManger.RemoveAccount(this);
         }
 
+        private void OnIdleTimerTick(object state)
+        {
+            if (IsBotEnabled == true)
+            {
+                Plugins.RaiseOnPrimaryWorkerComplete();
+            }
+        }
+
         private void HzAccount_OnDataChanged()
         {
             RaisePropertyChanged(nameof(Data));
@@ -111,6 +135,14 @@ namespace HZBot
             RaisePropertyChanged(nameof(Character));
             RaisePropertyChanged(nameof(Quests));
             RaisePropertyChanged(nameof(ActiveWorker));
+            if (ActiveWorker == null)
+            {
+                IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
+            }
+            else
+            {
+                IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            }
         }
     }
 }
