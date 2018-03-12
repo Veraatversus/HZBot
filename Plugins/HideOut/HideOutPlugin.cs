@@ -19,16 +19,17 @@ namespace HZBot
 
         public async override Task OnPrimaryWorkerDoWork()
         {
-            var roomz = Account.Data.hideout_rooms.FirstOrDefault(ro=> ro.identifier == HideoutRoomTypes.MainBuilding);
-            roomz = roomz ?? Account.Data.hideout_rooms.FirstOrDefault();
-            //var t = roomz.currentCalculatedResourceAmount(Account);
-            var j = roomz.secondsTillActivityFinished(Account);
-            var u = roomz.currentGeneratorFactor();
-            var o = roomz.maxResourceAmount();
-            var p = roomz.resourceAmountPerMinute();
+
             // AutoHideOutCollect
             if (Account.Config.IsAutoHideOutCollect)
             {
+                var roomz = Account.Data.hideout_rooms.FirstOrDefault(ro => ro.identifier == HideoutRoomTypes.MainBuilding);
+                roomz = roomz ?? Account.Data.hideout_rooms.FirstOrDefault();
+                //var t = roomz.currentCalculatedResourceAmount(Account);
+                var j = roomz.secondsTillActivityFinished(Account);
+                var u = roomz.currentGeneratorFactor();
+                var o = roomz.maxResourceAmount();
+                var p = roomz.resourceAmountPerMinute();
                 var rooms = Account.Data.hideout_rooms;
                 foreach (var room in rooms)
                 {
