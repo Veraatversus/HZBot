@@ -83,8 +83,11 @@ namespace HZBot
             return error;
         }
 
-        /// <summary>Get Character asynchronous.</summary>
+        /// <summary>
+        /// Gets the character asynchronous.
+        /// </summary>
         /// <param name="plugin">The plugin.</param>
+        /// <param name="CharID">The character identifier.</param>
         /// <returns></returns>
         public static async Task<string> GetCharacterAsync(this HzPluginBase plugin, string CharID)
         {
