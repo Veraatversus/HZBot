@@ -1,4 +1,5 @@
-﻿namespace HZBot
+﻿using System.Collections.Generic;
+namespace HZBot
 {
     public class HideOut
     {
@@ -66,6 +67,7 @@
         public int room_slot_6_2 { get; set; }
         public int room_slot_6_3 { get; set; }
         public int room_slot_6_4 { get; set; }
+        public IEnumerable<HideOutRoom> Rooms => HzAccountManger.GetAccountByCharacterID(character_id).Data.hideout_rooms;
 
         #endregion Properties
     }

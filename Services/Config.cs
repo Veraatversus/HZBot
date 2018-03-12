@@ -40,12 +40,12 @@
         //Item Plugin
         public bool IsAutoEquip { get; set; }
         public SellMode SellMode { get; set; }
-        public double StaminaWeight { get; set; } = 0.5f;
-        public double StrengthWeight { get; set; } = 0.2f;
-        public double CriticalRatingWeight { get; set; } = 1;
-        public double DodgeRatingWeight { get; set; } = 1;
-        public double WeaponDamageWeight { get; set; } = 2;
-        public double MissileDamageWeight { get; set; } = 1;
+        public double StaminaEquipWeight { get; set; } = 0.5f;
+        public double StrengthEquipWeight { get; set; } = 0.2f;
+        public double CriticalRatingEquipWeight { get; set; } = 1;
+        public double DodgeRatingEquipWeight { get; set; } = 1;
+        public double WeaponDamageEquipWeight { get; set; } = 2;
+        public double MissileDamageEquipWeight { get; set; } = 1;
 
         //HideOutPlugin
         public bool IsAutoHideOutCollect { get; set; }
@@ -57,6 +57,10 @@
         //CharacterStat Plugin
         public bool IsAutoTrain { get => isAutoTrain; set { isAutoTrain = value; RaisePropertyChanged(); } }
         public bool IsAutoSkill { get => isAutoSkill; set { isAutoSkill = value; RaisePropertyChanged(); } }
+        public double StaminaSkillWeight { get; set; } = 0.0f;
+        public double StrengthSkillWeight { get; set; } = 0.2;
+        public double CriticalRatingSkillWeight { get; set; } = 0.4;
+        public double DodgeRatingSkillWeight { get; set; } = 0.4;
 
         //Worldboss
         public bool IsAutoAttackWorldboss { get; set; }

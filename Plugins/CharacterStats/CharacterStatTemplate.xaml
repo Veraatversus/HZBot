@@ -41,7 +41,7 @@
                             <TextBlock Text="{Binding DataContext.BaseValue, StringFormat=BaseValue: \{0\}}" />
                             <TextBlock Text="{Binding DataContext.BoughtValue, StringFormat=BoughtValue: \{0\}}" />
                             <TextBlock Text="{Binding DataContext.TotalValue, StringFormat=TotalValue: \{0\}}" />
-                            <TextBlock Text="{Binding DataContext.MaxValue, StringFormat=MaxValue: \{0\}}" />
+                            <TextBlock Text="{Binding DataContext.ShouldValue, StringFormat=ShouldValue: \{0\}}" />
                         </StackPanel>
                     </ToolTip>
                 </TextBlock.ToolTip>

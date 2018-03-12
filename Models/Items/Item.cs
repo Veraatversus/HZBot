@@ -34,11 +34,11 @@ namespace HZBot
 
         public double GearScore()
         {
-            return stat_stamina * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.Stamina.Gewichtung +
-               stat_strength * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.Strength.Gewichtung +
-               stat_dodge_rating * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.DodgeRating.Gewichtung +
-               stat_critical_rating * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.CriticalRating.Gewichtung +
-               stat_weapon_damage * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.WeaponDamage.Gewichtung;
+            return stat_stamina * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.Stamina.EquipWeight +
+               stat_strength * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.Strength.EquipWeight +
+               stat_dodge_rating * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.DodgeRating.EquipWeight +
+               stat_critical_rating * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.CriticalRating.EquipWeight +
+               stat_weapon_damage * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.WeaponDamage.EquipWeight;
         }
 
         private string getIconImageUrl()

@@ -177,16 +177,33 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <UniformGrid Columns="1">
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="{Binding Data.character.name, StringFormat=Character: {0}}" />
+                <TextBlock Text="{Binding Character.level, StringFormat=Level: {0}}" />
+                <TextBlock Text="{Binding Character.xp, StringFormat=Xp: {0}}" />
+                <TextBlock Text="{Binding Character.game_currency, StringFormat=Currency: {0}}" />
+                <TextBlock Text="{Binding User.premium_currency, StringFormat=Premium Currency: {0}}" />
+                <TextBlock Text="{Binding Character.honor, StringFormat=Honor: {0}}" />
+                <TextBlock Text="{Binding Character.league_points, StringFormat=LeaguePoints: {0}}" />
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding Character.quest_energy, StringFormat=Quest Energy: {0}}" />
+                    <Button
+                        Width="30"
+                        Command="{Binding Plugins.Quest.ShowBuyQuestEnergyWindow}"
+                        Content="+"
+                        DockPanel.Dock="Right" />
+                </DockPanel>
+            </StackPanel>
+            <UniformGrid Grid.Column="1" Columns="1">
                 <CheckBox Margin="5" IsChecked="{Binding IsBotEnabled}" IsEnabled="{Binding Config.IsAutoStartBot, Converter={StaticResource InverseBooleanConverter}}">
                     BotEnabled
                 </CheckBox>
 
             </UniformGrid>
-            
+
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

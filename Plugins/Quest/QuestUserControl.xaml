@@ -75,6 +75,13 @@
                     <GridViewColumn DisplayMemberBinding="{Binding GetRewards.premium}" Header="Prem." />
                     <GridViewColumn DisplayMemberBinding="{Binding GetRewards.statPoints}" Header="Stat" />
                     <GridViewColumn DisplayMemberBinding="{Binding GetRewards.honor}" Header="Hon." />
+                    <GridViewColumn Header="Item">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding GetItem}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

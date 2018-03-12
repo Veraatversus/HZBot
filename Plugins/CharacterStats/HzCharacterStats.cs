@@ -17,11 +17,11 @@ namespace HZBot
 
         #region Properties
 
-        public HzCharacterStat Stamina => new HzCharacterStat() { StatType = StatType.Stamina, Gewichtung = HzAccountManger.GetAccountByCharacterID(character.id).Config.StaminaWeight, BaseValue = character.stat_base_stamina, BoughtValue = character.stat_bought_stamina, TotalValue = character.stat_total_stamina, TrainingValue = character.training_progress_value_stamina, TrainingMaxValue = character.training_progress_end_stamina };
-        public HzCharacterStat Strength => new HzCharacterStat() { StatType = StatType.Strength, Gewichtung = HzAccountManger.GetAccountByCharacterID(character.id).Config.StrengthWeight, BaseValue = character.stat_base_strength, BoughtValue = character.stat_bought_strength, TotalValue = character.stat_total_strength, TrainingValue = character.training_progress_value_strength, TrainingMaxValue = character.training_progress_end_strength };
-        public HzCharacterStat CriticalRating => new HzCharacterStat() { StatType = StatType.CriticalRating, Gewichtung = HzAccountManger.GetAccountByCharacterID(character.id).Config.CriticalRatingWeight, BaseValue = character.stat_base_critical_rating, BoughtValue = character.stat_bought_critical_rating, TotalValue = character.stat_total_critical_rating, TrainingValue = character.training_progress_value_critical_rating, TrainingMaxValue = character.training_progress_end_critical_rating };
-        public HzCharacterStat DodgeRating => new HzCharacterStat() { StatType = StatType.DodgeRating, Gewichtung = HzAccountManger.GetAccountByCharacterID(character.id).Config.DodgeRatingWeight, BaseValue = character.stat_base_dodge_rating, BoughtValue = character.stat_bought_dodge_rating, TotalValue = character.stat_total_dodge_rating, TrainingValue = character.training_progress_value_dodge_rating, TrainingMaxValue = character.training_progress_end_dodge_rating };
-        public HzCharacterStat WeaponDamage => new HzCharacterStat() { StatType = StatType.WeaponDamage, Gewichtung = HzAccountManger.GetAccountByCharacterID(character.id).Config.WeaponDamageWeight, BaseValue = 0, TotalValue = character.stat_weapon_damage };
+        public HzCharacterStat Stamina => new HzCharacterStat() { Character = character, StatType = StatType.Stamina, BaseValue = character.stat_base_stamina, BoughtValue = character.stat_bought_stamina, TotalValue = character.stat_total_stamina, TrainingValue = character.training_progress_value_stamina, TrainingMaxValue = character.training_progress_end_stamina };
+        public HzCharacterStat Strength => new HzCharacterStat() { Character = character, StatType = StatType.Strength, BaseValue = character.stat_base_strength, BoughtValue = character.stat_bought_strength, TotalValue = character.stat_total_strength, TrainingValue = character.training_progress_value_strength, TrainingMaxValue = character.training_progress_end_strength };
+        public HzCharacterStat CriticalRating => new HzCharacterStat() { Character = character, StatType = StatType.CriticalRating, BaseValue = character.stat_base_critical_rating, BoughtValue = character.stat_bought_critical_rating, TotalValue = character.stat_total_critical_rating, TrainingValue = character.training_progress_value_critical_rating, TrainingMaxValue = character.training_progress_end_critical_rating };
+        public HzCharacterStat DodgeRating => new HzCharacterStat() { Character = character, StatType = StatType.DodgeRating, BaseValue = character.stat_base_dodge_rating, BoughtValue = character.stat_bought_dodge_rating, TotalValue = character.stat_total_dodge_rating, TrainingValue = character.training_progress_value_dodge_rating, TrainingMaxValue = character.training_progress_end_dodge_rating };
+        public HzCharacterStat WeaponDamage => new HzCharacterStat() { Character = character, StatType = StatType.WeaponDamage, BaseValue = 0, TotalValue = character.stat_weapon_damage };
         public IEnumerable<HzCharacterStat> TrainStats => trainStats();
         public IEnumerable<HzCharacterStat> AllStats => allStats();
         public int StatsTotal => AllStats.Sum(stat => stat.TotalValue);
@@ -34,7 +34,7 @@ namespace HZBot
         /// <returns></returns>
         public HzCharacterStat GetNextImroveStat()
         {
-            return TrainStats.OrderBy(stat => stat.BaseValue).FirstOrDefault();
+            return TrainStats.OrderByDescending(stat => stat.StatDiffToShouldValue).FirstOrDefault();
         }
 
         /// <summary>Determines whether this instance [can improve character stat] the specified stat.</summary>

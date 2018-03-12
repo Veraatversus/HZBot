@@ -1,4 +1,6 @@
-﻿namespace HZBot
+﻿using Newtonsoft.Json.Linq;
+
+namespace HZBot
 {
     public class HideOutRoom
     {
@@ -17,7 +19,26 @@
         public int current_generator_level { get; set; }
         public int additional_value_1 { get; set; }
         public string additional_value_2 { get; set; }
+        public string ImageUrl => "hideout_rooms/" + identifier + "_i.png";
+
+        public bool isAutoProductionRoom => identifier == HideoutRoomTypes.MainBuilding || identifier == HideoutRoomTypes.GlueProduction || identifier == HideoutRoomTypes.StoneProduction || identifier == HideoutRoomTypes.XpProduction;
+
+        public bool isManuallyProductionRoom => identifier == HideoutRoomTypes.AttackerProduction || identifier == HideoutRoomTypes.DefenderProduction || identifier == HideoutRoomTypes.GemProduction || identifier == HideoutRoomTypes.ExchangeRoom;
+
+        public bool isProductionRoom => isAutoProductionRoom || isManuallyProductionRoom;
+
+        public int size => HzConstants.Default.Constants["hideout_rooms"][identifier]["size"].Value<int>();
+
+        public string type => HzConstants.Default.Constants["hideout_rooms"][identifier]["type"].Value<string>();
+
+        public string itemId => "hr_" + identifier + "_" + id;
 
         #endregion Properties
+
+        #region Methods
+
+        public int index() => HzConstants.Default.Constants["hideout_rooms"][identifier]["index"].Value<int>();
+
+        #endregion Methods
     }
 }

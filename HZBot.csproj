@@ -68,12 +68,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\HideOut\HideoutRoomTypes.cs" />
     <Compile Include="Models\WorldBoss\WorldbossAttack.cs" />
     <Compile Include="Plugins\Account\AccountUserControl.xaml.cs">
       <DependentUpon>AccountUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\Plugins\HzServiceBase.cs" />
     <Compile Include="Plugins\HideOut\HideOutRequests.cs" />
+    <Compile Include="Plugins\HideOut\HideoutUtil.cs" />
+    <Compile Include="Plugins\HideOut\HideoutWorkerActivity.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossPlugin.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossUserControl.xaml.cs">
       <DependentUpon>WorldbossUserControl.xaml</DependentUpon>

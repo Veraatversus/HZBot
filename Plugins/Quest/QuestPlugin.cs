@@ -132,6 +132,7 @@ namespace HZBot
         {
             return Account.Character?.quest_energy < 50 &&
                 Account.ActiveWorker == null &&
+                 Account.Character?.quest_energy_refill_amount_today < 200 &&
                 Account.Character?.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill;
         }
 

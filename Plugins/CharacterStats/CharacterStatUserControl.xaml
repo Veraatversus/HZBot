@@ -37,28 +37,12 @@
         </Expander.HeaderTemplate>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <TextBlock Text="{Binding Data.character.name, StringFormat=Character: {0}}" />
-                <TextBlock Text="{Binding Character.level, StringFormat=Level: {0}}" />
-                <TextBlock Text="{Binding Character.xp, StringFormat=Xp: {0}}" />
-                <TextBlock Text="{Binding Character.game_currency, StringFormat=Currency: {0}}" />
-                <TextBlock Text="{Binding User.premium_currency, StringFormat=Premium Currency: {0}}" />
-                <TextBlock Text="{Binding Character.honor, StringFormat=Honor: {0}}" />
-                <TextBlock Text="{Binding Character.league_points, StringFormat=LeaguePoints: {0}}" />
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding Character.quest_energy, StringFormat=Quest Energy: {0}}" />
-                    <Button
-                        Width="30"
-                        Command="{Binding Plugins.Quest.ShowBuyQuestEnergyWindow}"
-                        Content="+"
-                        DockPanel.Dock="Right" />
-                </DockPanel>
-            </StackPanel>
+           
             <Grid
-                Grid.Column="1"
+                Grid.Column="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -78,6 +62,24 @@
                     ItemTemplate="{DynamicResource CharacterStatTemplate}"
                     ItemsSource="{Binding Character.HzStats.AllStats}" />
             </Grid>
+            <UniformGrid Grid.Column="1" Columns="2">
+                <StackPanel Margin="5,0" Orientation="Vertical">
+                    <TextBlock HorizontalAlignment="Center" Text="Stamina" />
+                    <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.StaminaSkillWeight, StringFormat={}{0:0.00}}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock HorizontalAlignment="Center" Text="Strength" />
+                    <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.StrengthSkillWeight, StringFormat={}{0:0.00}}" />
+                </StackPanel>
+                <StackPanel Margin="5,0" Orientation="Vertical">
+                    <TextBlock HorizontalAlignment="Center" Text="Crit" />
+                    <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.CriticalRatingSkillWeight, StringFormat={}{0:0.00}}" />
+                </StackPanel>
+                <StackPanel Margin="5,0" Orientation="Vertical">
+                    <TextBlock HorizontalAlignment="Center" Text="Dodge" />
+                    <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.DodgeRatingSkillWeight, StringFormat={}{0:0.00}}" />
+                </StackPanel>
+            </UniformGrid>
         </Grid>
     </Expander>
 </local:HzUserControl>
