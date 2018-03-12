@@ -73,6 +73,7 @@
       <DependentUpon>AccountUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\Plugins\HzServiceBase.cs" />
+    <Compile Include="Plugins\HideOut\HideOutRequests.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossPlugin.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossUserControl.xaml.cs">
       <DependentUpon>WorldbossUserControl.xaml</DependentUpon>

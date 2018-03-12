@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace HZBot
 {
@@ -30,11 +29,10 @@ namespace HZBot
             //Buy Quest Energy Commands
             ShowBuyQuestEnergyWindow = new RelayCommand(
                 () => new ChooseCurrencyWindow(Account).ShowDialog(),
-                () => Account.Character?.quest_energy < 50 && Account.Character?.quest_energy_refill_amount_today < 200);
+                () => Account.Character?.quest_energy < 50 && Account.Character?.quest_energy_refill_amount_today < 200 &&Account.Character.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill );
 
             BuyEnergyFromGold = new AsyncRelayCommand(
-              async () => await this.BuyQuestEnergyAsync(false),
-              () => Account.Character?.quest_energy < 50 && Account.ActiveWorker == null && Account.Character?.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill);
+              async () => await this.BuyQuestEnergyAsync(false), CanBuyEnergyForGold);
 
             BuyEnergyFromPremium = new AsyncRelayCommand(
                 async () => await this.BuyQuestEnergyAsync(true),
@@ -51,12 +49,14 @@ namespace HZBot
         public AsyncRelayCommand StartBestQuest { get; private set; }
 
         public AsyncRelayCommand<Quest> StartQuest { get; private set; }
+
         public AsyncRelayCommand ClaimWorkerReward { get; private set; }
 
         //Buy Quest Energy Commands
         public AsyncRelayCommand BuyEnergyFromGold { get; private set; }
 
         public AsyncRelayCommand BuyEnergyFromPremium { get; private set; }
+
         public RelayCommand ShowBuyQuestEnergyWindow { get; private set; }
 
         #endregion Properties
@@ -126,6 +126,13 @@ namespace HZBot
                     // Account.Log.Add($"[Quest] START: ID:{quest.id} Duration:{quest.duration / 60}");
                 }
             }
+        }
+
+        private bool CanBuyEnergyForGold()
+        {
+            return Account.Character?.quest_energy < 50 &&
+                Account.ActiveWorker == null &&
+                Account.Character?.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill;
         }
 
         #endregion Methods
