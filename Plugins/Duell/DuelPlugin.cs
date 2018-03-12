@@ -11,7 +11,8 @@ namespace HZBot
         public DuelPlugin(HzAccount account) : base(account)
         {
             StartBestDuel = new AsyncRelayCommand(
-                async () => await this.StartDuellAsync(GegnerID));
+                async () => await this.StartDuellAsync(GegnerID),
+                () => Account.IsLogined);
 
             CheckForDuelComplete = new AsyncRelayCommand(
                 async () => await this.CheckForDuelCompleteAsync());
@@ -45,92 +46,119 @@ namespace HZBot
                 await CheckForComplete();
             }
 
-            while (Account.Character.duel_stamina >= Account.Character.duel_stamina_cost)
+            var DuelStamina = (Account.Character.duel_stamina >= Account.Character.duel_stamina_cost ? 1 : 0);
+            switch (DuelStamina)
             {
-                if (Account.Data.ActiveDuel == null)
-                {
+                case 1:
                     await this.GetDuelOpponentsAsync();
                     GetOpponent = FindOpponent();
                     if (GetOpponent != null)
                     {
-                        // Add to Duel History
                         DuelList.Add(new DuelHistory { id = GetOpponent.id, name = GetOpponent.name });
-
                         GegnerID = GetOpponent.id.ToString();
                         await StartBestDuel.TryExecuteAsync();
-                    }
-                    else
+                    } else
                     {
-                        await this.GetLeaderboardAsync();
-
-                        var MyRank = Account.Data.centered_rank;
-                        var AktRank = Account.Data.centered_rank;
-                        var DiffRank = 0;
-                        var OpponentFound = false;
-                        var goBetterRank = true;
-
-                        while (!OpponentFound)
-                        {
-                            if (goBetterRank)
-                            {
-                                AktRank--;
-                                DiffRank = MyRank - AktRank;
-
-                                var LCharID = Account.Data.leaderboard_characters.FirstOrDefault(ch => ch.rank == AktRank).id.ToString();
-
-                                await this.GetCharacterAsync(LCharID);
-                                OpponentFound = await CheckForOpponent(OpponentFound);
-
-                                if (DiffRank >= 20)
-                                {
-                                    goBetterRank = false;
-                                    AktRank = MyRank;
-                                }
-                            }
-                            else
-                            {
-                                AktRank++;
-                                DiffRank = AktRank - MyRank;
-
-                                var LCharID = Account.Data.leaderboard_characters.FirstOrDefault(ch => ch.rank == AktRank).id.ToString();
-
-                                await this.GetCharacterAsync(LCharID);
-
-                                OpponentFound = await CheckForOpponent(OpponentFound);
-
-                                if (DiffRank >= 20)
-                                {
-                                    FindOpponent(false);
-                                    return;
-                                }
-                            }
-                        }
+                        goto case 2;
                     }
-                }
-                await CheckForComplete();
-            }
-        }
+                    await CheckForComplete();
 
-        private async Task<bool> CheckForOpponent(bool OpponentFound)
-        {
-            if (Account.Data.requested_character != null)
-            {
-                var StatTotal = Account.Data.requested_character.stat_total_critical_rating +
-                                Account.Data.requested_character.stat_total_dodge_rating +
-                                Account.Data.requested_character.stat_total_stamina +
-                                Account.Data.requested_character.stat_total_strength;
-                if (StatTotal < Account.Character.FightStat && Account.Data.requested_character.stat_total_critical_rating < Account.Character.stat_total_critical_rating && Account.Data.requested_character.stat_total_dodge_rating < Account.Character.stat_total_dodge_rating)
-                {
-                    OpponentFound = true;
-                    GegnerID = Account.Data.requested_character.id.ToString();
-                    // Add to Duel History
-                    DuelList.Add(new DuelHistory { id = Account.Data.requested_character.id, name = Account.Data.requested_character.name });
-                    await StartBestDuel.TryExecuteAsync();
-                }
+                    if (Account.Character.duel_stamina >= Account.Character.duel_stamina_cost)
+                        goto case 1;
+                    break;
+                case 2:
+                    Account.Log.Add("Duel wird Deaktiviert Arbeite an deinen Stats du NOOB!");
+                    Account.Config.IsAutoDuel = false;
+
+                    break;
             }
 
-            return OpponentFound;
+            //while (Account.Character.duel_stamina >= Account.Character.duel_stamina_cost)
+            //{
+            //    if (Account.Data.ActiveDuel == null)
+            //    {
+            //        await this.GetDuelOpponentsAsync();
+            //        GetOpponent = FindOpponent(false);
+            //        if (GetOpponent != null)
+            //        {
+            //            // Add to Duel History
+            //            DuelList.Add(new DuelHistory { id = GetOpponent.id, name = GetOpponent.name });
+
+            //            GegnerID = GetOpponent.id.ToString();
+            //            await StartBestDuel.TryExecuteAsync();
+            //        }
+            //        else
+            //        {
+            //            await this.GetLeaderboardAsync();
+
+            //            var MyRank = Account.Data.centered_rank;
+            //            var AktRank = Account.Data.centered_rank;
+            //            var DiffRank = 0;
+            //            var OpponentFound = false;
+            //            var goBetterRank = true;
+
+            //            while (!OpponentFound)
+            //            {
+            //                if (goBetterRank)
+            //                {
+            //                    AktRank--;
+            //                    DiffRank = MyRank - AktRank;
+
+            //                    var LCharID = Account.Data.leaderboard_characters.FirstOrDefault(ch => ch.rank == AktRank).id.ToString();
+
+            //                    await this.GetCharacterAsync(LCharID);
+            //                    OpponentFound = await CheckForOpponent(OpponentFound);
+
+            //                    if (DiffRank >= 20)
+            //                    {
+            //                        goBetterRank = false;
+            //                        AktRank = MyRank;
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    AktRank++;
+            //                    DiffRank = AktRank - MyRank;
+
+            //                    var LCharID = Account.Data.leaderboard_characters.FirstOrDefault(ch => ch.rank == AktRank).id.ToString();
+
+            //                    await this.GetCharacterAsync(LCharID);
+
+            //                    OpponentFound = await CheckForOpponent(OpponentFound);
+
+            //                    if (DiffRank >= 20)
+            //                    {
+            //                        FindOpponent(false);
+            //                        return;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    await CheckForComplete();
+            //}
         }
+
+        //private async Task<bool> CheckForOpponent(bool OpponentFound)
+        //{
+        //    if (Account.Data.requested_character != null)
+        //    {
+        //        var StatTotal = Account.Data.requested_character.stat_total_critical_rating +
+        //                        Account.Data.requested_character.stat_total_dodge_rating +
+        //                        Account.Data.requested_character.stat_total_stamina +
+        //                        Account.Data.requested_character.stat_total_strength;
+        //        if (StatTotal < Account.Character.FightStat && Account.Data.requested_character.stat_total_critical_rating < Account.Character.stat_total_critical_rating && Account.Data.requested_character.stat_total_dodge_rating < Account.Character.stat_total_dodge_rating)
+        //        {
+        //            OpponentFound = true;
+        //            GegnerID = Account.Data.requested_character.id.ToString();
+        //            // Add to Duel History
+        //            DuelList.Add(new DuelHistory { id = Account.Data.requested_character.id, name = Account.Data.requested_character.name });
+        //            await StartBestDuel.TryExecuteAsync();
+        //        }
+        //    }
+
+        //    return OpponentFound;
+        //}
 
         private async Task CheckForComplete()
         {
