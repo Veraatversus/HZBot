@@ -19,4 +19,15 @@ namespace HZBot
         public Rewards Rewards_B => JObject.Parse(character_b_rewards).ToObject<Rewards>();
         #endregion Properties
     }
+
+    public class DuelHistory : ViewModelBase
+    {
+        private int _status;
+
+        public int id { get; set; }
+        public string name { get; set; }
+        public int Status { get => _status; set { _status = value; RaisePropertyChanged(); } } // Gewonnen Ja=1 Nein=0
+
+
+    }
 }

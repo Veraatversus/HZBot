@@ -7,6 +7,48 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="300"
+    d:DataContext="{d:DesignInstance local:HzAccount}"
     mc:Ignorable="d">
-    <Grid />
+    <Expander>
+        <Expander.Header>
+                <Grid HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource AncestorType=ContentPresenter}, Mode=OneWayToSource}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.RowSpan="2"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="Duels:" />
+                    <CheckBox
+                        Grid.Column="1"
+                        Grid.RowSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FlowDirection="RightToLeft"
+                        Content="AutoDuel"
+                        IsChecked="{Binding Config.IsAutoDuel}" />
+                </Grid>
+        </Expander.Header>
+        <ListView Grid.Row="1" ItemsSource="{Binding Plugins.Duel.DuelList}">
+            <ListView.View>
+                <GridView ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" />
+                    <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Status}" Header="Status" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Expander>
 </local:HzUserControl>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HZBot
@@ -30,13 +31,29 @@ namespace HZBot
         public AsyncRelayCommand claimDuelReward { get; private set; }
         public Opponents GetOpponent { get; set; }
         public string GegnerID = "";
+        public ObservableCollection<DuelHistory> DuelList { get; set; } = new ObservableCollection<DuelHistory>();
         #endregion Properties
 
         #region Methods
 
         public async override Task AfterPrimaryWorkerWork()
         {
-            while (Account.Character.duel_stamina > Account.Character.duel_stamina_cost)
+            if (!Account.Config.IsAutoDuel)
+                return;
+
+            if (Account.Data.ActiveDuel != null && Account.Character.duel_stamina < 20)
+            {
+                if (Account.Data.ActiveDuel?.character_a_status == 1 && Account.Data.ActiveDuel?.character_b_status == 1)
+                {
+                    await CheckForDuelComplete.TryExecuteAsync();
+                }
+                if (Account.Data.ActiveDuel?.character_a_status == 2 || Account.Data.ActiveDuel?.character_b_status == 2)
+                {
+                    await claimDuelReward.TryExecuteAsync();
+                }
+            }
+
+            while (Account.Character.duel_stamina >= Account.Character.duel_stamina_cost)
             {
                 if (Account.Data.ActiveDuel == null)
                 {
@@ -44,6 +61,9 @@ namespace HZBot
                     GetOpponent = FindOpponent();
                     if (GetOpponent != null)
                     {
+                        // Add to Duel History
+                        DuelList.Add(new DuelHistory() { id = GetOpponent.id, name = GetOpponent.name });
+
                         GegnerID = GetOpponent.id.ToString();
                         await StartBestDuel.TryExecuteAsync();
                         
@@ -81,6 +101,8 @@ namespace HZBot
                                     {
                                         OpponentFound = true;
                                         GegnerID = Account.Data.requested_character.id.ToString();
+                                        // Add to Duel History
+                                        DuelList.Add(new DuelHistory() { id = Account.Data.requested_character.id, name = Account.Data.requested_character.name });
                                         await StartBestDuel.TryExecuteAsync();
                                     }
                                 }
@@ -108,6 +130,8 @@ namespace HZBot
                                     {
                                         OpponentFound = true;
                                         GegnerID = Account.Data.requested_character.id.ToString();
+                                        // Add to Duel History
+                                        DuelList.Add(new DuelHistory() { id = Account.Data.requested_character.id, name = Account.Data.requested_character.name });
                                         await StartBestDuel.TryExecuteAsync();
                                     }
                                 }

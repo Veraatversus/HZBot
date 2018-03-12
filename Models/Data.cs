@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace HZBot
@@ -6,7 +7,7 @@ namespace HZBot
     public class Data
     {
         #region Properties
-
+        
         public Bank_Inventory bank_inventory { get; set; }
         public Character character { get; set; }
         public Inventory inventory { get; set; }

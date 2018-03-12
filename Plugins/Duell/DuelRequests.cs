@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace HZBot
 {
@@ -41,6 +42,12 @@ namespace HZBot
         /// <returns></returns>
         public static async Task<string> ClaimDuelRewardsAsync(this DuelPlugin plugin)
         {
+            // Editiere DuelHistory ob Gewonnen
+            if (plugin.DuelList != null)
+            {
+                var index = plugin.DuelList.FirstOrDefault(c => c.id == plugin.Account.Data.ActiveDuel.character_b_id);
+                index.Status = (plugin.Account.Data.duel.character_a_status == 2 ? 1 : 0);
+            }
             var error = await plugin.Account.DefaultRequestContent("claimDuelRewards")
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("discard_item", "false")
