@@ -11,8 +11,7 @@ namespace HZBot
         public DuelPlugin(HzAccount account) : base(account)
         {
             StartBestDuel = new AsyncRelayCommand(
-                async () => await this.StartDuellAsync(GegnerID),
-                () => Account.ActiveWorker != null);
+                async () => await this.StartDuellAsync(GegnerID));
 
             CheckForDuelComplete = new AsyncRelayCommand(
                 async () => await this.CheckForDuelCompleteAsync());
