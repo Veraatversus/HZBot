@@ -36,7 +36,7 @@ namespace HZBot
         public double XPPerEnergy => GetRewards.xp / energy_cost;
         public double CurrencyPerEnergy => CoinsInclItem / energy_cost;
         public double XPCurrencyPerEneryAverage => (XPPerEnergy + CurrencyPerEnergy) / 2;
-        public long RemainingTime => (ts_complete != 0 ? ts_complete : HzAccountManger.GetAccountByCharacterID(character_id).ServerTime) - HzAccountManger.GetAccountByCharacterID(character_id).ServerTime;
+        public long RemainingTime => (ts_complete != 0 ? ts_complete : HzAccountManger.GetAccByCharacterID(character_id).ServerTime) - HzAccountManger.GetAccByCharacterID(character_id).ServerTime;
 
         public WorkType WorkerType => WorkType.Quest;
 

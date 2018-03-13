@@ -84,12 +84,15 @@ namespace HZBot
                     Plugins.RaiseOnBotStarted();
                     if (ActiveWorker == null)
                     {
-                        IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
-                        Plugins.RaiseOnPrimaryWorkerComplete();
+                        IdleTimer.Change(TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(10));
+                        //Plugins.RaiseOnPrimaryWorkerComplete();
                     }
                 }
                 else
+                {
+                    IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
                     Plugins.RaiseOnBotStoped();
+                }
             }
         }
 
@@ -125,7 +128,7 @@ namespace HZBot
 
         private void OnIdleTimerTick(object state)
         {
-            if (IsBotEnabled == true)
+            if (IsBotEnabled)
             {
                 Plugins.RaiseOnPrimaryWorkerComplete();
             }

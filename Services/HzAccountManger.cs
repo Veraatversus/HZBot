@@ -51,9 +51,14 @@ namespace HZBot
         /// <summary>Gets the account by character identifier.</summary>
         /// <param name="characterId">The character identifier.</param>
         /// <returns></returns>
-        public static HzAccount GetAccountByCharacterID(int characterId)
+        public static HzAccount GetAccByCharacterID(int characterId)
         {
             return Accounts.FirstOrDefault(acc => acc.Character?.id == characterId);
+        }
+
+        public static HzAccount GetAccByHideOutID(int hideoutId)
+        {
+            return Accounts.FirstOrDefault(acc => acc.Data?.hideout?.id == hideoutId);
         }
 
         /// <summary>Gets the item by item id.</summary>

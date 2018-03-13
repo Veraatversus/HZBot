@@ -23,22 +23,22 @@ namespace HZBot
                 switch (StatType)
                 {
                     case StatType.Stamina:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.StaminaEquipWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.StaminaEquipWeight;
 
                     case StatType.Strength:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.StrengthEquipWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.StrengthEquipWeight;
 
                     case StatType.CriticalRating:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.CriticalRatingEquipWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.CriticalRatingEquipWeight;
 
                     case StatType.DodgeRating:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.DodgeRatingEquipWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.DodgeRatingEquipWeight;
 
                     case StatType.WeaponDamage:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.WeaponDamageEquipWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.WeaponDamageEquipWeight;
 
                     case StatType.MissileDamage:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.MissileDamageEquipWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.MissileDamageEquipWeight;
 
                     default:
                         return 0;
@@ -53,16 +53,16 @@ namespace HZBot
                 switch (StatType)
                 {
                     case StatType.Stamina:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.StaminaSkillWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.StaminaSkillWeight;
 
                     case StatType.Strength:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.StrengthSkillWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.StrengthSkillWeight;
 
                     case StatType.CriticalRating:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.CriticalRatingSkillWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.CriticalRatingSkillWeight;
 
                     case StatType.DodgeRating:
-                        return HzAccountManger.GetAccountByCharacterID(Character.id).Config.DodgeRatingSkillWeight;
+                        return HzAccountManger.GetAccByCharacterID(Character.id).Config.DodgeRatingSkillWeight;
 
                     default:
                         return 0;

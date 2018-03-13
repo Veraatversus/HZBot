@@ -24,8 +24,8 @@ namespace HZBot
         public int stat_critical_rating { get; set; }
         public int stat_dodge_rating { get; set; }
         public int stat_weapon_damage { get; set; }
-        public bool IsEquiped => HzAccountManger.GetAccountByCharacterID(character_id).Data.HzInventory.GearItems.FirstOrDefault(item => item.id == id) != null ? true : false;
-        public double GearScoreDiffToEquiped => HzAccountManger.GetAccountByCharacterID(character_id).Data.HzInventory.CompareToEquip(this);
+        public bool IsEquiped => HzAccountManger.GetAccByCharacterID(character_id).Data.HzInventory.GearItems.FirstOrDefault(item => item.id == id) != null ? true : false;
+        public double GearScoreDiffToEquiped => HzAccountManger.GetAccByCharacterID(character_id).Data.HzInventory.CompareToEquip(this);
         public string ImageUrl => getIconImageUrl();
 
         #endregion Properties
@@ -34,11 +34,11 @@ namespace HZBot
 
         public double GearScore()
         {
-            return stat_stamina * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.Stamina.EquipWeight +
-               stat_strength * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.Strength.EquipWeight +
-               stat_dodge_rating * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.DodgeRating.EquipWeight +
-               stat_critical_rating * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.CriticalRating.EquipWeight +
-               stat_weapon_damage * HzAccountManger.GetAccountByCharacterID(character_id).Character.HzStats.WeaponDamage.EquipWeight;
+            return stat_stamina * HzAccountManger.GetAccByCharacterID(character_id).Character.HzStats.Stamina.EquipWeight +
+               stat_strength * HzAccountManger.GetAccByCharacterID(character_id).Character.HzStats.Strength.EquipWeight +
+               stat_dodge_rating * HzAccountManger.GetAccByCharacterID(character_id).Character.HzStats.DodgeRating.EquipWeight +
+               stat_critical_rating * HzAccountManger.GetAccByCharacterID(character_id).Character.HzStats.CriticalRating.EquipWeight +
+               stat_weapon_damage * HzAccountManger.GetAccByCharacterID(character_id).Character.HzStats.WeaponDamage.EquipWeight;
         }
 
         private string getIconImageUrl()

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace HZBot
 {
@@ -32,6 +33,15 @@ namespace HZBot
         public string type => HzConstants.Default.Constants["hideout_rooms"][identifier]["type"].Value<string>();
 
         public string itemId => "hr_" + identifier + "_" + id;
+
+        public CHideOutRoom CRoom => HzConstants.Default.Constants["hideout_rooms"][identifier]?.ToObject<CHideOutRoom>();
+        public CHideOutRoomLevel CLevel => HzConstants.Default.Constants["hideout_rooms"][identifier]["levels"][level.ToString()]?.ToObject<CHideOutRoomLevel>();
+        public CHideOutRoomLevel CNextLevel => HzConstants.Default.Constants["hideout_rooms"][identifier]["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == (level + 1).ToString())?.ToObject<CHideOutRoomLevel>();
+        public CHideOutRoomLevel CGeneratator => HzConstants.Default.Constants["hideout_rooms"]["generator"]["levels"][current_generator_level.ToString()].ToObject<CHideOutRoomLevel>();
+        public double secondsTillActivityFinished => this.secondsTillActivityFinished();
+        public double currentCalculatedResourceAmount => this.currentCalculatedResourceAmount();
+        public double maxResourceAmount => this.maxResourceAmount();
+        public bool IsInStore => this.isRoomInStore();
 
         #endregion Properties
 

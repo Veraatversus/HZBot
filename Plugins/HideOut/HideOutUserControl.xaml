@@ -74,7 +74,15 @@
                 FontSize="18"
                 FontWeight="Bold"
                 Text="Hideout Rooms:" />
-            <ListView ItemsSource="{Binding Data.hideout_rooms}">
+            <ListView>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+             
+            </ListView>
+            <!--<ListView ItemsSource="{Binding Data.hideout_rooms}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding identifier}" Header="Type" />
@@ -125,7 +133,7 @@
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
-            </ListView>
+            </ListView>-->
         </StackPanel>
     </StackPanel>
 </local:HzUserControl>

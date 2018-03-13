@@ -68,7 +68,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\HideOut\CBooster.cs" />
+    <Compile Include="Models\HideOut\CBoosterType.cs" />
+    <Compile Include="Models\HideOut\CHideOutRoom.cs" />
+    <Compile Include="Models\HideOut\CHideOutRoomLevel.cs" />
     <Compile Include="Models\HideOut\HideoutRoomTypes.cs" />
+    <Compile Include="Models\HideOut\HideOutSlot.cs" />
     <Compile Include="Models\WorldBoss\WorldbossAttack.cs" />
     <Compile Include="Plugins\Account\AccountUserControl.xaml.cs">
       <DependentUpon>AccountUserControl.xaml</DependentUpon>

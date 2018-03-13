@@ -132,7 +132,7 @@ namespace HZBot
                 var roomToUpdate = account.JsonData["data"]?["hideout_rooms"]?.OfType<JContainer>().FirstOrDefault(room => room["id"]?.Value<int>() == updateRoom["id"]?.Value<int>());
                 if (roomToUpdate != null)
                 {
-                    roomToUpdate.Merge(updateQuest);
+                    roomToUpdate.Merge(updateRoom);
                 }
             }
             if (jobj.SelectToken("data.quests")?.HasValues ?? false)

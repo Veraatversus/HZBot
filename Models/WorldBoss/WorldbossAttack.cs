@@ -15,7 +15,7 @@
         public int battle_id { get; set; }
         public int used_resources { get; set; }
 
-        public long RemainingTime => (ts_complete != 0 ? ts_complete : HzAccountManger.GetAccountByCharacterID(character_id).ServerTime) - HzAccountManger.GetAccountByCharacterID(character_id).ServerTime;
+        public long RemainingTime => (ts_complete != 0 ? ts_complete : HzAccountManger.GetAccByCharacterID(character_id).ServerTime) - HzAccountManger.GetAccByCharacterID(character_id).ServerTime;
 
         public WorkType WorkerType => WorkType.WorldbossAttack;
 
