@@ -23,7 +23,7 @@ namespace HZBot
             // AutoHideOutCollect
             if (Account.Config.IsAutoHideOutCollect)
             {
-                foreach (var room in Account.Data.hideout.hasRewardToCollect(50))
+                foreach (var room in Account.Data.hideout.hasRewardToCollect(25))
                 {
                     switch (room.identifier)
                     {
