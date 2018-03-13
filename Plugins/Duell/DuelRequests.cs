@@ -46,7 +46,8 @@ namespace HZBot
             if (plugin.DuelList != null)
             {
                 var index = plugin.DuelList.FirstOrDefault(c => c.id == plugin.Account.Data.ActiveDuel.character_b_id);
-                index.Status = (plugin.Account.Data.duel.character_a_status == 2 ? 1 : 0);
+                if (index != null)
+                    index.Status = (plugin.Account.Data.duel.character_a_status == 2 ? 1 : 0);
             }
             var error = await plugin.Account.DefaultRequestContent("claimDuelRewards")
                 .AddKeyValue("rct", "2")

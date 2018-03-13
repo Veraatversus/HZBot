@@ -41,7 +41,7 @@ namespace HZBot
             if (!Account.Config.IsAutoDuel)
                 return;
 
-            if (Account.Data.ActiveDuel != null && Account.Character.duel_stamina < 20)
+            if (Account.Data.ActiveDuel != null)
             {
                 await CheckForComplete();
             }
