@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,6 +37,8 @@ namespace HZBot
 
         #region Methods
 
+       
+
         public async override Task AfterPrimaryWorkerWork()
         {
             if (!Account.Config.IsAutoDuel)
@@ -50,8 +53,9 @@ namespace HZBot
             switch (DuelStamina)
             {
                 case 1:
-                    await this.GetDuelOpponentsAsync();
-                    GetOpponent = FindOpponent();
+                    if (await this.GetDuelOpponentsAsync() != null) return;
+                    if (Account.Data.opponents != null)
+                        GetOpponent = FindOpponent();
                     if (GetOpponent != null)
                     {
                         DuelList.Add(new DuelHistory { id = GetOpponent.id, name = GetOpponent.name });
@@ -174,6 +178,7 @@ namespace HZBot
 
         public Opponents FindOpponent(bool LookStats = true)
         {
+                           
             var fo = Account.Data.opponents.Where(g1 => Account.Data.character.FightStat > g1.fightStat);
             if (LookStats)
                 fo.Where(g1 => g1.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating && g1.stat_total_dodge_rating <= Account.Data.character.stat_total_dodge_rating);

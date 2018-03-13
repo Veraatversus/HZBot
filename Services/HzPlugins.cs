@@ -19,13 +19,14 @@ namespace HZBot
             HideOut = RegisterPlugin(new HideOutPlugin(hzAccount));
             Item = RegisterPlugin(new ItemPlugin(hzAccount));
             PrimaryWorker = RegisterPlugin(new PrimaryWorkerPlugin(hzAccount));
+            Booster = RegisterPlugin(new BoosterPlugin(hzAccount));
             DefaultContext = System.Threading.SynchronizationContext.Current;
         }
 
         #endregion Constructors
 
         #region Properties
-
+        public BoosterPlugin Booster { get; set; }
         public CharacterStatPlugin CharacterStat { get; private set; }
         public QuestPlugin Quest { get; private set; }
         public DuelPlugin Duel { get; private set; }
