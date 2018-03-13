@@ -103,7 +103,7 @@ namespace HZBot
             double _loc1_ = 1;
             if (room.isAutoProductionRoom && room.current_generator_level > 0)
             {
-                _loc1_ = 1 + HzConstants.Default.Constants["hideout_rooms"]["generator"][room.current_generator_level.ToString()]["passiv_bonus_amount_1"].Value<double>() / 100;
+                _loc1_ = 1 + HzConstants.Default.Constants["hideout_rooms"]["generator"]["levels"][room.current_generator_level.ToString()]["passiv_bonus_amount_1"].Value<double>() / 100;
             }
             return _loc1_;
         }
