@@ -1,4 +1,7 @@
-﻿namespace HZBot
+﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using System.Linq;
+namespace HZBot
 {
     public class Character
     {
@@ -142,6 +145,30 @@
         public HzCharacterStats HzStats => new HzCharacterStats(this);
         public int CurrentGameCurrencyCostEnergyRefill => GameUtil.gameCurrencyCostEnergyRefill(level, quest_energy_refill_amount_today);
 
+        public Booster ActiveQuestBooster => Boosters.FirstOrDefault(b => b.Constants.type == CBoosterType.Quest && b.IsActive);
+        public Booster ActiveStatsBooster => Boosters.FirstOrDefault(b => b.Constants.type == CBoosterType.Stats && b.IsActive);
+        public Booster ActiveWorkBooster => Boosters.FirstOrDefault(b => b.Constants.type == CBoosterType.Work && b.IsActive);
+        public IEnumerable<Booster> Boosters => HzConstants.Default.Constants["boosters"].OfType<JProperty>().Select(
+            tok =>
+            {
+                var booster = new Booster();
+                booster.character = this;
+                booster.Constants = tok.Value.ToObject<CBooster>();
+                booster.Id = tok.Name;
+                if (tok.Name == active_quest_booster_id)
+                {
+                    booster.Expires = ts_active_quest_boost_expires;
+                }
+                if (tok.Name == active_stats_booster_id)
+                {
+                    booster.Expires = ts_active_stats_boost_expires;
+                }
+                if (tok.Name == active_work_booster_id)
+                {
+                    booster.Expires = ts_active_work_boost_expires;
+                }
+                return booster;
+            });
         #endregion Properties
     }
 }

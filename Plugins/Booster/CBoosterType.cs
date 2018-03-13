@@ -1,6 +1,6 @@
 ﻿
 
-namespace HZBot.Models.HideOut
+namespace HZBot
 {
     public enum CBoosterType
     {

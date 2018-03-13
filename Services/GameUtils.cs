@@ -34,7 +34,7 @@ namespace HZBot
             return _loc3_;
         }
 
-        public static double boosterCost(int level, bool smallCost = false)
+        public static int boosterCost(int level, bool smallCost = false)
         {
             var _loc7_ = Math.Ceiling((level + 1) / (double)10);
             double _loc3_ = 0;
@@ -52,7 +52,7 @@ namespace HZBot
             var _loc10_ = HzConstants.Default.Constants["coins_per_time_level_scale"].Value<double>();
             var _loc6_ = HzConstants.Default.Constants["coins_per_time_level_exp"].Value<double>();
             var _loc4_ = Math.Ceiling((_loc5_ + _loc9_ * Math.Pow(_loc10_ * (_loc7_ * 10 - 9), _loc6_)) * _loc3_ / _loc8_) * _loc8_;
-            return Math.Round(_loc4_);
+            return (int)Math.Round(_loc4_);
         }
 
         public static double getHitPoints(int statTotalStamina)

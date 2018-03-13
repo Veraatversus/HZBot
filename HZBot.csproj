@@ -68,8 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\HideOut\CBooster.cs" />
-    <Compile Include="Models\HideOut\CBoosterType.cs" />
+    <Compile Include="Plugins\Booster\Booster.cs" />
+    <Compile Include="Plugins\Booster\BoosterRequests.cs" />
+    <Compile Include="Plugins\Booster\CBooster.cs" />
+    <Compile Include="Plugins\Booster\CBoosterType.cs" />
     <Compile Include="Models\HideOut\CHideOutRoom.cs" />
     <Compile Include="Models\HideOut\CHideOutRoomLevel.cs" />
     <Compile Include="Models\HideOut\HideoutRoomTypes.cs" />
@@ -338,5 +340,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Booster\booster_quest1.png" />
+    <Resource Include="Assets\Booster\booster_quest2.png" />
+    <Resource Include="Assets\Booster\booster_quest3.png" />
+    <Resource Include="Assets\Booster\booster_stats2.png" />
+    <Resource Include="Assets\Booster\booster_stats3.png" />
+    <Resource Include="Assets\Booster\booster_work1.png" />
+    <Resource Include="Assets\Booster\booster_work2.png" />
+    <Resource Include="Assets\Booster\booster_work3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Booster\booster_stats1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

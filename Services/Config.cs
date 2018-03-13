@@ -64,6 +64,9 @@
 
         //Worldboss
         public bool IsAutoAttackWorldboss { get; set; }
+
+        //Booster
+        public bool IsAutoABooster { get; set; }
         #endregion Properties
 
         #region Fields

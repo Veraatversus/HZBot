@@ -7,9 +7,25 @@ using System.Threading.Tasks;
 namespace HZBot
 {
     public class BoosterPlugin : HzPluginBase
-    { 
+    {
+        public AsyncRelayCommand<Booster> BuyBoosterCommand { get; private set; }
+
         public BoosterPlugin(HzAccount account) : base(account)
-        { }
+        {
+            BuyBoosterCommand = new AsyncRelayCommand<Booster>(b => this.BuyBoosterAsync(b), boosterCanBuy);
+        }
+
+        private bool boosterCanBuy(Booster booster)
+        {
+            if (booster.Constants.premium_item)
+            {
+                return Account.User.premium_currency >= booster.Cost;
+            }
+            else
+            {
+                return Account.Character.game_currency >= booster.Cost;
+            }
+        }
 
         public async override Task OnLogined()
         {
