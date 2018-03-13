@@ -16,6 +16,7 @@
                 FontSize="18"
                 FontWeight="Bold"
                 Text="Hideout:" />
+            <CheckBox IsChecked="{Binding Config.IsAutoHideOutCollect}">AutoCollect</CheckBox>
             <TextBlock Text="{Binding Data.hideout.hideout_points, StringFormat=Points: {0}}" />
             <TextBlock Text="{Binding Data.hideout.current_level, StringFormat=Level: {0}}" />
             <TextBlock HorizontalAlignment="Left">

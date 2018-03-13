@@ -126,6 +126,15 @@ namespace HZBot
                     questToUpdate.Merge(updateQuest);
                 }
             }
+            var updateRoom = jobj.SelectToken("data.hideout_room");
+            if (updateRoom != null)
+            {
+                var roomToUpdate = account.JsonData["data"]?["hideout_rooms"]?.OfType<JContainer>().FirstOrDefault(room => room["id"]?.Value<int>() == updateRoom["id"]?.Value<int>());
+                if (roomToUpdate != null)
+                {
+                    roomToUpdate.Merge(updateQuest);
+                }
+            }
             if (jobj.SelectToken("data.quests")?.HasValues ?? false)
             {
                 var quests = account.JsonData.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "quests");
@@ -140,6 +149,14 @@ namespace HZBot
                 if (opponents != null)
                 {
                     opponents.Remove();
+                }
+            }
+            if (jobj.SelectToken("data.hideout_rooms")?.HasValues ?? false)
+            {
+                var hideoutRooms = account.JsonData.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "hideout_rooms");
+                if (hideoutRooms != null)
+                {
+                    hideoutRooms.Remove();
                 }
             }
 

@@ -17,22 +17,26 @@ namespace HZBot
 
         #region Methods
 
-        public async override Task OnPrimaryWorkerDoWork()
+        public async override Task AfterPrimaryWorkerWork()
         {
 
             // AutoHideOutCollect
             if (Account.Config.IsAutoHideOutCollect)
             {
-                var roomz = Account.Data.hideout_rooms.FirstOrDefault(ro => ro.identifier == HideoutRoomTypes.MainBuilding);
-                roomz = roomz ?? Account.Data.hideout_rooms.FirstOrDefault();
-                //var t = roomz.currentCalculatedResourceAmount(Account);
-                var j = roomz.secondsTillActivityFinished(Account);
-                var u = roomz.currentGeneratorFactor();
-                var o = roomz.maxResourceAmount();
-                var p = roomz.resourceAmountPerMinute();
-                var rooms = Account.Data.hideout_rooms;
-                foreach (var room in rooms)
+                foreach (var room in Account.Data.hideout.hasRewardToCollect(50))
                 {
+                    switch (room.identifier)
+                    {
+                        case HideoutRoomTypes.StoneProduction:
+                            if (Account.Data.hideout.current_resource_stone == Account.Data.hideout.max_resource_stone)
+                                continue;
+                            break;
+                        case HideoutRoomTypes.GlueProduction:
+                            if (Account.Data.hideout.current_resource_glue == Account.Data.hideout.max_resource_glue)
+                                continue;
+                            break;
+                    }
+                    await this.CollectHideoutRoomActivityResultAsync(room);
 
                 }
             }

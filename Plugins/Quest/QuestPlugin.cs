@@ -116,7 +116,8 @@ namespace HZBot
                 }
 
                 //Premium Or Statpoint Quest
-                var PremiumOrStatpoint = quests.FirstOrDefault(q => q.GetRewards.premium > 0) ?? quests.FirstOrDefault(q => q.GetRewards.statPoints > 0);
+                var PremiumOrStatpoint =quests.Where(q=>q.GetItem != null)?.OrderByDescending(q=>q.GetItem.GearScoreDiffToEquiped)?.FirstOrDefault() ??
+                    quests.FirstOrDefault(q => q.GetRewards.premium > 0) ?? quests.FirstOrDefault(q => q.GetRewards.statPoints > 0);
 
                 var quest = PremiumOrStatpoint ?? quests.FirstOrDefault();
                 if (quest != null)

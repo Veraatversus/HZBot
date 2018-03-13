@@ -83,7 +83,10 @@ namespace HZBot
                 {
                     Plugins.RaiseOnBotStarted();
                     if (ActiveWorker == null)
+                    {
+                        IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
                         Plugins.RaiseOnPrimaryWorkerComplete();
+                    }
                 }
                 else
                     Plugins.RaiseOnBotStoped();
