@@ -19,7 +19,7 @@ namespace HZBot
         public int current_generator_level { get; set; }
         public int additional_value_1 { get; set; }
         public string additional_value_2 { get; set; }
-        public string ImageUrl => "hideout_rooms/" + identifier + "_i.png";
+        public string ImageUrl => "http://hz-static-2.akamaized.net/assets/hideout_rooms/" + identifier + "_i.png";
 
         public bool isAutoProductionRoom => identifier == HideoutRoomTypes.MainBuilding || identifier == HideoutRoomTypes.GlueProduction || identifier == HideoutRoomTypes.StoneProduction || identifier == HideoutRoomTypes.XpProduction;
 

@@ -110,13 +110,17 @@ namespace HZBot
 
         public static IEnumerable<HideOutRoom> hasRewardToCollect(this HideOut hideout, int IsFullInProzent)
         {
-            foreach (var room in hideout.Rooms)
+            if (hideout != null)
             {
-                if (room.status == HideoutRoomStatus.Producing && room.isAutoProductionRoom && room.currentCalculatedResourceAmount(hideout) / room.maxResourceAmount() * 100 >= IsFullInProzent)
+                foreach (var room in hideout.Rooms)
                 {
-                    yield return room;
+                    if (room.status == HideoutRoomStatus.Producing && room.isAutoProductionRoom && room.currentCalculatedResourceAmount(hideout) / room.maxResourceAmount() * 100 >= IsFullInProzent)
+                    {
+                        yield return room;
+                    }
                 }
             }
+       
         }
 
         public static string getSlotIdFromLevelAndSlot(int level, int slot)

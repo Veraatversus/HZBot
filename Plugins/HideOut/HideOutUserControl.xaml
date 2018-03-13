@@ -110,6 +110,18 @@
                                     <Binding Path="max_resource_amount" />
                                 </MultiBinding>
                             </GridViewColumn.DisplayMemberBinding>
+                        
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Height="35">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{Binding ImageUrl}"/>
+                                        </Image.Source>
+                                    </Image>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
