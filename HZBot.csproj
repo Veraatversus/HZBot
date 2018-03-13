@@ -79,6 +79,10 @@
       <DependentUpon>AccountUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\Plugins\HzServiceBase.cs" />
+    <Compile Include="Plugins\Booster\BoosterPlugin.cs" />
+    <Compile Include="Plugins\Booster\BoosterUserControl.xaml.cs">
+      <DependentUpon>BoosterUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\HideOut\HideOutRequests.cs" />
     <Compile Include="Plugins\HideOut\HideoutUtil.cs" />
     <Compile Include="Plugins\HideOut\HideoutWorkerActivity.cs" />
@@ -210,6 +214,10 @@
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
     <Compile Include="Wpf\InverseBooleanConverter.cs" />
     <Page Include="Plugins\Account\AccountUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugins\Booster\BoosterUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
