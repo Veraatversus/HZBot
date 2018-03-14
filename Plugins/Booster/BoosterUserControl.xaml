@@ -69,7 +69,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type local:Booster}">
-                        <Grid>
+                        <Grid x:Name="ItemsGrid">
                             <Grid.Style>
                                 <Style TargetType="Grid">
                                     <Style.Triggers>
@@ -96,35 +96,39 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Image
+                            <Grid.Children>
+                                <Image
                                 Grid.Row="0"
                                 Grid.RowSpan="2"
                                 Width="35"
                                 Height="35"
                                 Source="{Binding Icon}">
-                                <!--<Image.Source>
+                                    <!--<Image.Source>
                                     <BitmapImage UriSource="{Binding Icon}"/>
                                 </Image.Source>-->
-                            </Image>
-                            <TextBlock
+                                </Image>
+                                <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Center"
                                 Text="{Binding Effect}" />
-                            <TextBlock
+                                <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Text="{Binding DurationInDays, StringFormat={}for {0} Days}" />
-                            <Button
+                                <Button
                                 Grid.Row="2"
                                 Grid.ColumnSpan="2"
                                 Command="{Binding Account.Plugins.Booster.BuyBoosterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
                                 CommandParameter="{Binding}">
-                                <Button.Content>
-                                    <TextBlock Text="{Binding Cost, StringFormat={}Buy for {0}}" />
-                                </Button.Content>
-                            </Button>
+                                    <Button.Content>
+                                        <TextBlock Text="{Binding Cost, StringFormat={}Buy for {0}}" />
+                                    </Button.Content>
+                                </Button>
+                            </Grid.Children>
+                            
                         </Grid>
+                        
                     </DataTemplate>
                 </ListView.ItemTemplate>
 

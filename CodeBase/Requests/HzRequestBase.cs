@@ -10,8 +10,8 @@ namespace HZBot
     public static class HzRequestBase
     {
         #region Fields
-
-        public const string RequestUrl = "http://s15.herozerogame.com/request.php";
+     
+        
 
         #endregion Fields
 
@@ -62,7 +62,7 @@ namespace HZBot
             content.Content = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("device_type", "web"),
-                new KeyValuePair<string, string>("client_version", "flash_145"),
+                new KeyValuePair<string, string>("client_version", $"flash_{account.Config.FlashVersion}"),
                 new KeyValuePair<string, string>("user_id", UserId.ToString()),
                 new KeyValuePair<string, string>("user_session_id", UserSessionId),
                 new KeyValuePair<string, string>("auth", HzConstants.MD5Hash(action, UserId.ToString())),
@@ -82,7 +82,7 @@ namespace HZBot
             using (var formUrlEncodedContent = new FormUrlEncodedContent(content.Content))
             {
                
-                var response = await client.PostAsync(RequestUrl, formUrlEncodedContent);
+                var response = await client.PostAsync(content.RequestUrl, formUrlEncodedContent);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var json = await response.Content.ReadAsStringAsync();

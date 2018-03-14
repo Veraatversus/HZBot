@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Plugins/CharacterStats/CharacterStatTemplate.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Plugins/Item/ItemTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Plugins/HideOut/HideOutTemplates.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/ExpanderStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Styles/ExpanderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

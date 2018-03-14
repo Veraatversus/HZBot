@@ -24,6 +24,15 @@ namespace HZBot
              .PostToHzAsync();
         }
 
+        public static async Task<string> SyncGameAsync(this HzPluginBase plugin, bool forceSync = false)
+        {
+            return await plugin.Account.DefaultRequestContent("syncGame")
+             .AddKeyValue("force_sync", forceSync.ToString().ToLower())
+             .AddKeyValue("rct", "2")
+             .AddLog($"[Account] SyncGame")
+             .PostToHzAsync();
+        }
+
         #endregion Methods
     }
 }

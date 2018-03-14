@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -84,8 +85,8 @@ namespace HZBot
                     Plugins.RaiseOnBotStarted();
                     if (ActiveWorker == null)
                     {
-                        IdleTimer.Change(TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(10));
-                        //Plugins.RaiseOnPrimaryWorkerComplete();
+                        IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
+                        Plugins.RaiseOnPrimaryWorkerComplete();
                     }
                 }
                 else
@@ -128,8 +129,10 @@ namespace HZBot
 
         private void OnIdleTimerTick(object state)
         {
+
             if (IsBotEnabled)
             {
+                var task = Plugins.Account.SyncGameAsync().Result;
                 Plugins.RaiseOnPrimaryWorkerComplete();
             }
         }

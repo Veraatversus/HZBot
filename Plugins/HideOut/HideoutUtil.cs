@@ -111,8 +111,8 @@ namespace HZBot
 
         public static bool HasRewardToCollect(this HideOutRoom room, int IsFullInProzent)
         {
-            return room.status == HideoutRoomStatus.Producing && room.isAutoProductionRoom && room.currentCalculatedResourceAmount() / room.maxResourceAmount() * 100 >= IsFullInProzent;  
-            }
+            return room.status == HideoutRoomStatus.Producing && room.isAutoProductionRoom && room.currentCalculatedResourceAmount() / room.maxResourceAmount() * 100 >= IsFullInProzent;
+        }
 
         public static IEnumerable<HideOutRoom> RoomsToRewardCollect(this HideOut hideout, int IsFullInProzent)
         {
@@ -146,7 +146,7 @@ namespace HZBot
             var _loc3_ = "room_slot_" + HideoutUtil.getSlotIdFromLevelAndSlot(level, slot);
             var endslot = (int)hideout.GetType().GetProperty(_loc3_).GetValue(hideout);
 
-            return endslot + -1;
+            return endslot * -1;
         }
 
         public static HideoutWorkerActivity getCurrentWorkerActivity(this HideOut hideout)
@@ -348,7 +348,7 @@ namespace HZBot
             return false;
         }
 
-        public static bool refreshUpgradableIcon(this HideOutRoom room, HideOut hideOut, JToken hideoutroomlevel = null)
+        public static bool CanRoomUpdate(this HideOutRoom room, JToken hideoutroomlevel = null)
         {
             //if(!_room || !_btnUpgrade.visible || !User.current.character.hasTutorialFlag("hideout_first_attack"))
             //{
@@ -360,13 +360,15 @@ namespace HZBot
                 hideoutroomlevel = HzConstants.Default.Constants["hideout_rooms"][room.identifier]["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == (room.level + 1).ToString())?.Value; //CHideoutRoom.fromId(_room.identifier).getLevel(_room.level + 1);
             }
             var _loc3_ = HzConstants.Default.Constants["hideout_room_upgrade"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == (room.level + 1).ToString())?.Value["character_min_level"].Value<int>(); //CHideoutRoomUpgrade.fromId(_room.level + 1).characterMinLevel;
-            if (_loc3_ > HzAccountManger.GetAccByHideOutID(hideOut.id).Character?.level)
+            if (_loc3_ > HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.level)
             {
                 return false;
             }
             else
             {
-                if (HzAccountManger.GetAccByHideOutID(hideOut.id).Character?.game_currency >= room.getReducedGameCurrencyValue() && hideOut.current_resource_glue >= room.CNextLevel.price_glue && hideOut.current_resource_stone >= room.CNextLevel.price_stone)
+                if (HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.game_currency >= room.getReducedGameCurrencyValue() &&
+                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_glue >= room.CNextLevel.price_glue &&
+                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_stone >= room.CNextLevel.price_stone)
                 {
                     return true;
                 }
@@ -374,6 +376,19 @@ namespace HZBot
             return false;
         }
 
+        public static int getMaxHideoutLevel()
+        {
+            var _loc3_ = 0;
+            var _loc1_ = 0;
+            var rooms = HzConstants.Default.Constants["hideout_rooms"];
+            foreach (var room in rooms)
+            {
+                //_loc4_ = CHideoutRoom.fromId(_loc2_);
+                _loc3_ = room["levels"].Count();
+                _loc1_ = _loc1_ + room["limit"].Value<int>() * _loc3_;
+            }
+            return _loc1_;
+        }
         #endregion Methods
     }
 }

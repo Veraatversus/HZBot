@@ -26,7 +26,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -46,14 +45,19 @@
                 <local:DuelUserControl Grid.Row="5" />
                 <local:BoosterUserControl Grid.Row="6" />
             </Grid>
-            <local:HideOutUserControl Grid.Column="1" />
+            
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <local:PrimaryWorkerUserControl Grid.Row="0" />
-                <local:LogUserControl Grid.Row="1" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <local:HideOutUserControl Grid.Column="0" Grid.ColumnSpan="2" />
+                <local:PrimaryWorkerUserControl Grid.Row="1" />
+                <local:LogUserControl Grid.Row="1" Grid.Column="1" />
             </Grid>
         </Grid>
     </Grid>

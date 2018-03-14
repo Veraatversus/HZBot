@@ -68,6 +68,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\HideOut\HideOutRoomSlotType.cs" />
+    <Compile Include="Models\HideOut\SlotUnlockCost.cs" />
     <Compile Include="Plugins\Booster\Booster.cs" />
     <Compile Include="Plugins\Booster\BoosterRequests.cs" />
     <Compile Include="Plugins\Booster\CBooster.cs" />
@@ -215,6 +217,10 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
     <Compile Include="Wpf\InverseBooleanConverter.cs" />
+    <Page Include="Plugins\HideOut\HideOutTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Plugins\Account\AccountUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -339,7 +345,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\HideOut\UnLocked.png" />
+    <Resource Include="Assets\HideOut\CanUnlock.png" />
+    <Resource Include="Assets\HideOut\glue.png" />
+    <Resource Include="Assets\HideOut\gold.png" />
+    <Resource Include="Assets\HideOut\Locked.png" />
+    <Resource Include="Assets\HideOut\premium.png" />
+    <Resource Include="Assets\HideOut\stone.png" />
+    <Resource Include="Assets\HideOut\upgrade.png" />
+    <Resource Include="Assets\HideOut\warning.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Booster\booster_quest1.png" />
     <Resource Include="Assets\Booster\booster_quest2.png" />
@@ -353,5 +369,13 @@
   <ItemGroup>
     <Resource Include="Assets\Booster\booster_stats1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\HideOut\Unlocking.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Assets_4constantsReadable_1json__JSONSchema="http://json.schemastore.org/component" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

@@ -28,6 +28,8 @@
         //Account
         public string Username { get => username; set { username = value; RaisePropertyChanged(); } }
         public string Password { get => password; set { password = value; RaisePropertyChanged(); } }
+        public int FlashVersion { get; set; } = 145;
+        public int ServerId { get; set; } = 15;
         public bool IsAutoLogin { get; set; }
         public bool IsAutoStartBot { get => isAutoStartBot; set { isAutoStartBot = value; RaisePropertyChanged(); } }
 
