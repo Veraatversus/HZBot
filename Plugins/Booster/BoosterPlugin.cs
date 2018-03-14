@@ -32,6 +32,13 @@ namespace HZBot
             var MBTime = Account.Data.character.ts_active_quest_boost_expires - Account.Data.server_time;
             var MBType = Account.Data.character.active_quest_booster_id;
             MBTime = (MBTime / 60) / 60;
+            if (MBTime <= 6)
+            {
+                if (Account.User.premium_currency >= 10)
+                {
+                    
+                }
+            }
 
             var SBTime = Account.Data.character.ts_active_stats_boost_expires - Account.Data.server_time;
             var SBType = Account.Data.character.active_stats_booster_id;
