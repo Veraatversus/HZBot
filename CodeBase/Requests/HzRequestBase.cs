@@ -53,8 +53,10 @@ namespace HZBot
             var UserId = account.User?.id ?? 0;
             var UserSessionId = account.User?.session_id ?? "0";
             var content = new PostContent();
+            content.Account = account;
             content.Content = new List<KeyValuePair<string, string>>()
             {
+                new KeyValuePair<string, string>("Host", content.RequestUrl),
                 new KeyValuePair<string, string>("device_type", "web"),
                 new KeyValuePair<string, string>("client_version", $"flash_{account.Config.FlashVersion}"),
                 new KeyValuePair<string, string>("user_id", UserId.ToString()),
@@ -62,7 +64,7 @@ namespace HZBot
                 new KeyValuePair<string, string>("auth", HzConstants.MD5Hash(action, UserId.ToString())),
                 new KeyValuePair<string, string>("action", action)
             };
-            content.Account = account;
+
             return content;
         }
 
@@ -176,7 +178,6 @@ namespace HZBot
             };
 
             client = new HttpClient(msgHandler);
-            client.DefaultRequestHeaders.TryAddWithoutValidation("Host", "s15.herozerogame.com");
             client.DefaultRequestHeaders.TryAddWithoutValidation("Origin", "http://hz--2.akamaized.net");
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-Requested-With", "ShockwaveFlash/28.0.0.161");
             client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36");
