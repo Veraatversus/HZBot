@@ -51,7 +51,7 @@ namespace HZBot
         public CHideOutRoom CRoom => HzConstants.Default.Constants["hideout_rooms"][identifier]?.ToObject<CHideOutRoom>();
         public CHideOutRoomLevel CLevel => HzConstants.Default.Constants["hideout_rooms"][identifier]["levels"][level.ToString()]?.ToObject<CHideOutRoomLevel>();
         public CHideOutRoomLevel CNextLevel => HzConstants.Default.Constants["hideout_rooms"][identifier]["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == (level + 1).ToString())?.Value.ToObject<CHideOutRoomLevel>();
-        public CHideOutRoomLevel CGeneratator => HzConstants.Default.Constants["hideout_rooms"]["generator"]["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == current_generator_level.ToString())?.ToObject<CHideOutRoomLevel>();
+        public CHideOutRoomLevel CGeneratator => HzConstants.Default.Constants["hideout_rooms"]["generator"]["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == current_generator_level.ToString())?.Value.ToObject<CHideOutRoomLevel>();
         public double secondsTillActivityFinished => this.secondsTillActivityFinished();
         public double currentCalculatedResourceAmount => this.currentCalculatedResourceAmount();
         public double maxResourceAmount => this.maxResourceAmount();

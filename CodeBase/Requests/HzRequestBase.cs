@@ -43,7 +43,7 @@ namespace HZBot
         /// <returns></returns>
         public static PostContent AddLog(this PostContent content, string text)
         {
-            content.LogObject.Text = text;
+            content.LogObject.Text = string.Format("{0:00}:{1:00}:{2:00}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second) + " - " + text;
             content.LogObject.Time = DateTime.Now;
             content.Account.Plugins.Log.Add(content.LogObject);
 

@@ -23,10 +23,12 @@
             FontWeight="Bold"
             Text="Log:" />
         <ListView
+            Name="LogListBox"
             Grid.Row="1"
-            DisplayMemberPath="Text"
             local:ListBoxBehavior.ScrollOnNewItem="True"
-            ItemsSource="{Binding Log.LogList}">
+            DisplayMemberPath="Text"
+            ItemsSource="{Binding Log.LogList}"
+            SelectionMode="Multiple">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Background" Value="{Binding RequestState, Converter={StaticResource RequestStateToBrushConverter}}" />

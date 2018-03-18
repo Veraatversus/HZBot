@@ -2,6 +2,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Windows.Input;
+using System.Web.UI.WebControls;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace HZBot
 {
@@ -36,7 +40,7 @@ namespace HZBot
 
         public void Add(string text)
         {
-            Add(new LogObject() { Text = text, Time = DateTime.Now });
+            Add(new LogObject() { Text = string.Format("{0:00}:{1:00}:{2:00}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second) + " - " + text, Time = DateTime.Now });
             //LogList.Add(text);
             RaisePropertyChanged(nameof(GetLogsAsString));
         }
