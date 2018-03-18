@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ namespace HZBot
             //Buy Quest Energy Commands
             ShowBuyQuestEnergyWindow = new RelayCommand(
                 () => new ChooseCurrencyWindow(Account).ShowDialog(),
-                () => Account.Character?.quest_energy < 50 && Account.Character?.quest_energy_refill_amount_today < 200 &&Account.Character.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill );
+                () => Account.Character?.quest_energy < 50 && Account.Character?.quest_energy_refill_amount_today < 200 && Account.Character.game_currency >= Account.Character?.CurrentGameCurrencyCostEnergyRefill);
 
             BuyEnergyFromGold = new AsyncRelayCommand(
               async () => await this.BuyQuestEnergyAsync(false), CanBuyEnergyForGold);
@@ -43,7 +42,7 @@ namespace HZBot
 
         #region Properties
 
-        public ObservableCollection<Tuple<DateTime, Quest>> QuestLog { get; } = new ObservableCollection<Tuple<DateTime, Quest>>();
+        public AsyncObservableCollection<Tuple<DateTime, Quest>> QuestLog { get; } = new AsyncObservableCollection<Tuple<DateTime, Quest>>();
 
         //Quest Commands
         public AsyncRelayCommand StartBestQuest { get; private set; }
@@ -116,7 +115,7 @@ namespace HZBot
                 }
 
                 //Premium Or Statpoint Quest
-                var PremiumOrStatpoint =quests.Where(q=>q.GetItem != null)?.OrderByDescending(q=>q.GetItem.GearScoreDiffToEquiped)?.FirstOrDefault() ??
+                var PremiumOrStatpoint = quests.Where(q => q.GetItem != null)?.OrderByDescending(q => q.GetItem.GearScoreDiffToEquiped)?.FirstOrDefault() ??
                     quests.FirstOrDefault(q => q.GetRewards.premium > 0) ?? quests.FirstOrDefault(q => q.GetRewards.statPoints > 0);
 
                 var quest = PremiumOrStatpoint ?? quests.FirstOrDefault();

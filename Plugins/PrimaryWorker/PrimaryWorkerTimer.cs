@@ -47,10 +47,10 @@ namespace HZBot
 
         private readonly Timer workerTimer;
 
+        private readonly SynchronizationContext UIContext;
         private bool _isTimerEnabled;
 
         private TimeSpan _Text = TimeSpan.FromSeconds(0);
-        private readonly SynchronizationContext UIContext;
 
         #endregion Fields
 
@@ -97,7 +97,7 @@ namespace HZBot
                         {
                             await Account.Plugins.Worldboss.ClaimWorldbossEventRewardsAsync(Account.Data.ActiveWorldBossEvent.id);
                         }
-                        
+
                         if (Account.Data != null)
                         {
                             if (Account.ActiveWorker == null)

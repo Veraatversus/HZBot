@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace HZBot
 {
     public class BoosterPlugin : HzPluginBase
     {
-        public AsyncRelayCommand<Booster> BuyBoosterCommand { get; private set; }
+        #region Constructors
 
         public BoosterPlugin(HzAccount account) : base(account)
         {
-            BuyBoosterCommand = new AsyncRelayCommand<Booster>(b => this.BuyBoosterAsync(b), boosterCanBuy);
+            BuyBoosterCommand = new AsyncRelayCommand<Booster>(b => this.BuyBoosterAsync(b), CanBuyBooster);
         }
 
-        private bool boosterCanBuy(Booster booster)
-        {
-            if (booster.Constants.premium_item)
-            {
-                return Account.User.premium_currency >= booster.Cost;
-            }
-            else
-            {
-                return Account.Character.game_currency >= booster.Cost;
-            }
-        }
+        #endregion Constructors
+
+        #region Properties
+
+        public AsyncRelayCommand<Booster> BuyBoosterCommand { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         public async override Task OnLogined()
         {
@@ -36,7 +30,6 @@ namespace HZBot
             {
                 if (Account.User.premium_currency >= 10)
                 {
-                    
                 }
             }
 
@@ -53,5 +46,19 @@ namespace HZBot
             Account.Log.Add($"WorkBooster ID: {WBType} verbleibend: {WBTime}");
             return;
         }
+
+        private bool CanBuyBooster(Booster booster)
+        {
+            if (booster.Constants.premium_item)
+            {
+                return Account.User.premium_currency >= booster.Cost;
+            }
+            else
+            {
+                return Account.Character.game_currency >= booster.Cost;
+            }
+        }
+
+        #endregion Methods
     }
 }

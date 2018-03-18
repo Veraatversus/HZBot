@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace HZBot
 {
@@ -33,7 +32,7 @@ namespace HZBot
                 .AddKeyValue("rct", "2")
                 .AddLog($"CheckDuelComplete...")
                 .PostToHzAsync();
-            
+
             return error;
         }
 

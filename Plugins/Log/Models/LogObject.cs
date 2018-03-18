@@ -21,11 +21,16 @@ namespace HZBot
             set { requestState = value; RaisePropertyChanged(); }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         public override string ToString()
         {
             return $"{DateTime.Now.Hour:00}:{DateTime.Now.Minute:00}:{DateTime.Now.Second:00} - {Text}";
         }
-        #endregion Properties
+
+        #endregion Methods
 
         #region Fields
 

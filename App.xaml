@@ -6,11 +6,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Plugins/CharacterStats/CharacterStatTemplate.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Plugins/Item/ItemTemplate.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Plugins/HideOut/HideOutTemplates.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Styles/ExpanderStyle.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Styles/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Plugins/CharacterStats/UI/CharacterStatTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Plugins/Item/UI/ItemTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Plugins/HideOut/UI/HideOutTemplates.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Wpf/Styles/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Wpf/Styles/ExpanderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

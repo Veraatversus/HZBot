@@ -1,12 +1,16 @@
-﻿using System.Runtime.CompilerServices;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
 namespace HZBot
 {
     public class DuelPlugin : HzPluginBase
     {
+        #region Fields
+
+        public string GegnerID = "";
+
+        #endregion Fields
+
         #region Constructors
 
         public DuelPlugin(HzAccount account) : base(account)
@@ -30,14 +34,11 @@ namespace HZBot
         public AsyncRelayCommand CheckForDuelComplete { get; private set; }
         public AsyncRelayCommand claimDuelReward { get; private set; }
         public Opponents GetOpponent { get; set; }
-        public string GegnerID = "";
-        public ObservableCollection<DuelHistory> DuelList { get; set; } = new ObservableCollection<DuelHistory>();
+        public AsyncObservableCollection<DuelHistory> DuelList { get; set; } = new AsyncObservableCollection<DuelHistory>();
 
         #endregion Properties
 
         #region Methods
-
-       
 
         public async override Task AfterPrimaryWorkerWork()
         {
@@ -61,7 +62,8 @@ namespace HZBot
                         DuelList.Add(new DuelHistory { id = GetOpponent.id, name = GetOpponent.name });
                         GegnerID = GetOpponent.id.ToString();
                         await StartBestDuel.TryExecuteAsync();
-                    } else
+                    }
+                    else
                     {
                         goto case 2;
                     }
@@ -70,6 +72,7 @@ namespace HZBot
                     if (Account.Character.duel_stamina >= Account.Character.duel_stamina_cost)
                         goto case 1;
                     break;
+
                 case 2:
                     Account.Log.Add("Duel wird Deaktiviert Arbeite an deinen Stats du NOOB!");
                     Account.Config.IsAutoDuel = false;
@@ -164,6 +167,17 @@ namespace HZBot
         //    return OpponentFound;
         //}
 
+        public Opponents FindOpponent(bool LookStats = true)
+        {
+            var fo = Account.Data.opponents.Where(g1 => Account.Data.character.FightStat > g1.fightStat);
+            if (LookStats)
+                fo.Where(g1 => g1.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating && g1.stat_total_dodge_rating <= Account.Data.character.stat_total_dodge_rating);
+
+            fo = fo.OrderBy(g => g.fightStat);
+
+            return fo.FirstOrDefault() ?? null;
+        }
+
         private async Task CheckForComplete()
         {
             if (Account.Data.ActiveDuel?.character_a_status == 1 && Account.Data.ActiveDuel?.character_b_status == 1)
@@ -174,18 +188,6 @@ namespace HZBot
             {
                 await claimDuelReward.TryExecuteAsync();
             }
-        }
-
-        public Opponents FindOpponent(bool LookStats = true)
-        {
-                           
-            var fo = Account.Data.opponents.Where(g1 => Account.Data.character.FightStat > g1.fightStat);
-            if (LookStats)
-                fo.Where(g1 => g1.stat_total_critical_rating <= Account.Data.character.stat_total_critical_rating && g1.stat_total_dodge_rating <= Account.Data.character.stat_total_dodge_rating);
-
-            fo = fo.OrderBy(g => g.fightStat);
-
-            return fo.FirstOrDefault() ?? null;
         }
 
         #endregion Methods

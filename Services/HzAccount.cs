@@ -1,18 +1,14 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace HZBot
 {
-    public class HzAccount : ViewModelBase, IDisposable
+    public class HzAccount : ViewModelBase
     {
         #region Fields
 
         public long ServerTimeOffset;
-
-        public Timer IdleTimer;
 
         #endregion Fields
 
@@ -22,7 +18,7 @@ namespace HZBot
         {
             HzAccountManger.AddAccount(this);
             Plugins = new HzPlugins(this);
-            IdleTimer = new Timer(OnIdleTimerTick, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+            //IdleTimer = new Timer(OnIdleTimerTick, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
             OnDataChanged += HzAccount_OnDataChanged;
         }
 
@@ -61,10 +57,10 @@ namespace HZBot
                 RaisePropertyChanged();
                 if (IsLogined)
                     Plugins.RaiseOnLogined();
-                if (Config.IsAutoStartBot)
-                {
-                    IsBotEnabled = true;
-                }
+                //if (Config.IsAutoStartBot)
+                //{
+                //    IsBotEnabled = true;
+                //}
                 else
                 {
                     Plugins.RaiseOnlogoffed();
@@ -83,15 +79,15 @@ namespace HZBot
                 if (IsBotEnabled)
                 {
                     Plugins.RaiseOnBotStarted();
-                    if (ActiveWorker == null)
-                    {
-                        IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
-                        Plugins.RaiseOnPrimaryWorkerComplete();
-                    }
+                    //if (ActiveWorker == null)
+                    //{
+                    //    // IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
+                    //    Plugins.RaiseOnPrimaryWorkerComplete();
+                    //}
                 }
                 else
                 {
-                    IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                    // IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
                     Plugins.RaiseOnBotStoped();
                 }
             }
@@ -108,15 +104,11 @@ namespace HZBot
 
         #endregion Properties
 
-        #region Methods
-
-        public void Dispose()
-        {
-            IdleTimer.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion Methods
+        //public void Dispose()
+        //{
+        //    IdleTimer.Dispose();
+        //    GC.SuppressFinalize(this);
+        //}
 
         private JsonRoot _mainData;
         private bool isBotEnabled;
@@ -127,15 +119,14 @@ namespace HZBot
             HzAccountManger.RemoveAccount(this);
         }
 
-        private void OnIdleTimerTick(object state)
-        {
-
-            if (IsBotEnabled)
-            {
-                var task = Plugins.Account.SyncGameAsync().Result;
-                Plugins.RaiseOnPrimaryWorkerComplete();
-            }
-        }
+        //private void OnIdleTimerTick(object state)
+        //{
+        //    if (IsBotEnabled)
+        //    {
+        //        var task = Plugins.Account.SyncGameAsync().Result;
+        //        Plugins.RaiseOnPrimaryWorkerComplete();
+        //    }
+        //}
 
         private void HzAccount_OnDataChanged()
         {
@@ -144,14 +135,14 @@ namespace HZBot
             RaisePropertyChanged(nameof(Character));
             RaisePropertyChanged(nameof(Quests));
             RaisePropertyChanged(nameof(ActiveWorker));
-            if (ActiveWorker == null)
-            {
-                IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
-            }
-            else
-            {
-                IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            }
+            //if (ActiveWorker == null)
+            //{
+            //    IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
+            //}
+            //else
+            //{
+            //    IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            //}
         }
     }
 }

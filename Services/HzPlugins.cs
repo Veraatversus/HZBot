@@ -26,6 +26,7 @@ namespace HZBot
         #endregion Constructors
 
         #region Properties
+
         public BoosterPlugin Booster { get; set; }
         public CharacterStatPlugin CharacterStat { get; private set; }
         public QuestPlugin Quest { get; private set; }
@@ -33,8 +34,6 @@ namespace HZBot
         public HideOutPlugin HideOut { get; private set; }
         public ItemPlugin Item { get; private set; }
         public PrimaryWorkerPlugin PrimaryWorker { get; private set; }
-
-        private readonly SynchronizationContext DefaultContext;
 
         public AccountPlugin Account { get; private set; }
         public WorldbossPlugin Worldboss { get; private set; }
@@ -153,14 +152,11 @@ namespace HZBot
             }, null);
         }
 
-
-
-
-
         #endregion Methods
 
         #region Fields
 
+        private readonly SynchronizationContext DefaultContext;
         private readonly List<IHzPlugin> AllPlugins = new List<IHzPlugin>();
         private readonly HzAccount hzAccount;
 

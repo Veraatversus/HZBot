@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Linq;
-using System.Web.UI.WebControls;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace HZBot
@@ -24,19 +21,23 @@ namespace HZBot
 
         #endregion Constructors
 
-        void CopyCmdExecuted(object target, ExecutedRoutedEventArgs e)
+        #region Methods
+
+        private void CopyCmdExecuted(object target, ExecutedRoutedEventArgs e)
         {
             var lb = e.OriginalSource as System.Windows.Controls.ListBox;
             var copyContent = String.Empty;
 
-            foreach (var item in lb.SelectedItems.OfType<LogObject>())
+            foreach (var item in lb.SelectedItems)
             {
-                copyContent += item.Text;
+                //string.Format("{0:00}:{1:00}:{2:00}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second) + " - " + item.Text;
+                copyContent += item.ToString();
                 copyContent += Environment.NewLine;
             }
             Clipboard.SetText(copyContent);
         }
-        void CopyCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
+
+        private void CopyCmdCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var lb = e.OriginalSource as System.Windows.Controls.ListBox;
 
@@ -45,5 +46,7 @@ namespace HZBot
             else
                 e.CanExecute = false;
         }
+
+        #endregion Methods
     }
 }

@@ -13,20 +13,22 @@ namespace HZBot
         public static async Task<string> CheckForWorkerCompleteAsync(this HzPluginBase plugin, WorkType workType)
         {
             var content = new PostContent();
-            if (workType == WorkType.Quest)
+            switch (workType)
             {
-                content = plugin.Account.DefaultRequestContent("checkForQuestComplete")
-                    .AddLog($"[Quest] END: ID:{plugin.Account.Data.ActiveQuest.id} Duration:{plugin.Account.Data.ActiveQuest.duration / 60}");
-            }
-            else if (workType == WorkType.Training)
-            {
-                content = plugin.Account.DefaultRequestContent("checkForTrainingComplete")
-                    .AddLog($"[Train] END: TrainStat:{plugin.Account.Data.ActiveTraining.StatType}");
-            }
-            else if (workType == WorkType.WorldbossAttack)
-            {
-                content = plugin.Account.DefaultRequestContent("checkForWorldbossAttackComplete")
-                    .AddLog($"[Worldboss] END: Battle:{plugin.Account.Data.ActiveWorldbossAttack.battle_id}");
+                case WorkType.Quest:
+                    content = plugin.Account.DefaultRequestContent("checkForQuestComplete")
+                        .AddLog($"[Quest] END: ID:{plugin.Account.Data.ActiveQuest.id} Duration:{plugin.Account.Data.ActiveQuest.duration / 60}");
+                    break;
+
+                case WorkType.Training:
+                    content = plugin.Account.DefaultRequestContent("checkForTrainingComplete")
+                        .AddLog($"[Train] END: TrainStat:{plugin.Account.Data.ActiveTraining.StatType}");
+                    break;
+
+                case WorkType.WorldbossAttack:
+                    content = plugin.Account.DefaultRequestContent("checkForWorldbossAttackComplete")
+                        .AddLog($"[Worldboss] END: Battle:{plugin.Account.Data.ActiveWorldbossAttack.battle_id}");
+                    break;
             }
 
             content.AddKeyValue("rct", 2);
@@ -41,24 +43,26 @@ namespace HZBot
         public static async Task<string> ClaimWorkerRewardAsync(this HzPluginBase plugin, WorkType workType)
         {
             var content = new PostContent();
-            if (workType == WorkType.Quest)
+            switch (workType)
             {
-                var rewards = plugin.Account.Data.ActiveQuest.GetRewards;
-                content = plugin.Account.DefaultRequestContent("claimQuestRewards")
-                   .AddKeyValue("discard_item", "false")
-                   .AddKeyValue("create_new", "true")
-                   .AddLog($"[Quest] Claim: XP:{rewards.xp} Coins:{rewards.coins} Premium:{rewards.premium} Honor:{rewards.honor} Item:{rewards.item}");
-                content.LogObject.Tooltip = plugin.Account.Data.ActiveQuest.GetItem;
-            }
-            else if (workType == WorkType.Training)
-            {
-                content = plugin.Account.DefaultRequestContent("claimTrainingRewards")
-                    .AddLog($"[Train] Claim Point:{plugin.Account.Data.ActiveTraining.StatType}");
-            }
-            else if (workType == WorkType.WorldbossAttack)
-            {
-                content = plugin.Account.DefaultRequestContent("finishWorldbossAttack")
-                    .AddLog($"[Worldboss] Claim Point:{plugin.Account.Data.ActiveTraining.StatType}");
+                case WorkType.Quest:
+                    var rewards = plugin.Account.Data.ActiveQuest.GetRewards;
+                    content = plugin.Account.DefaultRequestContent("claimQuestRewards")
+                       .AddKeyValue("discard_item", "false")
+                       .AddKeyValue("create_new", "true")
+                       .AddLog($"[Quest] Claim: XP:{rewards.xp} Coins:{rewards.coins} Premium:{rewards.premium} Honor:{rewards.honor} Item:{rewards.item}");
+                    content.LogObject.Tooltip = plugin.Account.Data.ActiveQuest.GetItem;
+                    break;
+
+                case WorkType.Training:
+                    content = plugin.Account.DefaultRequestContent("claimTrainingRewards")
+                        .AddLog($"[Train] Claim Point:{plugin.Account.Data.ActiveTraining.StatType}");
+                    break;
+
+                case WorkType.WorldbossAttack:
+                    content = plugin.Account.DefaultRequestContent("finishWorldbossAttack")
+                        .AddLog($"[Worldboss] Claim Point:{plugin.Account.Data.ActiveTraining.StatType}");
+                    break;
             }
 
             content.AddKeyValue("rct", "2");

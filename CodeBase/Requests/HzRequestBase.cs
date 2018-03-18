@@ -9,12 +9,6 @@ namespace HZBot
 {
     public static class HzRequestBase
     {
-        #region Fields
-     
-        
-
-        #endregion Fields
-
         #region Constructors
 
         static HzRequestBase()
@@ -43,7 +37,7 @@ namespace HZBot
         /// <returns></returns>
         public static PostContent AddLog(this PostContent content, string text)
         {
-            content.LogObject.Text = string.Format("{0:00}:{1:00}:{2:00}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second) + " - " + text;
+            content.LogObject.Text = text;
             content.LogObject.Time = DateTime.Now;
             content.Account.Plugins.Log.Add(content.LogObject);
 
@@ -81,7 +75,6 @@ namespace HZBot
             content.LogObject.RequestState = RequestState.Pending;
             using (var formUrlEncodedContent = new FormUrlEncodedContent(content.Content))
             {
-               
                 var response = await client.PostAsync(content.RequestUrl, formUrlEncodedContent);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -166,7 +159,11 @@ namespace HZBot
 
         #endregion Methods
 
+        #region Fields
+
         private static HttpClient client;
+
+        #endregion Fields
 
         /// <summary>Initializes the HTTP client.</summary>
         private static void InitHttpClient()

@@ -68,30 +68,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\HideOut\HideOutRoomSlotType.cs" />
-    <Compile Include="Models\HideOut\SlotUnlockCost.cs" />
-    <Compile Include="Plugins\Booster\Booster.cs" />
+    <Compile Include="CodeBase\Collection\AsyncObservableCollection.cs" />
+    <Compile Include="Plugins\HideOut\Models\Enums\HideOutRoomSlotType.cs" />
+    <Compile Include="Plugins\HideOut\Models\SlotUnlockCost.cs" />
+    <Compile Include="Plugins\Booster\Models\Booster.cs" />
     <Compile Include="Plugins\Booster\BoosterRequests.cs" />
-    <Compile Include="Plugins\Booster\CBooster.cs" />
-    <Compile Include="Plugins\Booster\CBoosterType.cs" />
-    <Compile Include="Models\HideOut\CHideOutRoom.cs" />
-    <Compile Include="Models\HideOut\CHideOutRoomLevel.cs" />
-    <Compile Include="Models\HideOut\HideoutRoomTypes.cs" />
-    <Compile Include="Models\HideOut\HideOutSlot.cs" />
-    <Compile Include="Models\WorldBoss\WorldbossAttack.cs" />
-    <Compile Include="Plugins\Account\AccountUserControl.xaml.cs">
+    <Compile Include="Plugins\Booster\Models\CBooster.cs" />
+    <Compile Include="Plugins\Booster\Models\CBoosterType.cs" />
+    <Compile Include="Plugins\HideOut\Models\CHideOutRoom.cs" />
+    <Compile Include="Plugins\HideOut\Models\CHideOutRoomLevel.cs" />
+    <Compile Include="Plugins\HideOut\Models\Enums\HideoutRoomTypes.cs" />
+    <Compile Include="Plugins\HideOut\Models\HideOutSlot.cs" />
+    <Compile Include="Plugins\Worldboss\Models\WorldbossAttack.cs" />
+    <Compile Include="Plugins\Account\UI\AccountUserControl.xaml.cs">
       <DependentUpon>AccountUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\Plugins\HzServiceBase.cs" />
     <Compile Include="Plugins\Booster\BoosterPlugin.cs" />
-    <Compile Include="Plugins\Booster\BoosterUserControl.xaml.cs">
+    <Compile Include="Plugins\Booster\UI\BoosterUserControl.xaml.cs">
       <DependentUpon>BoosterUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\HideOut\HideOutRequests.cs" />
     <Compile Include="Plugins\HideOut\HideoutUtil.cs" />
-    <Compile Include="Plugins\HideOut\HideoutWorkerActivity.cs" />
+    <Compile Include="Plugins\HideOut\Models\HideoutWorkerActivity.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossPlugin.cs" />
-    <Compile Include="Plugins\Worldboss\WorldbossUserControl.xaml.cs">
+    <Compile Include="Plugins\Worldboss\UI\WorldbossUserControl.xaml.cs">
       <DependentUpon>WorldbossUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ListBoxBehavior.cs" />
@@ -99,91 +100,91 @@
     <Compile Include="CodeBase\Plugins\IHzPlugin.cs" />
     <Compile Include="CodeBase\Requests\HzRequestBase.cs" />
     <Compile Include="CodeBase\Requests\PostContent.cs" />
-    <Compile Include="Models\Duel\Battle.cs" />
-    <Compile Include="Models\Duel\Duel.cs" />
-    <Compile Include="Models\Duel\LeaderCharacter.cs" />
-    <Compile Include="Models\Duel\Leaderboard.cs" />
-    <Compile Include="Models\Dungeon\DungeonMode.cs" />
-    <Compile Include="Models\Dungeon\DungeonQuestStatus.cs" />
-    <Compile Include="Models\Dungeon\DungeonStatus.cs" />
-    <Compile Include="Models\Goals\GoalMechanicType.cs" />
-    <Compile Include="Models\Goals\GoalRewardType.cs" />
-    <Compile Include="Models\Goals\GoalType.cs" />
-    <Compile Include="Models\HideOut\HideoutBattleStatus.cs" />
-    <Compile Include="Models\HideOut\HideoutRoomStatus.cs" />
-    <Compile Include="Plugins\Item\ItemExtensions.cs" />
-    <Compile Include="Plugins\Item\HzInventorySlotId.cs" />
-    <Compile Include="Models\Items\InventoryAction.cs" />
-    <Compile Include="Models\Items\ItemType.cs" />
-    <Compile Include="Models\Quest\FightQuestDifficulty.cs" />
-    <Compile Include="Models\WorldBoss\WorldbossAttackStatus.cs" />
-    <Compile Include="Models\WorldBoss\WorldbossCharacterEvent.cs" />
-    <Compile Include="Models\WorldBoss\WorldbossEvent.cs" />
-    <Compile Include="Models\WorldBoss\WorldbossEventStatus.cs" />
-    <Compile Include="Models\WorldBoss\WorldbossReward.cs" />
-    <Compile Include="Models\WorldBoss\WorldbossRewardType.cs" />
+    <Compile Include="Plugins\Duell\Models\Battle.cs" />
+    <Compile Include="Plugins\Duell\Models\Duel.cs" />
+    <Compile Include="Plugins\Duell\Models\LeaderCharacter.cs" />
+    <Compile Include="Plugins\Duell\Models\Leaderboard.cs" />
+    <Compile Include="Plugins\Dungeon\Models\DungeonMode.cs" />
+    <Compile Include="Plugins\Dungeon\Models\DungeonQuestStatus.cs" />
+    <Compile Include="Plugins\Dungeon\Models\DungeonStatus.cs" />
+    <Compile Include="Plugins\Goals\Models\GoalMechanicType.cs" />
+    <Compile Include="Plugins\Goals\Models\GoalRewardType.cs" />
+    <Compile Include="Plugins\Goals\Models\GoalType.cs" />
+    <Compile Include="Plugins\HideOut\Models\Enums\HideoutBattleStatus.cs" />
+    <Compile Include="Plugins\HideOut\Models\Enums\HideoutRoomStatus.cs" />
+    <Compile Include="Plugins\Item\Models\ItemExtensions.cs" />
+    <Compile Include="Plugins\Item\Models\Enums\HzInventorySlotId.cs" />
+    <Compile Include="Plugins\Item\Models\Enums\InventoryAction.cs" />
+    <Compile Include="Plugins\Item\Models\Enums\ItemType.cs" />
+    <Compile Include="Plugins\Quest\Models\Enums\FightQuestDifficulty.cs" />
+    <Compile Include="Plugins\Worldboss\Models\Enums\WorldbossAttackStatus.cs" />
+    <Compile Include="Plugins\Worldboss\Models\WorldbossCharacterEvent.cs" />
+    <Compile Include="Plugins\Worldboss\Models\WorldbossEvent.cs" />
+    <Compile Include="Plugins\Worldboss\Models\Enums\WorldbossEventStatus.cs" />
+    <Compile Include="Plugins\Worldboss\Models\WorldbossReward.cs" />
+    <Compile Include="Plugins\Worldboss\Models\Enums\WorldbossRewardType.cs" />
     <Compile Include="Plugins\Account\AccountRequests.cs" />
-    <Compile Include="Plugins\Log\KeyValue.cs" />
+    <Compile Include="Plugins\Log\Models\KeyValue.cs" />
     <Compile Include="Views\PluginUserControl.xaml.cs">
       <DependentUpon>PluginUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\CharacterStats\CharacterStatRequests.cs" />
-    <Compile Include="Plugins\CharacterStats\HzCharacterStats.cs" />
+    <Compile Include="Plugins\CharacterStats\Models\HzCharacterStats.cs" />
     <Compile Include="Plugins\Duell\DuelRequests.cs" />
-    <Compile Include="Models\Duel\DuelStatus.cs" />
-    <Compile Include="Plugins\Item\HzBagSlot.cs" />
-    <Compile Include="Plugins\Item\HzGear.cs" />
-    <Compile Include="Plugins\Item\HzInventory.cs" />
-    <Compile Include="Plugins\Item\HzInventorySlotType.cs" />
+    <Compile Include="Plugins\Duell\Models\DuelStatus.cs" />
+    <Compile Include="Plugins\Item\Models\HzBagSlot.cs" />
+    <Compile Include="Plugins\Item\Models\HzGear.cs" />
+    <Compile Include="Plugins\Item\Models\HzInventory.cs" />
+    <Compile Include="Plugins\Item\Models\Enums\HzInventorySlotType.cs" />
     <Compile Include="Plugins\Item\ItemPlugin.cs" />
     <Compile Include="Plugins\Item\ItemRequests.cs" />
-    <Compile Include="Plugins\Item\ItemUserControl.xaml.cs">
+    <Compile Include="Plugins\Item\UI\ItemUserControl.xaml.cs">
       <DependentUpon>ItemUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Item\SellMode.cs" />
-    <Compile Include="Plugins\Log\LogObject.cs" />
+    <Compile Include="Plugins\Item\Models\Enums\SellMode.cs" />
+    <Compile Include="Plugins\Log\Models\LogObject.cs" />
     <Compile Include="CodeBase\Requests\RequestState.cs" />
-    <Compile Include="Plugins\Log\LogUserControl.xaml.cs">
+    <Compile Include="Plugins\Log\UI\LogUserControl.xaml.cs">
       <DependentUpon>LogUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Duel\Opponents.cs" />
+    <Compile Include="Plugins\Duell\Models\Opponents.cs" />
     <Compile Include="Plugins\Account\AccountPlugin.cs" />
     <Compile Include="Plugins\CharacterStats\CharacterStatPlugin.cs" />
-    <Compile Include="Plugins\Duell\DuelUserControl.xaml.cs">
+    <Compile Include="Plugins\Duell\UI\DuelUserControl.xaml.cs">
       <DependentUpon>DuelUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\ControlPanel\ControlPanelUserControl.xaml.cs">
+    <Compile Include="Plugins\ControlPanel\UI\ControlPanelUserControl.xaml.cs">
       <DependentUpon>ControlPanelUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Duell\DuelPlugin.cs" />
     <Compile Include="Plugins\HideOut\HideOutPlugin.cs" />
-    <Compile Include="Wpf\RequestStateToBrushConverter.cs" />
+    <Compile Include="Wpf\Converter\RequestStateToBrushConverter.cs" />
     <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerPlugin.cs" />
-    <Compile Include="Plugins\Quest\BuyEnergyMode.cs" />
+    <Compile Include="Plugins\Quest\Models\Enums\BuyEnergyMode.cs" />
     <Compile Include="Wpf\EnumBindingSourceExtension.cs" />
-    <Compile Include="Wpf\EnumDescriptionTypeConverter.cs" />
-    <Compile Include="Wpf\FriendlyTimeConverter.cs" />
-    <Compile Include="Plugins\Quest\QuestMode.cs" />
-    <Compile Include="Plugins\Quest\QuestUserControl.xaml.cs">
+    <Compile Include="Wpf\Converter\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Wpf\Converter\FriendlyTimeConverter.cs" />
+    <Compile Include="Plugins\Quest\Models\Enums\QuestMode.cs" />
+    <Compile Include="Plugins\Quest\UI\QuestUserControl.xaml.cs">
       <DependentUpon>QuestUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\PrimaryWorker\WorkStatus.cs" />
+    <Compile Include="Plugins\PrimaryWorker\Models\WorkStatus.cs" />
     <Compile Include="Plugins\Worldboss\WorldbossRequests.cs" />
     <Compile Include="Services\Config.cs" />
     <Compile Include="Services\GameUtils.cs" />
     <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestRequests.cs" />
-    <Compile Include="Plugins\Statusbar\StatusbarUserControl.xaml.cs">
+    <Compile Include="Plugins\Statusbar\UI\StatusbarUserControl.xaml.cs">
       <DependentUpon>StatusbarUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerUserControl.xaml.cs">
+    <Compile Include="Plugins\PrimaryWorker\UI\PrimaryWorkerUserControl.xaml.cs">
       <DependentUpon>PrimaryWorkerUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\CharacterStats\CharacterStatUserControl.xaml.cs">
+    <Compile Include="Plugins\CharacterStats\UI\CharacterStatUserControl.xaml.cs">
       <DependentUpon>CharacterStatUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\HideOut\HideOutUserControl.xaml.cs">
+    <Compile Include="Plugins\HideOut\UI\HideOutUserControl.xaml.cs">
       <DependentUpon>HideOutUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CodeBase\ViewBase\HzUserControl.cs" />
@@ -199,37 +200,37 @@
     <Compile Include="CodeBase\CommandBase\CommandBase.cs" />
     <Compile Include="CodeBase\CommandBase\RelayCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Plugins\CharacterStats\HzCharacterStat.cs" />
-    <Compile Include="Models\HideOut\HideOut.cs" />
-    <Compile Include="Models\HideOut\HideOutRoom.cs" />
-    <Compile Include="Plugins\PrimaryWorker\IWorkItem.cs" />
-    <Compile Include="Models\Quest\Training.cs" />
-    <Compile Include="Plugins\CharacterStats\StatType.cs" />
-    <Compile Include="Plugins\PrimaryWorker\WorkType.cs" />
-    <Compile Include="Models\Items\Bank_Inventory.cs" />
-    <Compile Include="Models\Character.cs" />
-    <Compile Include="Models\Data.cs" />
-    <Compile Include="Models\Items\Inventory.cs" />
-    <Compile Include="Models\Items\Item.cs" />
-    <Compile Include="Models\JsonRoot.cs" />
-    <Compile Include="Models\Quest\Quest.cs" />
-    <Compile Include="Models\Quest\Rewards.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Plugins\CharacterStats\Models\HzCharacterStat.cs" />
+    <Compile Include="Plugins\HideOut\Models\HideOut.cs" />
+    <Compile Include="Plugins\HideOut\Models\HideOutRoom.cs" />
+    <Compile Include="Plugins\PrimaryWorker\Models\IWorkItem.cs" />
+    <Compile Include="Plugins\Quest\Models\Training.cs" />
+    <Compile Include="Plugins\CharacterStats\Models\StatType.cs" />
+    <Compile Include="Plugins\PrimaryWorker\Models\WorkType.cs" />
+    <Compile Include="Plugins\Item\Models\Bank_Inventory.cs" />
+    <Compile Include="Plugins\Account\Models\Character.cs" />
+    <Compile Include="Plugins\Account\Models\Data.cs" />
+    <Compile Include="Plugins\Item\Models\Inventory.cs" />
+    <Compile Include="Plugins\Item\Models\Item.cs" />
+    <Compile Include="Plugins\Account\Models\JsonRoot.cs" />
+    <Compile Include="Plugins\Quest\Models\Quest.cs" />
+    <Compile Include="Plugins\Quest\Models\Rewards.cs" />
+    <Compile Include="Plugins\Account\Models\User.cs" />
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
-    <Compile Include="Wpf\InverseBooleanConverter.cs" />
-    <Page Include="Plugins\HideOut\HideOutTemplates.xaml">
+    <Compile Include="Wpf\Converter\InverseBooleanConverter.cs" />
+    <Page Include="Plugins\HideOut\UI\HideOutTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Account\AccountUserControl.xaml">
+    <Page Include="Plugins\Account\UI\AccountUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Booster\BoosterUserControl.xaml">
+    <Page Include="Plugins\Booster\UI\BoosterUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Worldboss\WorldbossUserControl.xaml">
+    <Page Include="Plugins\Worldboss\UI\WorldbossUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,51 +238,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Item\ItemTemplate.xaml">
+    <Page Include="Plugins\Item\UI\ItemTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Item\ItemUserControl.xaml">
+    <Page Include="Plugins\Item\UI\ItemUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Log\LogUserControl.xaml">
+    <Page Include="Plugins\Log\UI\LogUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\CharacterStats\CharacterStatTemplate.xaml">
+    <Page Include="Plugins\CharacterStats\UI\CharacterStatTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Duell\DuelUserControl.xaml">
+    <Page Include="Plugins\Duell\UI\DuelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\ControlPanel\ControlPanelUserControl.xaml">
+    <Page Include="Plugins\ControlPanel\UI\ControlPanelUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Statusbar\StatusbarUserControl.xaml">
+    <Page Include="Plugins\Statusbar\UI\StatusbarUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\PrimaryWorker\PrimaryWorkerUserControl.xaml">
+    <Page Include="Plugins\PrimaryWorker\UI\PrimaryWorkerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\CharacterStats\CharacterStatUserControl.xaml">
+    <Page Include="Plugins\CharacterStats\UI\CharacterStatUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\HideOut\HideOutUserControl.xaml">
+    <Page Include="Plugins\HideOut\UI\HideOutUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Plugins\Quest\QuestUserControl.xaml">
+    <Page Include="Plugins\Quest\UI\QuestUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\ExpanderStyle.xaml">
+    <Page Include="Wpf\Styles\ExpanderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -371,6 +372,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\HideOut\Unlocking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\Dungeon\UI\" />
+    <Folder Include="Plugins\Goals\UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

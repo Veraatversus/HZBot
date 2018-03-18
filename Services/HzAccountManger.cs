@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -24,7 +23,7 @@ namespace HZBot
 
         public static RelayCommand<HzAccount> RemoveAccountCommand { get; set; }
         public static RelayCommand AddAccountCommand { get; set; }
-        public static ObservableCollection<HzAccount> Accounts { get; } = new ObservableCollection<HzAccount>();
+        public static AsyncObservableCollection<HzAccount> Accounts { get; } = new AsyncObservableCollection<HzAccount>();
 
         #endregion Properties
 

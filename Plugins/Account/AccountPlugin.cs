@@ -15,6 +15,16 @@ namespace HZBot
         }
 
         #endregion Constructors
+
+        #region Properties
+
+        //Command for Login into Account
+        public AsyncRelayCommand LoginCommand { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
         public async override Task OnAccountLoaded()
         {
             if (Account.Config.IsAutoLogin)
@@ -26,6 +36,7 @@ namespace HZBot
                 Account.IsBotEnabled = true;
             }
         }
+
         public async override Task OnHandleError(string error)
         {
             if (error == "errUserNotAuthorized")
@@ -34,10 +45,7 @@ namespace HZBot
                 await LoginCommand.TryExecuteAsync();
             }
         }
-        #region Properties
-        //Command for Login into Account
-        public AsyncRelayCommand LoginCommand { get; private set; }
 
-        #endregion Properties
+        #endregion Methods
     }
 }

@@ -1,11 +1,6 @@
-﻿using System.Linq;
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Linq;
 using System.Threading;
-using System.Windows.Input;
-using System.Web.UI.WebControls;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace HZBot
 {
@@ -22,9 +17,9 @@ namespace HZBot
 
         #region Properties
 
-        public ObservableCollection<LogObject> LogList { get; } = new ObservableCollection<LogObject>();
-        public ObservableCollection<KeyValue> RequestLog { get; } = new ObservableCollection<KeyValue>();
-        public ObservableCollection<KeyValue> ErrorLog { get; } = new ObservableCollection<KeyValue>();
+        public AsyncObservableCollection<LogObject> LogList { get; } = new AsyncObservableCollection<LogObject>();
+        public AsyncObservableCollection<KeyValue> RequestLog { get; } = new AsyncObservableCollection<KeyValue>();
+        public AsyncObservableCollection<KeyValue> ErrorLog { get; } = new AsyncObservableCollection<KeyValue>();
 
         public string GetLogsAsString
         {
@@ -40,7 +35,7 @@ namespace HZBot
 
         public void Add(string text)
         {
-            Add(new LogObject() { Text = string.Format("{0:00}:{1:00}:{2:00}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second) + " - " + text, Time = DateTime.Now });
+            Add(new LogObject() { Text = text, Time = DateTime.Now });
             //LogList.Add(text);
             RaisePropertyChanged(nameof(GetLogsAsString));
         }
@@ -54,11 +49,10 @@ namespace HZBot
         {
             Context.Send(o =>
             {
-                var keyvalue =RequestLog.FirstOrDefault(kv => kv.Key == action);
-                if (keyvalue!= null)
+                var keyvalue = RequestLog.FirstOrDefault(kv => kv.Key == action);
+                if (keyvalue != null)
                 {
                     keyvalue.Value++;
-
                 }
                 else
                 {
@@ -71,6 +65,7 @@ namespace HZBot
                 }
             }, null);
         }
+
         public void AddErrorLog(string error)
         {
             Context.Send(o =>
@@ -79,7 +74,6 @@ namespace HZBot
                 if (keyvalue != null)
                 {
                     keyvalue.Value++;
-
                 }
                 else
                 {

@@ -23,7 +23,6 @@ namespace HZBot
              .PostToHzAsync();
         }
 
-
         #endregion Methods
     }
 }

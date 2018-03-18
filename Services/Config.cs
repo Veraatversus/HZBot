@@ -27,6 +27,7 @@
 
         //Account
         public string Username { get => username; set { username = value; RaisePropertyChanged(); } }
+
         public string Password { get => password; set { password = value; RaisePropertyChanged(); } }
         public int FlashVersion { get; set; } = 145;
         public int ServerId { get; set; } = 15;
@@ -35,12 +36,14 @@
 
         // Quest Plugin
         public QuestMode QuestMode { get; set; } = QuestMode.Balanced;
+
         public BuyEnergyMode BuyEnergyMode { get; set; }
         public FightQuestDifficulty QuestDifficulty { get; set; } = FightQuestDifficulty.Medium;
         public bool IsAutoQuest { get => isAutoQuest; set { isAutoQuest = value; RaisePropertyChanged(); } }
 
         //Item Plugin
         public bool IsAutoEquip { get; set; }
+
         public SellMode SellMode { get; set; }
         public double StaminaEquipWeight { get; set; } = 0.5f;
         public double StrengthEquipWeight { get; set; } = 0.2f;
@@ -51,6 +54,7 @@
 
         //HideOutPlugin
         public bool IsAutoHideOutCollect { get; set; }
+
         public bool IsAutoHideOutBuild { get; set; }
 
         //Duel Plugin
@@ -58,6 +62,7 @@
 
         //CharacterStat Plugin
         public bool IsAutoTrain { get => isAutoTrain; set { isAutoTrain = value; RaisePropertyChanged(); } }
+
         public bool IsAutoSkill { get => isAutoSkill; set { isAutoSkill = value; RaisePropertyChanged(); } }
         public double StaminaSkillWeight { get; set; } = 0.0f;
         public double StrengthSkillWeight { get; set; } = 0.2;
@@ -69,6 +74,7 @@
 
         //Booster
         public bool IsAutoABooster { get; set; }
+
         #endregion Properties
 
         #region Fields

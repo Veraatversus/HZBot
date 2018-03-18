@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace HZBot
 {
@@ -19,7 +16,6 @@ namespace HZBot
 
         public async override Task AfterPrimaryWorkerWork()
         {
-
             // AutoHideOutCollect
             if (Account.Config.IsAutoHideOutCollect)
             {
@@ -31,13 +27,13 @@ namespace HZBot
                             if (Account.Data.hideout.current_resource_stone == Account.Data.hideout.max_resource_stone)
                                 continue;
                             break;
+
                         case HideoutRoomTypes.GlueProduction:
                             if (Account.Data.hideout.current_resource_glue == Account.Data.hideout.max_resource_glue)
                                 continue;
                             break;
                     }
                     await this.CollectHideoutRoomActivityResultAsync(room);
-
                 }
             }
 
@@ -47,7 +43,6 @@ namespace HZBot
             }
             return;
         }
-
 
         #endregion Methods
     }

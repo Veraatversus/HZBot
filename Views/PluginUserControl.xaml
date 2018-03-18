@@ -45,15 +45,15 @@
                 <local:DuelUserControl Grid.Row="5" />
                 <local:BoosterUserControl Grid.Row="6" />
             </Grid>
-            
+
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <local:HideOutUserControl Grid.Column="0" Grid.ColumnSpan="2" />
                 <local:PrimaryWorkerUserControl Grid.Row="1" />
