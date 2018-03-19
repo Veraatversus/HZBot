@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DataContext="{d:DesignInstance local:HzAccount}"
     d:DesignHeight="300"
     d:DesignWidth="300"
@@ -14,7 +15,7 @@
     </local:HzUserControl.Resources>
     <Expander Header="{Binding}">
         <Expander.Style>
-            <Style TargetType="Expander" BasedOn="{StaticResource {x:Type Expander}}">
+            <Style BasedOn="{StaticResource {x:Type Expander}}" TargetType="Expander">
                 <!--<Style.Triggers>
                     <DataTrigger Binding="{Binding IsLogined}" Value="True">
                         <Setter Property="IsExpanded" Value="True" />
@@ -36,6 +37,7 @@
                             </Style>
                         </Grid.Style>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -122,8 +124,39 @@
                                 </Style>
                             </TextBox.Style>
                         </TextBox>
-                        <Button
+                        <ComboBox
+                            x:Name="cbServer"
                             Grid.Column="2"
+                            Width="50"
+                            Margin="5"
+                            HorizontalAlignment="Left"
+                            FontFamily="SEGOEWP"
+                            FontSize="15"
+                            FontStyle="Italic"
+                            FontWeight="Normal"
+                            IsSynchronizedWithCurrentItem="True"
+                            Opacity="1"
+                            SelectedValue="{Binding Config.ServerId}">
+                            <ComboBox.Items>
+                                <sys:Int32>1</sys:Int32>
+                                <sys:Int32>2</sys:Int32>
+                                <sys:Int32>3</sys:Int32>
+                                <sys:Int32>4</sys:Int32>
+                                <sys:Int32>5</sys:Int32>
+                                <sys:Int32>6</sys:Int32>
+                                <sys:Int32>7</sys:Int32>
+                                <sys:Int32>8</sys:Int32>
+                                <sys:Int32>9</sys:Int32>
+                                <sys:Int32>10</sys:Int32>
+                                <sys:Int32>11</sys:Int32>
+                                <sys:Int32>12</sys:Int32>
+                                <sys:Int32>13</sys:Int32>
+                                <sys:Int32>14</sys:Int32>
+                                <sys:Int32>15</sys:Int32>
+                            </ComboBox.Items>
+                        </ComboBox>
+                        <Button
+                            Grid.Column="3"
                             Command="{Binding Plugins.Account.LoginCommand}"
                             Content="  Login  " />
                     </Grid>
@@ -197,7 +230,10 @@
                 </DockPanel>
             </StackPanel>
             <UniformGrid Grid.Column="1" Columns="1">
-                <CheckBox Margin="5" IsChecked="{Binding IsBotEnabled}" IsEnabled="{Binding Config.IsAutoStartBot, Converter={StaticResource InverseBooleanConverter}}">
+                <CheckBox
+                    Margin="5"
+                    IsChecked="{Binding IsBotEnabled}"
+                    IsEnabled="{Binding Config.IsAutoStartBot, Converter={StaticResource InverseBooleanConverter}}">
                     BotEnabled
                 </CheckBox>
             </UniformGrid>
