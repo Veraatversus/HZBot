@@ -4,6 +4,7 @@ namespace HZBot
 {
     public static class CharacterStatRequests
     {
+  
         #region Methods
 
         /// <summary>Improves the character stat.</summary>
