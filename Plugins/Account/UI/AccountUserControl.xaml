@@ -153,6 +153,7 @@
                                 <sys:Int32>13</sys:Int32>
                                 <sys:Int32>14</sys:Int32>
                                 <sys:Int32>15</sys:Int32>
+                                <sys:Int32>16</sys:Int32>
                             </ComboBox.Items>
                         </ComboBox>
                         <Button
