@@ -46,32 +46,6 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <UniformGrid Grid.Column="1" Columns="2">
-                    <StackPanel Margin="5,0" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="Stamina" />
-                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.StaminaEquipWeight, StringFormat={}{0:0.00}}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="Strength" />
-                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.StrengthEquipWeight, StringFormat={}{0:0.00}}" />
-                    </StackPanel>
-                    <StackPanel Margin="5,0" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="Crit" />
-                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.CriticalRatingEquipWeight, StringFormat={}{0:0.00}}" />
-                    </StackPanel>
-                    <StackPanel Margin="5,0" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="Dodge" />
-                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.DodgeRatingEquipWeight, StringFormat={}{0:0.00}}" />
-                    </StackPanel>
-                    <StackPanel Margin="5,0" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="Weapon" />
-                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.WeaponDamageEquipWeight, StringFormat={}{0:0.00}}" />
-                    </StackPanel>
-                    <StackPanel Margin="5,0" Orientation="Vertical">
-                        <TextBlock HorizontalAlignment="Center" Text="Missile" />
-                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.MissileDamageEquipWeight, StringFormat={}{0:0.00}}" />
-                    </StackPanel>
-                </UniformGrid>
                 <Grid Grid.Column="0">
                     <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding Data.HzInventory.GearItems}">
                         <ListView.ItemsPanel>
@@ -110,6 +84,32 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
+                <UniformGrid Grid.Column="1" Columns="2">
+                    <StackPanel Margin="5,0" Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Center" Text="Stamina" />
+                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.StaminaEquipWeight, StringFormat={}{0:0.00}}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Center" Text="Strength" />
+                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.StrengthEquipWeight, StringFormat={}{0:0.00}}" />
+                    </StackPanel>
+                    <StackPanel Margin="5,0" Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Center" Text="Crit" />
+                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.CriticalRatingEquipWeight, StringFormat={}{0:0.00}}" />
+                    </StackPanel>
+                    <StackPanel Margin="5,0" Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Center" Text="Dodge" />
+                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.DodgeRatingEquipWeight, StringFormat={}{0:0.00}}" />
+                    </StackPanel>
+                    <StackPanel Margin="5,0" Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Center" Text="Weapon" />
+                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.WeaponDamageEquipWeight, StringFormat={}{0:0.00}}" />
+                    </StackPanel>
+                    <StackPanel Margin="5,0" Orientation="Vertical">
+                        <TextBlock HorizontalAlignment="Center" Text="Missile" />
+                        <TextBox HorizontalContentAlignment="Center" Text="{Binding Config.MissileDamageEquipWeight, StringFormat={}{0:0.00}}" />
+                    </StackPanel>
+                </UniformGrid>
             </Grid>
         </Expander>
         <Expander Grid.Row="1" Header="{Binding}">

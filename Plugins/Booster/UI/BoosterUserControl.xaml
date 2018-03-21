@@ -95,29 +95,29 @@
                             </Grid.RowDefinitions>
                             <Grid.Children>
                                 <Image
-                                Grid.Row="0"
-                                Grid.RowSpan="2"
-                                Width="35"
-                                Height="35"
-                                Source="{Binding Icon}">
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Width="35"
+                                    Height="35"
+                                    Source="{Binding Icon}">
                                     <!--<Image.Source>
                                     <BitmapImage UriSource="{Binding Icon}" />
                                 </Image.Source>-->
                                 </Image>
                                 <TextBlock
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center"
-                                Text="{Binding Effect}" />
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    Text="{Binding Effect}" />
                                 <TextBlock
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Text="{Binding DurationInDays, StringFormat={}for {0} Days}" />
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding DurationInDays, StringFormat={}for {0} Days}" />
                                 <Button
-                                Grid.Row="2"
-                                Grid.ColumnSpan="2"
-                                Command="{Binding Account.Plugins.Booster.BuyBoosterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
-                                CommandParameter="{Binding}">
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Command="{Binding Account.Plugins.Booster.BuyBoosterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}"
+                                    CommandParameter="{Binding}">
                                     <Button.Content>
                                         <TextBlock Text="{Binding Cost, StringFormat={}Buy for {0}}" />
                                     </Button.Content>

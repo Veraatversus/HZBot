@@ -15,6 +15,12 @@ namespace HZBot
 
         #endregion Fields
 
+        #region Properties
+
+        public static IEnumerable<CHideOutRoom> AllRooms => HzConstants.Default.Constants["hideout_rooms"].OfType<JProperty>().Select(p => { var obj = p.Value.ToObject<CHideOutRoom>(); obj.Name = p.Name; return obj; });
+
+        #endregion Properties
+
         #region Methods
 
         public static double SecondsTillActivityFinished(this HideOutRoom room)
@@ -44,6 +50,27 @@ namespace HZBot
                 _loc2_ = room.ts_activity_end - HzAccountManger.GetAccByHideOutID(room.hideout_id).ServerTime;
             }
             return _loc2_;
+        }
+
+        public static HideOutRoomSlot GetNextUnlockSlot(this IEnumerable<HideOutRoomSlot> slots)
+        {
+            var lastUnlocked = false;
+            var levels = slots.GroupBy(slot => slot.Level);
+            foreach (var level in levels)
+            {
+                foreach (var slot in level.Reverse())
+                {
+                    if (slot.SlotValue == 0)
+                    {
+                        lastUnlocked = true;
+                    }
+                    if (lastUnlocked && slot.SlotValue == -1)
+                    {
+                        return slot;
+                    }
+                }
+            }
+            return null;
         }
 
         public static double CurrentCalculatedResourceAmount(this HideOutRoom room)
@@ -240,6 +267,22 @@ namespace HZBot
                 level++;
             }
             return true;
+        }
+
+        public static IEnumerable<HideOutRoom> RoomsThatCanUpgrade(this HideOut hideout)
+        {
+            return hideout.Rooms.Where(room => room.CanUpgrade);
+        }
+
+        public static IEnumerable<CHideOutRoom> RoomsThatCanBuilded(this HideOut hideout)
+        {
+            foreach (var room in AllRooms)
+            {
+                if (hideout.CanRoomBeBuild(room.Name))
+                {
+                    yield return room;
+                }
+            }
         }
 
         public static bool CanRoomBeBuild(this HideOut hideOut, string hideOutRoomType)

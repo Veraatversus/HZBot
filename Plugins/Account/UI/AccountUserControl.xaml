@@ -176,14 +176,6 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.RowSpan="2"
-                            Grid.Column="0"
-                            VerticalAlignment="Center"
-                            FontSize="18"
-                            FontWeight="Bold"
-                            Text="Account:" />
                         <CheckBox
                             Grid.Column="1"
                             HorizontalAlignment="Center"
@@ -200,6 +192,14 @@
                             IsChecked="{Binding Config.IsAutoStartBot}">
                             AutoStartBot
                         </CheckBox>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="Account:" />
                     </Grid>
                 </Grid>
             </DataTemplate>

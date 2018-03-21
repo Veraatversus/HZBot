@@ -23,59 +23,59 @@
             Text="Hideout:" />
         <UniformGrid Grid.Row="1" Columns="2">
 
-                <CheckBox IsChecked="{Binding Config.IsAutoHideOutCollect}">AutoCollect</CheckBox>
-                <TextBlock Text="{Binding Data.hideout.hideout_points, StringFormat=Points: {0}}" />
-                <TextBlock Text="{Binding Data.hideout.current_level, StringFormat=Level: {0}}" />
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Glue: {0} / {1}">
-                            <Binding Path="Data.hideout.current_resource_glue" />
-                            <Binding Path="Data.hideout.max_resource_glue" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Stone: {0} / {1}">
-                            <Binding Path="Data.hideout.current_resource_stone" />
-                            <Binding Path="Data.hideout.max_resource_stone" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
+            <CheckBox IsChecked="{Binding Config.IsAutoHideOutCollect}">AutoCollect</CheckBox>
+            <TextBlock Text="{Binding Data.hideout.hideout_points, StringFormat=Points: {0}}" />
+            <TextBlock Text="{Binding Data.hideout.current_level, StringFormat=Level: {0}}" />
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Glue: {0} / {1}">
+                        <Binding Path="Data.hideout.current_resource_glue" />
+                        <Binding Path="Data.hideout.max_resource_glue" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Stone: {0} / {1}">
+                        <Binding Path="Data.hideout.current_resource_stone" />
+                        <Binding Path="Data.hideout.max_resource_stone" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
 
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Barracks Level: {0} / {1}">
-                            <Binding Path="Data.hideout.current_barracks_level" />
-                            <Binding Path="Data.hideout.max_barracks_level" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Text="{Binding Data.hideout.current_worker_level, StringFormat=Worker Level: {0}}" />
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Worker Count: {0} / {1}">
-                            <Binding Path="Data.hideout.idle_worker_count" />
-                            <Binding Path="Data.hideout.max_worker_count" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Attack Units: {0} / {1}">
-                            <Binding Path="Data.hideout.current_attacker_units" />
-                            <Binding Path="Data.hideout.max_attacker_units" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{} Defend Units: {0} / {1}">
-                            <Binding Path="Data.hideout.current_defender_units" />
-                            <Binding Path="Data.hideout.max_defender_units" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Barracks Level: {0} / {1}">
+                        <Binding Path="Data.hideout.current_barracks_level" />
+                        <Binding Path="Data.hideout.max_barracks_level" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Text="{Binding Data.hideout.current_worker_level, StringFormat=Worker Level: {0}}" />
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Worker Count: {0} / {1}">
+                        <Binding Path="Data.hideout.idle_worker_count" />
+                        <Binding Path="Data.hideout.max_worker_count" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Attack Units: {0} / {1}">
+                        <Binding Path="Data.hideout.current_attacker_units" />
+                        <Binding Path="Data.hideout.max_attacker_units" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{} Defend Units: {0} / {1}">
+                        <Binding Path="Data.hideout.current_defender_units" />
+                        <Binding Path="Data.hideout.max_defender_units" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </UniformGrid>
 
         <!--  HideOutRooms  -->
@@ -118,12 +118,12 @@
             </ListView.ItemsPanel>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="Grid.Row" Value="{Binding Level}" />
                     <Setter Property="Grid.Column" Value="{Binding RoomStartSlot}" />
                     <Setter Property="Grid.ColumnSpan" Value="{Binding Room.CRoom.size}" />
+                    <Setter Property="Grid.Row" Value="{Binding Level}" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Padding" Value="0" />
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                    <Setter Property="Margin" Value="-5" />
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>

@@ -72,7 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodeBase\Collection\AsyncObservableCollection.cs" />
-    <Compile Include="Plugins\HideOut\Models\Enums\HideOutRoomSlotType.cs" />
+    <Compile Include="Plugins\HideOut\Models\Enums\HideOutRoomSlotState.cs" />
     <Compile Include="Plugins\HideOut\Models\SlotUnlockCost.cs" />
     <Compile Include="Plugins\Booster\Models\Booster.cs" />
     <Compile Include="Plugins\Booster\BoosterRequests.cs" />

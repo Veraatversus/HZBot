@@ -51,7 +51,7 @@ namespace HZBot
             }
         }
 
-        public bool IsUnlocked { get; set; }
+        public bool IsUnlocked => State == HideOutRoomSlotState.UnLocked;
 
         public HideOutRoomSlotState State
         {
@@ -64,7 +64,7 @@ namespace HZBot
                 if (SlotValue == 0) return HideOutRoomSlotState.UnLocked;
                 if (SlotValue == -1)
                 {
-                    return HideOut.Slots.SkipWhile(s => s.SlotValue >= 0).FirstOrDefault().SlotId == this.SlotId ? HideOutRoomSlotState.CanUnlock : HideOutRoomSlotState.Locked;
+                    return HideOut.Slots.GetNextUnlockSlot()?.SlotId == SlotId ? HideOutRoomSlotState.CanUnlock : HideOutRoomSlotState.Locked;
                 }
                 if (SlotValue < -1) return HideOutRoomSlotState.UnLocking;
                 return default;

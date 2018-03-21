@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HZBot
@@ -10,7 +11,7 @@ namespace HZBot
         public PrimaryWorkerPlugin(HzAccount account) : base(account)
         {
             //Timer = new PrimaryWorkerTimer(Account);
-            TimerTask = Timer();
+            Task.Run(Timer);// TimerTask = Timer();
         }
 
         #endregion Constructors
@@ -30,7 +31,7 @@ namespace HZBot
 
         #region Fields
 
-        private bool taskRun = true;
+        private volatile bool taskRun = true;
         private TimeSpan timerText;
 
         #endregion Fields
@@ -50,60 +51,63 @@ namespace HZBot
         {
             while (taskRun)
             {
-                try
+                if (Account.Data != null)
                 {
-                    if (Account.ActiveWorker != null)
+                    try
                     {
-                        //Worker Remaining Time Left
-                        if (Account.ActiveWorker.RemainingTime <= -2)
+                        if (Account.ActiveWorker != null)
                         {
-                            //check for status complete
-                            if (Account.ActiveWorker.status == WorkStatus.Started)
+                            //Worker Remaining Time Left
+                            if (Account.ActiveWorker.RemainingTime <= -2)
                             {
-                                await Account.Plugins.Quest.CheckForWorkerCompleteAsync(Account.ActiveWorker.WorkerType);
+                                //check for status complete
+                                if (Account.ActiveWorker.status == WorkStatus.Started)
+                                {
+                                    await Account.Plugins.Quest.CheckForWorkerCompleteAsync(Account.ActiveWorker.WorkerType);
+                                }
+                                //when status is complete then start new Bot Action
+                                if (Account.ActiveWorker?.status == WorkStatus.Finished)
+                                {
+                                    if (Account.ActiveWorker.WorkerType == WorkType.Quest || Account.ActiveWorker.WorkerType == WorkType.Training)
+                                    {
+                                        await Account.Plugins.Quest.ClaimWorkerReward.TryExecuteAsync();
+                                    }
+                                    else if (Account.ActiveWorker.WorkerType == WorkType.WorldbossAttack)
+                                    {
+                                        await Account.Plugins.Worldboss.FinishWorldbossAttackAsync(Account.Data.ActiveWorldbossAttack.worldboss_event_id);
+                                    }
+                                    if (Account.Data.ActiveWorldBossEvent?.status == WorldbossEventStatus.Finished)
+                                    {
+                                        await Account.Plugins.Worldboss.ClaimWorldbossEventRewardsAsync(Account.Data.ActiveWorldBossEvent.id);
+                                    }
+                                }
                             }
-                            //when status is complete then start new Bot Action
-                            if (Account.ActiveWorker?.status == WorkStatus.Finished)
+                            //Worker is working, update Timer Text
+                            else
                             {
-                                if (Account.ActiveWorker.WorkerType == WorkType.Quest || Account.ActiveWorker.WorkerType == WorkType.Training)
-                                {
-                                    await Account.Plugins.Quest.ClaimWorkerReward.TryExecuteAsync();
-                                }
-                                else if (Account.ActiveWorker.WorkerType == WorkType.WorldbossAttack)
-                                {
-                                    await Account.Plugins.Worldboss.FinishWorldbossAttackAsync(Account.Data.ActiveWorldbossAttack.worldboss_event_id);
-                                }
-                                if (Account.Data.ActiveWorldBossEvent?.status == WorldbossEventStatus.Finished)
-                                {
-                                    await Account.Plugins.Worldboss.ClaimWorldbossEventRewardsAsync(Account.Data.ActiveWorldBossEvent.id);
-                                }
+                                TimerText = TimeSpan.FromSeconds(Account.ActiveWorker.RemainingTime);
                             }
                         }
-                        //Worker is working, update Timer Text
-                        else
+                        if (Account.ActiveWorker == null)
                         {
-                            TimerText = TimeSpan.FromSeconds(Account.ActiveWorker.RemainingTime);
-                        }
-                    }
-                    if (Account.ActiveWorker == null)
-                    {
-                        if (Account.IsBotEnabled || Account.Config.IsAutoStartBot)
-                        {
-                            if (Account.IsBotEnabled == false) Account.IsBotEnabled = true;
+                            if (Account.IsBotEnabled || Account.Config.IsAutoStartBot)
+                            {
+                                if (Account.IsBotEnabled == false) Account.IsBotEnabled = true;
 
-                            if (TimeSpan.FromSeconds(Account.ServerTime - Account.Data.server_time) >= TimeSpan.FromMinutes(10))
-                            {
-                                await Account.Plugins.Account.SyncGameAsync();
+                                if (TimeSpan.FromSeconds(Account.ServerTime - Account.Data.server_time) >= TimeSpan.FromMinutes(10))
+                                {
+                                    await Account.Plugins.Account.SyncGameAsync();
+                                }
+                                Account.Plugins.RaiseOnPrimaryWorkerComplete();
                             }
-                            Account.Plugins.RaiseOnPrimaryWorkerComplete();
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Account.Plugins.Log.Add(e.ToString());
+                    }
+                    await Task.Delay(1000);
                 }
-                catch (Exception e)
-                {
-                    Account.Plugins.Log.Add(e.ToString());
-                }
-                await Task.Delay(1000);
             }
         }
 

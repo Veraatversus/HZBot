@@ -79,7 +79,7 @@ namespace HZBot
         /// <param name="slot">The slot.</param>
         /// <param name="identifier">The identifier.</param>
         /// <returns></returns>
-        public static async Task<string> UnlockHideoutRoomSlotAsync(this HzPluginBase plugin, HideOutRoomSlot slot, string identifier)
+        public static async Task<string> UnlockHideoutRoomSlotAsync(this HzPluginBase plugin, HideOutRoomSlot slot)
         {
             return await plugin.Account.DefaultRequestContent("unlockHideoutRoomSlot")
              .AddKeyValue("slot", slot.Slot)

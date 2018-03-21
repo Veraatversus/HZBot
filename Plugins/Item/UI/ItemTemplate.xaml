@@ -3,10 +3,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:HZBot">
     <DataTemplate DataType="{x:Type local:Item}">
-        <Image Width="35" Height="35">
-            <Image.Source>
-                <BitmapImage UriSource="{Binding ImageUrl}" />
-            </Image.Source>
+        <Image
+            Width="35"
+            Height="35"
+            Source="{Binding ImageUrl}">
+            <!--<Image.Source>
+                <BitmapImage UriSource="{Binding ImageUrl, TargetNullValue={x:Null}}" />
+            </Image.Source>-->
             <Image.ToolTip>
                 <StackPanel>
                     <TextBlock Text="{Binding type, StringFormat=Type: \{0\}}" />
@@ -52,13 +55,13 @@
                     </Button.ToolTip>
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Content" Value="Equip" />
                             <Setter Property="Command" Value="{Binding Account.Plugins.Item.EquipItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}" />
                             <Setter Property="CommandParameter" Value="{Binding}" />
+                            <Setter Property="Content" Value="Equip" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsEquiped}" Value="True">
-                                    <Setter Property="Content" Value="UnEquip" />
                                     <Setter Property="Command" Value="{Binding Account.Plugins.Item.UnEquipItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}" />
+                                    <Setter Property="Content" Value="UnEquip" />
                                     <!--<Setter Property="Command"  Value="{Binding Account.Plugins.Item.UnEquipItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HzUserControl}}}" />-->
                                 </DataTrigger>
                             </Style.Triggers>

@@ -4,6 +4,7 @@
     {
         #region Properties
 
+        public string Name { get; set; }
         public int limit { get; set; }
         public int unlock_with_mainbuilding_1 { get; set; }
         public int unlock_with_mainbuilding_2 { get; set; }
@@ -15,4 +16,6 @@
 
         #endregion Properties
     }
+
+
 }
