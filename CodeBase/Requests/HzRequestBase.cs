@@ -56,7 +56,6 @@ namespace HZBot
             content.Account = account;
             content.Content = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("Host", content.RequestUrl),
                 new KeyValuePair<string, string>("device_type", "web"),
                 new KeyValuePair<string, string>("client_version", $"flash_{account.Config.FlashVersion}"),
                 new KeyValuePair<string, string>("user_id", UserId.ToString()),
@@ -73,6 +72,7 @@ namespace HZBot
         /// <returns>The error string or null</returns>
         public static async Task<string> PostToHzAsync(this PostContent content)
         {
+            
             content.Account.Log.AddRequestLog(content.Content.FirstOrDefault(keyval => keyval.Key == "action").Value);
             content.LogObject.RequestState = RequestState.Pending;
             using (var formUrlEncodedContent = new FormUrlEncodedContent(content.Content))
@@ -176,14 +176,14 @@ namespace HZBot
                 AllowAutoRedirect = true,
                 UseDefaultCredentials = true
             };
-
+            //new KeyValuePair<string, string>("Host", content.RequestUrl),
             client = new HttpClient(msgHandler);
             client.DefaultRequestHeaders.TryAddWithoutValidation("Origin", "http://hz--2.akamaized.net");
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-Requested-With", "ShockwaveFlash/28.0.0.161");
             client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36");
             client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/x-www-form-urlencoded");
             client.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "*/*");
-            client.DefaultRequestHeaders.TryAddWithoutValidation("Referer", "http://hz--2.akamaized.net/swf/main_new.swf?664c63b039bf785c18887862aec49a30");
+            //client.DefaultRequestHeaders.TryAddWithoutValidation("Referer", "http://hz--2.akamaized.net/swf/main_new.swf?664c63b039bf785c18887862aec49a30");
             client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Language", "en-US,en;q=0.9,de-DE;q=0.8,de;q=0.7");
             client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate");
         }
