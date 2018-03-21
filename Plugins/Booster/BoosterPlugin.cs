@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HZBot
 {
@@ -8,43 +10,43 @@ namespace HZBot
 
         public BoosterPlugin(HzAccount account) : base(account)
         {
-            BuyBoosterCommand = new AsyncRelayCommand<Booster>(b => this.BuyBoosterAsync(b), CanBuyBooster);
+            BuyBoosterCommand = new AsyncRelayCommand(
+                async () => await this.BuyBoosterAsync(boosterID),
+                () => Account.IsLogined);
+
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public AsyncRelayCommand<Booster> BuyBoosterCommand { get; private set; }
-
+        public AsyncRelayCommand BuyBoosterCommand { get; private set; }
+        string boosterID = "";
         #endregion Properties
 
         #region Methods
 
-        public async override Task OnLogined()
+        public override async Task OnBotStarted()
         {
-            var MBTime = Account.Data.character.ts_active_quest_boost_expires - Account.Data.server_time;
-            var MBType = Account.Data.character.active_quest_booster_id;
-            MBTime = (MBTime / 60) / 60;
-            if (MBTime <= 6)
+            if (Account.Data.character.active_work_booster_id == null)
             {
-                if (Account.User.premium_currency >= 10)
+                switch (Account.Config.WorkBooster)
                 {
+                    case "10%":
+                        boosterID = "booster_work1";
+                        break;
+                    case "25%":
+                        boosterID = "booster_work2";
+                        break;
+                    case "50%":
+                        boosterID = "booster_work3";
+                        break;
+                        //    }
                 }
             }
 
-            var SBTime = Account.Data.character.ts_active_stats_boost_expires - Account.Data.server_time;
-            var SBType = Account.Data.character.active_stats_booster_id;
-            SBTime = (SBTime / 60) / 60;
-
-            var WBTime = Account.Data.character.ts_active_work_boost_expires - Account.Data.server_time;
-            var WBType = Account.Data.character.active_work_booster_id;
-            WBTime = (WBTime / 60) / 60;
-
-            Account.Log.Add($"MissionsBooster ID: {MBType} verbleibend: {MBTime}");
-            Account.Log.Add($"StatsBooster ID: {SBType} verbleibend: {SBTime}");
-            Account.Log.Add($"WorkBooster ID: {WBType} verbleibend: {WBTime}");
-            return;
+            if (boosterID != "")
+                await BuyBoosterCommand.TryExecuteAsync();
         }
 
         private bool CanBuyBooster(Booster booster)

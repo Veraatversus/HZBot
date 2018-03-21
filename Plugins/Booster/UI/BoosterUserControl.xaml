@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:HZBot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DataContext="{d:DesignInstance local:HzAccount}"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -41,6 +42,13 @@
             <UniformGrid Rows="3">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" Text="Mission Booster:" />
+                    <ComboBox SelectedValue="{Binding Config.MissionBooster}">
+                        <ComboBox.Items>
+                            <sys:String>10%</sys:String>
+                            <sys:String>25%</sys:String>
+                            <sys:String>50%</sys:String>
+                        </ComboBox.Items>
+                    </ComboBox>
                     <TextBlock Text="{Binding Character.ActiveQuestBooster.EndTime, StringFormat={}Expires: \{0:dd:MM:yy\} &#x0a;      \{0:HH:mm:ss\}}" />
                 </StackPanel>
                 <StackPanel
@@ -48,6 +56,13 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" Text="Stats Booster:" />
+                    <ComboBox SelectedValue="{Binding Config.StatsBooster}">
+                        <ComboBox.Items>
+                            <sys:String>10%</sys:String>
+                            <sys:String>25%</sys:String>
+                            <sys:String>50%</sys:String>
+                        </ComboBox.Items>
+                    </ComboBox>
                     <TextBlock Text="{Binding Character.ActiveStatsBooster.EndTime, StringFormat={}Expires: \{0:dd:MM:yy\} &#x0a;      \{0:HH:mm:ss\}}" />
                 </StackPanel>
                 <StackPanel
@@ -55,6 +70,13 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center" Text="Work Booster:" />
+                    <ComboBox SelectedValue="{Binding Config.WorkBooster}">
+                        <ComboBox.Items>
+                            <sys:String>10%</sys:String>
+                            <sys:String>25%</sys:String>
+                            <sys:String>50%</sys:String>
+                        </ComboBox.Items>
+                    </ComboBox>
                     <TextBlock Text="{Binding Character.ActiveWorkBooster.EndTime, StringFormat={}Expires: \{0:dd:MM:yy\} &#x0a;      \{0:HH:mm:ss\}}" />
                 </StackPanel>
             </UniformGrid>
