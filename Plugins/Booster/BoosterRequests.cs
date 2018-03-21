@@ -6,13 +6,12 @@ namespace HZBot
     {
         #region Methods
 
-        public static async Task<string> BuyBoosterAsync(this HzPluginBase plugin, Booster booster)
+        public static async Task<string> BuyBoosterAsync(this HzPluginBase plugin, string booster)
         {
             var error = await plugin.Account.DefaultRequestContent("buyBooster")
-                 .AddKeyValue("rct", "2")
-                 .AddKeyValue("user_id", plugin.Account.Character.id)
-                 .AddKeyValue("id", booster.Id)
-                 .AddLog("StartDuel...")
+                 .AddKeyValue("rct", "1")
+                 .AddKeyValue("id", booster)
+                 .AddLog("Folgender Booster wurde gekauft: " + booster)
                  .PostToHzAsync();
             return error;
         }
