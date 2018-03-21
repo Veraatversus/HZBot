@@ -27,7 +27,7 @@ namespace HZBot
 
         public override string ToString()
         {
-            return $"{DateTime.Now.Hour:00}:{DateTime.Now.Minute:00}:{DateTime.Now.Second:00} - {Text}";
+            return $"{Time.Hour:00}:{Time.Minute:00}:{Time.Second:00} - {Text}";
         }
 
         #endregion Methods
