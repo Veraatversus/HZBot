@@ -74,9 +74,9 @@
 
         //Booster
         public bool IsAutoABooster { get; set; }
-        public string WorkBooster { get; set; } = "25%";
-        public string StatsBooster { get; set; } = "25%";
-        public string MissionBooster { get; set; } = "50%";
+        public int WorkBooster { get; set; } = 25;
+        public int StatsBooster { get; set; } = 25;
+        public int MissionBooster { get; set; } = 50;
 
         #endregion Properties
 

@@ -44,9 +44,9 @@
                     <TextBlock HorizontalAlignment="Center" Text="Mission Booster:" />
                     <ComboBox SelectedValue="{Binding Config.MissionBooster}">
                         <ComboBox.Items>
-                            <sys:String>10%</sys:String>
-                            <sys:String>25%</sys:String>
-                            <sys:String>50%</sys:String>
+                            <sys:Int32>10</sys:Int32>
+                            <sys:Int32>25</sys:Int32>
+                            <sys:Int32>50</sys:Int32>
                         </ComboBox.Items>
                     </ComboBox>
                     <TextBlock Text="{Binding Character.ActiveQuestBooster.EndTime, StringFormat={}Expires: \{0:dd:MM:yy\} &#x0a;      \{0:HH:mm:ss\}}" />
@@ -58,9 +58,9 @@
                     <TextBlock HorizontalAlignment="Center" Text="Stats Booster:" />
                     <ComboBox SelectedValue="{Binding Config.StatsBooster}">
                         <ComboBox.Items>
-                            <sys:String>10%</sys:String>
-                            <sys:String>25%</sys:String>
-                            <sys:String>50%</sys:String>
+                            <sys:Int32>10</sys:Int32>
+                            <sys:Int32>25</sys:Int32>
+                            <sys:Int32>50</sys:Int32>
                         </ComboBox.Items>
                     </ComboBox>
                     <TextBlock Text="{Binding Character.ActiveStatsBooster.EndTime, StringFormat={}Expires: \{0:dd:MM:yy\} &#x0a;      \{0:HH:mm:ss\}}" />
@@ -72,9 +72,9 @@
                     <TextBlock HorizontalAlignment="Center" Text="Work Booster:" />
                     <ComboBox SelectedValue="{Binding Config.WorkBooster}">
                         <ComboBox.Items>
-                            <sys:String>10%</sys:String>
-                            <sys:String>25%</sys:String>
-                            <sys:String>50%</sys:String>
+                            <sys:Int32>10</sys:Int32>
+                            <sys:Int32>25</sys:Int32>
+                            <sys:Int32>50</sys:Int32>
                         </ComboBox.Items>
                     </ComboBox>
                     <TextBlock Text="{Binding Character.ActiveWorkBooster.EndTime, StringFormat={}Expires: \{0:dd:MM:yy\} &#x0a;      \{0:HH:mm:ss\}}" />
