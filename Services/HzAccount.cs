@@ -74,21 +74,24 @@ namespace HZBot
             get => isBotEnabled;
             set
             {
-                isBotEnabled = value;
-                RaisePropertyChanged();
-                if (IsBotEnabled)
+                if (isBotEnabled != value)
                 {
-                    Plugins.RaiseOnBotStarted();
-                    //if (ActiveWorker == null)
-                    //{
-                    //    // IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
-                    //    Plugins.RaiseOnPrimaryWorkerComplete();
-                    //}
-                }
-                else
-                {
-                    // IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
-                    Plugins.RaiseOnBotStoped();
+                    isBotEnabled = value;
+                    RaisePropertyChanged();
+                    if (IsBotEnabled)
+                    {
+                        Plugins.RaiseOnBotStarted();
+                        //if (ActiveWorker == null)
+                        //{
+                        //    // IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
+                        //    Plugins.RaiseOnPrimaryWorkerComplete();
+                        //}
+                    }
+                    else
+                    {
+                        // IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                        Plugins.RaiseOnBotStoped();
+                    }
                 }
             }
         }
