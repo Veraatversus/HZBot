@@ -10,9 +10,8 @@ namespace HZBot
 
         public BoosterPlugin(HzAccount account) : base(account)
         {
-            BuyBoosterCommand = new AsyncRelayCommand(
-                async () => await this.BuyBoosterAsync(boosterID),
-                () => Account.IsLogined);
+            BuyBoosterCommand = new AsyncRelayCommand<Booster>(
+                async (booster) => await this.BuyBoosterAsync(booster), CanBuyBooster);
 
         }
 
@@ -20,33 +19,39 @@ namespace HZBot
 
         #region Properties
 
-        public AsyncRelayCommand BuyBoosterCommand { get; private set; }
-        string boosterID = "";
+        public AsyncRelayCommand<Booster> BuyBoosterCommand { get; private set; }
         #endregion Properties
 
         #region Methods
 
-        public override async Task OnBotStarted()
+        public override async Task BeforPrimaryWorkerWork()
         {
-            if (Account.Data.character.active_work_booster_id == null)
+            if (!Account.Config.IsAutoABooster)
+                return;
+
+            if (string.IsNullOrWhiteSpace(Account.Data.character.active_work_booster_id))
             {
-                switch (Account.Config.WorkBooster)
-                {
-                    case "10%":
-                        boosterID = "booster_work1";
-                        break;
-                    case "25%":
-                        boosterID = "booster_work2";
-                        break;
-                    case "50%":
-                        boosterID = "booster_work3";
-                        break;
-                        //    }
-                }
+                var workBooster = Account.Character.Boosters.FirstOrDefault(b => b.Constants.type == CBoosterType.Work && b.Constants.amount == Account.Config.WorkBooster);
+
+                if (workBooster != null)
+                    await BuyBoosterCommand.TryExecuteAsync(workBooster);
             }
 
-            if (boosterID != "")
-                await BuyBoosterCommand.TryExecuteAsync();
+            if (string.IsNullOrWhiteSpace(Account.Data.character.active_stats_booster_id))
+            {
+                var statsBooster = Account.Character.Boosters.FirstOrDefault(b => b.Constants.type == CBoosterType.Stats && b.Constants.amount == Account.Config.StatsBooster);
+
+                if (statsBooster != null)
+                    await BuyBoosterCommand.TryExecuteAsync(statsBooster);
+            }
+
+            if (string.IsNullOrWhiteSpace(Account.Data.character.active_quest_booster_id))
+            {
+                var questBooster = Account.Character.Boosters.FirstOrDefault(b => b.Constants.type == CBoosterType.Quest && b.Constants.amount == Account.Config.MissionBooster);
+
+                if (questBooster != null)
+                    await BuyBoosterCommand.TryExecuteAsync(questBooster);
+            }
         }
 
         private bool CanBuyBooster(Booster booster)
