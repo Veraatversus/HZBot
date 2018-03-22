@@ -11,7 +11,7 @@ namespace HZBot
             var error = await plugin.Account.DefaultRequestContent("buyBooster")
                  .AddKeyValue("rct", "1")
                  .AddKeyValue("id", booster.Id)
-                 .AddLog("Folgender Booster wurde gekauft: " + booster)
+                 .AddLog("Folgender Booster wurde gekauft: " + booster.Id)
                  .PostToHzAsync();
             return error;
         }
