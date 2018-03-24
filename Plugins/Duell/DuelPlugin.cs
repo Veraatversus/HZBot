@@ -74,8 +74,8 @@ namespace HZBot
                     break;
 
                 case 2:
-                    Account.Log.Add("Duel wird Deaktiviert Arbeite an deinen Stats du NOOB!");
-                    Account.Config.IsAutoDuel = false;
+                    Account.Log.Add("[Duel] Es wurde kein passender gegner gefunden!");
+                    //Account.Config.IsAutoDuel = false;
 
                     break;
             }
