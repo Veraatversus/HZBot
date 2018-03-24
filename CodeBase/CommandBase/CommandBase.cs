@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Input;
 
 namespace HZBot
@@ -8,6 +9,7 @@ namespace HZBot
     /// <summary>Provides a base implementation of the <see cref="ICommand"/> interface. </summary>
     public abstract class CommandBase : INotifyPropertyChanged, ICommand
     {
+        
         #region Events
 
         /// <summary>Occurs when changes occur that affect whether or not the command should execute. </summary>
@@ -62,7 +64,7 @@ namespace HZBot
     public abstract class CommandBase<T> : ICommand
     {
         #region Events
-
+        private SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
         /// <summary>Occurs when changes occur that affect whether or not the command should execute. </summary>
         public event EventHandler CanExecuteChanged;
 
@@ -78,7 +80,15 @@ namespace HZBot
         /// <summary>Triggers the CanExecuteChanged event. </summary>
         public virtual void RaiseCanExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
+            if (SynchronizationContext.Current == _synchronizationContext)
+            {
+                CanExecuteChanged?.Invoke(this, new EventArgs());
+            }
+            else
+            {
+                _synchronizationContext.Send(o => CanExecuteChanged?.Invoke(this, new EventArgs()), null);
+            }
+            
         }
 
         /// <summary>Tries to execute the command by calling the <see cref="CanExecute"/> method

@@ -18,7 +18,6 @@ namespace HZBot
         {
             HzAccountManger.AddAccount(this);
             Plugins = new HzPlugins(this);
-            //IdleTimer = new Timer(OnIdleTimerTick, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
             OnDataChanged += HzAccount_OnDataChanged;
         }
 
@@ -53,18 +52,21 @@ namespace HZBot
             get => isLogined;
             set
             {
-                isLogined = value;
-                RaisePropertyChanged();
-                if (IsLogined)
-                    Plugins.RaiseOnLogined();
-                //if (Config.IsAutoStartBot)
-                //{
-                //    IsBotEnabled = true;
-                //}
-                else
+                if (isLogined != value)
                 {
-                    Plugins.RaiseOnlogoffed();
-                    IsBotEnabled = false;
+                    isLogined = value;
+                    RaisePropertyChanged();
+                    if (IsLogined)
+                        Plugins.RaiseOnLogined();
+                    //if (Config.IsAutoStartBot)
+                    //{
+                    //    IsBotEnabled = true;
+                    //}
+                    else
+                    {
+                        Plugins.RaiseOnlogoffed();
+                        IsBotEnabled = false;
+                    }
                 }
             }
         }
@@ -81,15 +83,9 @@ namespace HZBot
                     if (IsBotEnabled)
                     {
                         Plugins.RaiseOnBotStarted();
-                        //if (ActiveWorker == null)
-                        //{
-                        //    // IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
-                        //    Plugins.RaiseOnPrimaryWorkerComplete();
-                        //}
                     }
                     else
                     {
-                        // IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
                         Plugins.RaiseOnBotStoped();
                     }
                 }
@@ -107,12 +103,6 @@ namespace HZBot
 
         #endregion Properties
 
-        //public void Dispose()
-        //{
-        //    IdleTimer.Dispose();
-        //    GC.SuppressFinalize(this);
-        //}
-
         private JsonRoot _mainData;
         private bool isBotEnabled;
         private bool isLogined;
@@ -122,15 +112,6 @@ namespace HZBot
             HzAccountManger.RemoveAccount(this);
         }
 
-        //private void OnIdleTimerTick(object state)
-        //{
-        //    if (IsBotEnabled)
-        //    {
-        //        var task = Plugins.Account.SyncGameAsync().Result;
-        //        Plugins.RaiseOnPrimaryWorkerComplete();
-        //    }
-        //}
-
         private void HzAccount_OnDataChanged()
         {
             RaisePropertyChanged(nameof(Data));
@@ -138,14 +119,6 @@ namespace HZBot
             RaisePropertyChanged(nameof(Character));
             RaisePropertyChanged(nameof(Quests));
             RaisePropertyChanged(nameof(ActiveWorker));
-            //if (ActiveWorker == null)
-            //{
-            //    IdleTimer.Change(TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(10));
-            //}
-            //else
-            //{
-            //    IdleTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            //}
         }
     }
 }

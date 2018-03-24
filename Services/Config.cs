@@ -74,9 +74,13 @@
 
         //Booster
         public bool IsAutoABooster { get; set; }
+
         public int WorkBooster { get; set; } = 25;
         public int StatsBooster { get; set; } = 25;
         public int MissionBooster { get; set; } = 50;
+
+        //Goals
+        public bool IsAutoGoal { get; set; } = true;
 
         #endregion Properties
 
