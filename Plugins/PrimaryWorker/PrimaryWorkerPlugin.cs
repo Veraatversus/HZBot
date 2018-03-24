@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace HZBot
@@ -10,8 +9,8 @@ namespace HZBot
 
         public PrimaryWorkerPlugin(HzAccount account) : base(account)
         {
-            //Timer = new PrimaryWorkerTimer(Account);
-            Task.Run(Timer);// TimerTask = Timer();
+            Task.Run(Timer);
+            //timer = new Timer(Timer, null, TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
         }
 
         #endregion Constructors
@@ -24,10 +23,11 @@ namespace HZBot
             set { timerText = value; RaisePropertyChanged(); }
         }
 
-        //public PrimaryWorkerTimer Timer { get; set; }
         public Task TimerTask { get; }
 
         #endregion Properties
+
+        //public Timer timer;
 
         #region Fields
 
@@ -92,13 +92,13 @@ namespace HZBot
                         {
                             if (Account.IsBotEnabled || Account.Config.IsAutoStartBot)
                             {
-                                if (Account.IsBotEnabled == false) Account.IsBotEnabled = true;
+                                if (!Account.IsBotEnabled) Account.IsBotEnabled = true;
 
                                 if (TimeSpan.FromSeconds(Account.ServerTime - Account.Data.server_time) >= TimeSpan.FromMinutes(10))
                                 {
                                     await Account.Plugins.Account.SyncGameAsync();
                                 }
-                                Account.Plugins.RaiseOnPrimaryWorkerComplete();
+                                await Account.Plugins.RaiseOnPrimaryWorkerComplete();
                             }
                         }
                     }
@@ -106,8 +106,9 @@ namespace HZBot
                     {
                         Account.Plugins.Log.Add(e.ToString());
                     }
-                    await Task.Delay(1000);
                 }
+                // timer.Change(TimeSpan.FromSeconds(10), Timeout.InfiniteTimeSpan);
+                await Task.Delay(1000);
             }
         }
 

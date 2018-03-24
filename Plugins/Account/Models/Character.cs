@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -171,6 +172,22 @@ namespace HZBot
                 }
                 return booster;
             });
+
+        public IEnumerable<Goal> Goals => HzConstants.Default.Constants["goals"].OfType<JProperty>().Select(prop =>
+        {
+            var goal = prop.Value.ToObject<Goal>();
+            goal.Charcater = this;
+            goal.Name = prop.Name;
+            goal.Steps = prop.Value["values"].OfType<JProperty>().Select(
+                value =>
+                {
+                    var val = value.Value.ToObject<GoalValue>();
+                    val.Id = Convert.ToInt32(value.Name);
+                    val.Goal = goal;
+                    return val;
+                });
+            return goal;
+        });
 
         #endregion Properties
     }

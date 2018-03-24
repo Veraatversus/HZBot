@@ -72,7 +72,6 @@ namespace HZBot
         /// <returns>The error string or null</returns>
         public static async Task<string> PostToHzAsync(this PostContent content)
         {
-            
             content.Account.Log.AddRequestLog(content.Content.FirstOrDefault(keyval => keyval.Key == "action").Value);
             content.LogObject.RequestState = RequestState.Pending;
             using (var formUrlEncodedContent = new FormUrlEncodedContent(content.Content))
@@ -88,7 +87,7 @@ namespace HZBot
                         content.LogObject.RequestState = RequestState.Error;
                         content.LogObject.Tooltip = error.Value<string>();
                         content.Account.Log.AddErrorLog(error.Value<string>());
-                        content.Account.Plugins.RaiseOnHandleError(error.Value<string>());
+                        await content.Account.Plugins.RaiseOnHandleError(error.Value<string>());
                         // MessageBox.Show(error.Value<string>());
                         return error.Value<string>();
                     }
@@ -154,8 +153,11 @@ namespace HZBot
                     hideoutRooms.Remove();
                 }
             }
-
-            account.JsonData.Merge(jobj);
+            var settings = new JsonMergeSettings
+            {
+                MergeArrayHandling = MergeArrayHandling.Union
+            };
+            account.JsonData.Merge(jobj, settings);
             account.MainData = account.JsonData.ToObject<JsonRoot>();
         }
 

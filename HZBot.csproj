@@ -72,6 +72,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodeBase\Collection\AsyncObservableCollection.cs" />
+    <Compile Include="Plugins\Goals\GoalExtensions.cs" />
+    <Compile Include="Plugins\Goals\GoalRequests.cs" />
+    <Compile Include="Plugins\Goals\GoalPlugin.cs" />
+    <Compile Include="Plugins\Goals\Models\Goal.cs" />
+    <Compile Include="Plugins\Goals\Models\GoalValue.cs" />
     <Compile Include="Plugins\HideOut\Models\Enums\HideOutRoomSlotState.cs" />
     <Compile Include="Plugins\HideOut\Models\SlotUnlockCost.cs" />
     <Compile Include="Plugins\Booster\Models\Booster.cs" />
@@ -175,7 +180,6 @@
     <Compile Include="Plugins\Worldboss\WorldbossRequests.cs" />
     <Compile Include="Services\Config.cs" />
     <Compile Include="Services\GameUtils.cs" />
-    <Compile Include="Plugins\PrimaryWorker\PrimaryWorkerTimer.cs" />
     <Compile Include="Plugins\Quest\QuestPlugin.cs" />
     <Compile Include="Plugins\Quest\QuestRequests.cs" />
     <Compile Include="Plugins\Statusbar\UI\StatusbarUserControl.xaml.cs">

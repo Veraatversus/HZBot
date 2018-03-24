@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace HZBot
 {
@@ -10,6 +11,7 @@ namespace HZBot
         public HzPlugins(HzAccount account)
         {
             hzAccount = account;
+            DefaultContext = SynchronizationContext.Current;
             Log = RegisterPlugin(new LogPlugin(hzAccount));
             Account = RegisterPlugin(new AccountPlugin(hzAccount));
             Worldboss = RegisterPlugin(new WorldbossPlugin(hzAccount));
@@ -20,7 +22,7 @@ namespace HZBot
             Item = RegisterPlugin(new ItemPlugin(hzAccount));
             PrimaryWorker = RegisterPlugin(new PrimaryWorkerPlugin(hzAccount));
             Booster = RegisterPlugin(new BoosterPlugin(hzAccount));
-            DefaultContext = System.Threading.SynchronizationContext.Current;
+            Goal = RegisterPlugin(new GoalPlugin(hzAccount));
         }
 
         #endregion Constructors
@@ -28,6 +30,7 @@ namespace HZBot
         #region Properties
 
         public BoosterPlugin Booster { get; set; }
+        public GoalPlugin Goal { get; private set; }
         public CharacterStatPlugin CharacterStat { get; private set; }
         public QuestPlugin Quest { get; private set; }
         public DuelPlugin Duel { get; private set; }
@@ -56,100 +59,75 @@ namespace HZBot
 
         /// <summary>Raises the on plugin loaded.</summary>
         /// <returns></returns>
-        public void RaiseOnLogined()
+        public async Task RaiseOnLogined()
         {
-            DefaultContext.Send(async (o) =>
+            foreach (var item in AllPlugins)
             {
-                foreach (var item in AllPlugins)
-                {
-                    await item.OnLogined();
-                }
-            }, null);
+                await item.OnLogined();
+            }
         }
 
-        public void RaiseOnlogoffed()
+        public async Task RaiseOnlogoffed()
         {
-            DefaultContext.Send(async (o) =>
+            foreach (var item in AllPlugins)
             {
-                foreach (var item in AllPlugins)
-                {
-                    await item.OnLogoffed();
-                }
-            }, null);
+                await item.OnLogoffed();
+            }
         }
 
         /// <summary>Raises the on primary worker complete.</summary>
         /// <returns></returns>
-        public void RaiseOnPrimaryWorkerComplete()
+        public async Task RaiseOnPrimaryWorkerComplete()
         {
-            DefaultContext.Send(async (o) =>
+            foreach (var item in AllPlugins)
             {
-                foreach (var item in AllPlugins)
-                {
-                    await item.BeforPrimaryWorkerWork();
-                }
-                foreach (var item in AllPlugins)
-                {
-                    await item.OnPrimaryWorkerDoWork();
-                }
-                foreach (var item in AllPlugins)
-                {
-                    await item.AfterPrimaryWorkerWork();
-                }
-            }, null);
-            //if (hzAccount.Data.ActiveWorker == null)
-            //{
-            //    hzAccount.ActiveWorkerTimer.IsBotEnabled = false;
-            //}
+                await item.BeforPrimaryWorkerWork();
+            }
+            foreach (var item in AllPlugins)
+            {
+                await item.OnPrimaryWorkerDoWork();
+            }
+            foreach (var item in AllPlugins)
+            {
+                await item.AfterPrimaryWorkerWork();
+            }
         }
 
         /// <summary>Raises the on bot started.</summary>
         /// <returns></returns>
-        public void RaiseOnBotStarted()
+        public async Task RaiseOnBotStarted()
         {
-            DefaultContext.Send(async (o) =>
+            foreach (var item in AllPlugins)
             {
-                foreach (var item in AllPlugins)
-                {
-                    await item.OnBotStarted();
-                }
-            }, null);
+                await item.OnBotStarted();
+            }
         }
 
         /// <summary>Raises the on bot stoped.</summary>
         /// <returns></returns>
-        public void RaiseOnBotStoped()
+        public async Task RaiseOnBotStoped()
         {
-            DefaultContext.Send(async (o) =>
+            foreach (var item in AllPlugins)
             {
-                foreach (var item in AllPlugins)
-                {
-                    await item.OnBotStoped();
-                }
-            }, null);
+                await item.OnBotStoped();
+            }
         }
 
         /// <summary>Raises the account loaded.</summary>
-        public void RaiseOnAccountLoaded()
+        public async Task RaiseOnAccountLoaded()
         {
-            DefaultContext.Send(async (o) =>
+            foreach (var item in AllPlugins)
             {
-                foreach (var item in AllPlugins)
-                {
-                    await item.OnAccountLoaded();
-                }
-            }, null);
+                await item.OnAccountLoaded();
+            }
         }
 
-        public void RaiseOnHandleError(string error)
+        public async Task RaiseOnHandleError(string error)
         {
-            DefaultContext.Send(async (o) =>
+            foreach (var item in AllPlugins)
             {
-                foreach (var item in AllPlugins)
-                {
-                    await item.OnHandleError(error);
-                }
-            }, null);
+                await item.OnHandleError(error);
+            }
         }
 
         #endregion Methods
