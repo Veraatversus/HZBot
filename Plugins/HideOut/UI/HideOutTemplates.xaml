@@ -67,10 +67,42 @@
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding CNextLevel.price_gold, StringFormat={}Price Gold: {0}}" />
-                <TextBlock Grid.Row="1" Text="{Binding CNextLevel.price_glue, StringFormat={}Price Glue: {0}}" />
-                <TextBlock Grid.Row="2" Text="{Binding CNextLevel.price_stone, StringFormat={}Price Stone: {0}}" />
-                <TextBlock Grid.Row="3" Text="{Binding status, StringFormat={}State: {0}}" />
+                <TextBlock
+                    Grid.Row="0"
+                    FontSize="15"
+                    Foreground="White"
+                    Text="{Binding CNextLevel.price_gold, StringFormat={}Price Gold: {0}}">
+                    <TextBlock.Background>
+                        <SolidColorBrush Opacity="0.4" Color="Black" />
+                    </TextBlock.Background>
+                </TextBlock>
+                <TextBlock
+                    Grid.Row="1"
+                    FontSize="15"
+                    Foreground="White"
+                    Text="{Binding CNextLevel.price_glue, StringFormat={}Price Glue: {0}}">
+                    <TextBlock.Background>
+                        <SolidColorBrush Opacity="0.4" Color="Black" />
+                    </TextBlock.Background>
+                </TextBlock>
+                <TextBlock
+                    Grid.Row="2"
+                    FontSize="15"
+                    Foreground="White"
+                    Text="{Binding CNextLevel.price_stone, StringFormat={}Price Stone: {0}}">
+                    <TextBlock.Background>
+                        <SolidColorBrush Opacity="0.4" Color="Black" />
+                    </TextBlock.Background>
+                </TextBlock>
+                <TextBlock
+                    Grid.Row="3"
+                    FontSize="15"
+                    Foreground="White"
+                    Text="{Binding status, StringFormat={}State: {0}}">
+                    <TextBlock.Background>
+                        <SolidColorBrush Opacity="0.4" Color="Black" />
+                    </TextBlock.Background>
+                </TextBlock>
                 <Image
                     Grid.Row="4"
                     Height="20"
