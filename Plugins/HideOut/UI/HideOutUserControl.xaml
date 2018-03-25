@@ -24,6 +24,9 @@
         <UniformGrid Grid.Row="1" Columns="2">
 
             <CheckBox IsChecked="{Binding Config.IsAutoHideOutCollect}">AutoCollect</CheckBox>
+            <CheckBox IsChecked="{Binding Config.IsAutoHideOutUpgrade}">AutoUpgrade</CheckBox>
+            <CheckBox IsChecked="{Binding Config.IsAutoHideOutBuild}">AutoBuild</CheckBox>
+            <TextBlock Text="{Binding Plugins.PrimaryWorker.HideOutTimer, StringFormat=Activity: {0}}" />
             <TextBlock Text="{Binding Data.hideout.hideout_points, StringFormat=Points: {0}}" />
             <TextBlock Text="{Binding Data.hideout.current_level, StringFormat=Level: {0}}" />
             <TextBlock HorizontalAlignment="Left">
@@ -118,7 +121,7 @@
             </ListView.ItemsPanel>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="Grid.Column" Value="{Binding RoomStartSlot}" />
+                    <Setter Property="Grid.Column" Value="{Binding RoomStartSlot.Slot}" />
                     <Setter Property="Grid.ColumnSpan" Value="{Binding Room.CRoom.size}" />
                     <Setter Property="Grid.Row" Value="{Binding Level}" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />

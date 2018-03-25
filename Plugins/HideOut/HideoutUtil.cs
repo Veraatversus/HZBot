@@ -17,7 +17,10 @@ namespace HZBot
 
         #region Properties
 
-        public static IEnumerable<CHideOutRoom> AllRooms => HzConstants.Default.Constants["hideout_rooms"].OfType<JProperty>().Select(p => { var obj = p.Value.ToObject<CHideOutRoom>(); obj.Name = p.Name; return obj; });
+        public static IEnumerable<CHideOutRoom> AllRooms =>
+            HzConstants.Default.Constants["hideout_rooms"]
+            .OfType<JProperty>()
+            .Select(p => { var obj = p.Value.ToObject<CHideOutRoom>(); obj.identifier = p.Name; return obj; });
 
         #endregion Properties
 
@@ -30,7 +33,7 @@ namespace HZBot
             var _loc1_ = double.NaN;
             double _loc4_ = 0;
             double _loc2_ = 0;
-            if (room.status == HideoutRoomStatus.Producing && !room.IsManuallyProductionRoom)
+            if (room.status == HideoutRoomStatus.Producing && !room.CRoom.IsManuallyProductionRoom)
             {
                 _loc3_ = HzAccountManger.GetAccByHideOutID(room.hideout_id).ServerTime - room.ts_last_resource_change;
                 _loc5_ = Math.Floor(_loc3_ / 60.0f);
@@ -45,29 +48,37 @@ namespace HZBot
                    room.status == HideoutRoomStatus.Building ||
                    room.status == HideoutRoomStatus.Placing ||
                    room.status == HideoutRoomStatus.Storing ||
-                   room.status == HideoutRoomStatus.Producing && room.IsManuallyProductionRoom)
+                   room.status == HideoutRoomStatus.Producing && room.CRoom.IsManuallyProductionRoom)
             {
                 _loc2_ = room.ts_activity_end - HzAccountManger.GetAccByHideOutID(room.hideout_id).ServerTime;
             }
             return _loc2_;
         }
 
-        public static HideOutRoomSlot GetNextUnlockSlot(this IEnumerable<HideOutRoomSlot> slots)
+        public static IEnumerable<HideOutRoomSlot> SlotUnlockOrder(this IEnumerable<HideOutRoomSlot> slots)
         {
-            var lastUnlocked = false;
             var levels = slots.GroupBy(slot => slot.Level);
             foreach (var level in levels)
             {
                 foreach (var slot in level.Reverse())
                 {
-                    if (slot.SlotValue == 0)
-                    {
-                        lastUnlocked = true;
-                    }
-                    if (lastUnlocked && slot.SlotValue == -1)
-                    {
-                        return slot;
-                    }
+                    yield return slot;
+                }
+            }
+        }
+
+        public static HideOutRoomSlot GetNextUnlockSlot(this IEnumerable<HideOutRoomSlot> slots)
+        {
+            var lastUnlocked = false;
+            foreach (var slot in slots.SlotUnlockOrder())
+            {
+                if (slot.SlotValue == 0)
+                {
+                    lastUnlocked = true;
+                }
+                if (lastUnlocked && slot.SlotValue == -1)
+                {
+                    return slot;
                 }
             }
             return null;
@@ -81,7 +92,7 @@ namespace HZBot
             {
                 return _loc3_;
             }
-            if (room.IsManuallyProductionRoom && room.ts_activity_end < HzAccountManger.GetAccByHideOutID(room.hideout_id).ServerTime)
+            if (room.CRoom.IsManuallyProductionRoom && room.ts_activity_end < HzAccountManger.GetAccByHideOutID(room.hideout_id).ServerTime)
             {
                 return _loc1_;
             }
@@ -102,12 +113,12 @@ namespace HZBot
             JToken _loc4_;
             double _loc2_ = 0;
             double _loc1_ = 0;
-            if (room.IsManuallyProductionRoom)
+            if (room.CRoom.IsManuallyProductionRoom)
             {
                 _loc3_ = (room.ts_activity_end - room.ts_last_resource_change) / (room.max_resource_amount - room.current_resource_amount);
                 _loc1_ = 60 / _loc3_;
             }
-            else if (room.IsAutoProductionRoom)
+            else if (room.CRoom.IsAutoProductionRoom)
             {
                 _loc4_ = HzConstants.Default.Constants["hideout_rooms"][room.identifier]["levels"][room.level.ToString()];
                 _loc2_ = Math.Max(Math.Round(_loc4_["min_till_max_resource"].Value<double>() * HzConstants.Default.Constants["hideout_min_till_max_resource_duration_scaling"].Value<double>()), 1);
@@ -118,7 +129,7 @@ namespace HZBot
 
         public static double MaxResourceAmount(this HideOutRoom room)
         {
-            if (room.IsAutoProductionRoom)
+            if (room.CRoom.IsAutoProductionRoom)
             {
                 return room.max_resource_amount * CurrentGeneratorFactor(room);
             }
@@ -128,7 +139,7 @@ namespace HZBot
         public static double CurrentGeneratorFactor(this HideOutRoom room)
         {
             double _loc1_ = 1;
-            if (room.IsAutoProductionRoom && room.current_generator_level > 0)
+            if (room.CRoom.IsAutoProductionRoom && room.current_generator_level > 0)
             {
                 _loc1_ = 1 + room.CGeneratator.passiv_bonus_amount_1 / 100;
             }
@@ -137,7 +148,7 @@ namespace HZBot
 
         public static bool HasRewardToCollect(this HideOutRoom room, int IsFullInProzent)
         {
-            return room.status == HideoutRoomStatus.Producing && room.IsAutoProductionRoom && room.CurrentCalculatedResourceAmount() / room.MaxResourceAmount() * 100 >= IsFullInProzent;
+            return room.status == HideoutRoomStatus.Producing && room.CRoom.IsAutoProductionRoom && room.CurrentCalculatedResourceAmount() / room.MaxResourceAmount() * 100 >= IsFullInProzent;
         }
 
         public static IEnumerable<HideOutRoom> RoomsToRewardCollect(this HideOut hideout, int IsFullInProzent)
@@ -179,18 +190,18 @@ namespace HZBot
         {
             var _loc4_ = 0;
             var _loc7_ = 0;
-            var _loc6_ = 0;
-            HideOutRoom _loc2_ = null;
-            var _loc1_ = -1;
-            var _loc3_ = -1;
+            var endTime = 0;
+            HideOutRoom Room = null;
+            var level = -1;
+            var slot = -1;
             foreach (var room in hideout.Rooms)
             {
                 if (room.status == HideoutRoomStatus.Building || room.status == HideoutRoomStatus.Placing || room.status == HideoutRoomStatus.Storing || room.status == HideoutRoomStatus.Upgrading)
                 {
-                    if (room.ts_activity_end > _loc6_ && room.ts_activity_end > HzAccountManger.GetAccByCharacterID(hideout.character_id).ServerTime)
+                    if (room.ts_activity_end > endTime /* && room.ts_activity_end > HzAccountManger.GetAccByCharacterID(hideout.character_id).ServerTime*/)
                     {
-                        _loc6_ = room.ts_activity_end;
-                        _loc2_ = room;
+                        endTime = room.ts_activity_end;
+                        Room = room;
                     }
                 }
             }
@@ -200,31 +211,26 @@ namespace HZBot
                 _loc7_ = 0;
                 while (_loc7_ < HideoutUtil.MAX_SLOTS)
                 {
-                    if (hideout.IsSlotUnlockInProgress(_loc4_, _loc7_) && hideout.GetSlotUnlockTsEnd(_loc4_, _loc7_) > _loc6_ && hideout.GetSlotUnlockTsEnd(_loc4_, _loc7_) > HzAccountManger.GetAccByCharacterID(hideout.character_id).ServerTime)
+                    if (hideout.IsSlotUnlockInProgress(_loc4_, _loc7_) && hideout.GetSlotUnlockTsEnd(_loc4_, _loc7_) > endTime/* && hideout.GetSlotUnlockTsEnd(_loc4_, _loc7_) > HzAccountManger.GetAccByCharacterID(hideout.character_id).ServerTime */)
                     {
-                        _loc6_ = hideout.GetSlotUnlockTsEnd(_loc4_, _loc7_);
-                        _loc1_ = _loc4_;
-                        _loc3_ = _loc7_;
+                        endTime = hideout.GetSlotUnlockTsEnd(_loc4_, _loc7_);
+                        level = _loc4_;
+                        slot = _loc7_;
                     }
                     _loc7_++;
                 }
                 _loc4_++;
             }
-            return new HideoutWorkerActivity(_loc2_, _loc1_, _loc3_);
+            if (Room == null && level == -1 && slot == -1)
+            {
+                return null;
+            }
+            return new HideoutWorkerActivity(Room, level, slot, endTime);
         }
 
         public static int GetRoomCountWithIdentifier(this IEnumerable<HideOutRoom> rooms, string identifier)
         {
-            var _loc2_ = 0;
-
-            foreach (var room in rooms)
-            {
-                if (room.identifier == identifier)
-                {
-                    _loc2_++;
-                }
-            }
-            return _loc2_;
+            return rooms.Count(r => r.identifier == identifier);
         }
 
         public static HideOutRoom GetRoomBySlot(this HideOut hideout, string identifier)
@@ -269,20 +275,45 @@ namespace HZBot
             return true;
         }
 
-        public static IEnumerable<HideOutRoom> RoomsThatCanUpgrade(this HideOut hideout)
+        public static IEnumerable<HideOutRoom> RoomsThatCanUpgrade(this IEnumerable<HideOutRoom> rooms)
         {
-            return hideout.Rooms.Where(room => room.CanUpgrade);
+            return rooms.Where(room => room.CanUpgrade);
         }
 
         public static IEnumerable<CHideOutRoom> RoomsThatCanBuilded(this HideOut hideout)
         {
             foreach (var room in AllRooms)
             {
-                if (hideout.CanRoomBeBuild(room.Name))
+                if (hideout.CanRoomBeBuild(room.identifier))
                 {
                     yield return room;
                 }
             }
+        }
+
+        public static IEnumerable<CHideOutRoom> HaveEnoughRessources(this IEnumerable<CHideOutRoom> rooms, HzAccount account)
+        {
+            foreach (var room in rooms)
+            {
+                if (room.Levels.FirstOrDefault().HaveEnoughRessources(account))
+                {
+                    yield return room;
+                }
+            }
+        }
+
+        public static int TotalCost(this IHideOutCost roomLevel)
+        {
+            return roomLevel.price_stone + roomLevel.price_glue + roomLevel.price_gold;
+        }
+
+        public static bool HaveEnoughRessources(this IHideOutCost roomLevel, HzAccount account)
+        {
+            //var level = roomLevel.Levels.FirstOrDefault();
+            return roomLevel != null &&
+                    roomLevel.price_glue <= account.Data.hideout.current_resource_glue &&
+                    roomLevel.price_stone <= account.Data.hideout.current_resource_stone &&
+                    roomLevel.price_gold <= account.Character.game_currency;
         }
 
         public static bool CanRoomBeBuild(this HideOut hideOut, string hideOutRoomType)
@@ -292,45 +323,38 @@ namespace HZBot
             {
                 return false;
             }
-            var _loc5_ = hideOut.Rooms.GetRoomCountWithIdentifier(hideOutRoomType);
-            if (_loc5_ >= param3["limit"].Value<int>())
+            var roomCount = hideOut.Rooms.GetRoomCountWithIdentifier(hideOutRoomType);
+            if (roomCount >= param3["limit"].Value<int>())
             {
                 return false;
             }
-            var _loc7_ = 0;
-            var _loc6_ = hideOut.Rooms.FirstOrDefault(r => r.identifier == HideoutRoomTypes.MainBuilding);
-            if (_loc6_ != null && !_loc6_.IsRoomInStore())
+            var level = 0;
+            var room = hideOut.Rooms.FirstOrDefault(r => r.CRoom.Type == HideoutRoomType.main_building);
+            if (room != null && !room.IsRoomInStore())
             {
-                _loc7_ = _loc6_.level;
+                level = room.level;
             }
-            var _loc4_ = 0;
-            var _loc8_ = _loc5_ + 1;
-            if (1 != _loc8_)
+            var unlockLevel = 0;
+            var _loc8_ = roomCount + 1;
+            switch (_loc8_)
             {
-                if (2 != _loc8_)
-                {
-                    if (3 != _loc8_)
-                    {
-                        if (4 == _loc8_)
-                        {
-                            _loc4_ = param3["unlock_with_mainbuilding_4"].Value<int>();
-                        }
-                    }
-                    else
-                    {
-                        _loc4_ = param3["unlock_with_mainbuilding_3"].Value<int>();
-                    }
-                }
-                else
-                {
-                    _loc4_ = param3["unlock_with_mainbuilding_2"].Value<int>();
-                }
+                case 1:
+                    unlockLevel = param3["unlock_with_mainbuilding_1"].Value<int>();
+                    break;
+
+                case 2:
+                    unlockLevel = param3["unlock_with_mainbuilding_2"].Value<int>();
+                    break;
+
+                case 3:
+                    unlockLevel = param3["unlock_with_mainbuilding_3"].Value<int>();
+                    break;
+
+                case 4:
+                    unlockLevel = param3["unlock_with_mainbuilding_4"].Value<int>();
+                    break;
             }
-            else
-            {
-                _loc4_ = param3["unlock_with_mainbuilding_1"].Value<int>();
-            }
-            if (_loc7_ < _loc4_)
+            if (level < unlockLevel)
             {
                 return false; // LocText.current.text("dialog/hideout/place_room/error_room_needs_mainbuilding_level", _loc4_);
             }
@@ -363,7 +387,7 @@ namespace HZBot
 
             foreach (var room in hideout.Rooms)
             {
-                if (room.IsManuallyProductionRoom && room.status == HideoutRoomStatus.Producing && room.CurrentCalculatedResourceAmount() >= room.MaxResourceAmount())
+                if (room.CRoom.IsManuallyProductionRoom && room.status == HideoutRoomStatus.Producing && room.CurrentCalculatedResourceAmount() >= room.MaxResourceAmount())
                 {
                     return true;
                 }
@@ -389,25 +413,26 @@ namespace HZBot
             return false;
         }
 
-        public static bool CanRoomUpdate(this HideOutRoom room, JToken hideoutroomlevel = null)
+        public static bool CanRoomUpdate(this HideOutRoom room, CHideOutRoomLevel hideoutroomlevel = null)
         {
             //if(!_room || !_btnUpgrade.visible || !User.current.character.hasTutorialFlag("hideout_first_attack"))
             //{
             //   _content.ui.upgradeAvailable.visible = false;
             //   return;
             //}
-            if (hideoutroomlevel == null)
-            {
-                hideoutroomlevel = HzConstants.Default.Constants["hideout_rooms"][room.identifier]["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == (room.level + 1).ToString())?.Value; //CHideoutRoom.fromId(_room.identifier).getLevel(_room.level + 1);
-            }
+            //if (hideoutroomlevel == null)
+            //{
+            //    hideoutroomlevel = room.CNextLevel; // HzConstants.Default.Constants["hideout_rooms"][room.identifier]["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == (room.level + 1).ToString())?.Value; //CHideoutRoom.fromId(_room.identifier).getLevel(_room.level + 1);
+            //}
             var _loc3_ = HzConstants.Default.Constants["hideout_room_upgrade"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == (room.level + 1).ToString())?.Value["character_min_level"].Value<int>(); //CHideoutRoomUpgrade.fromId(_room.level + 1).characterMinLevel;
-            if (_loc3_ > HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.level)
+            if (_loc3_ > HzAccountManger.GetAccByHideOutID(room.hideout_id)?.Character?.level)
             {
                 return false;
             }
             else
             {
-                if (HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.game_currency >= room.GetReducedGameCurrencyValue() &&
+                if (room.CNextLevel != null &&
+                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.game_currency >= room.GetReducedGameCurrencyValue() &&
                     HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_glue >= room.CNextLevel.price_glue &&
                     HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_stone >= room.CNextLevel.price_stone)
                 {
@@ -429,6 +454,30 @@ namespace HZBot
                 _loc1_ = _loc1_ + room["limit"].Value<int>() * _loc3_;
             }
             return _loc1_;
+        }
+
+        public static IEnumerable<HideOutRoomSlot> GetFreeSlotsForRoom(this IEnumerable<HideOutRoomSlot> slots, CHideOutRoom room)
+        {
+            return slots.Where(s => s.CanRoomBuilded(room));
+        }
+
+        public static bool CanRoomBuilded(this HideOutRoomSlot slot, CHideOutRoom room)
+        {
+            if (slot.State != HideOutRoomSlotState.UnLocked)
+            {
+                return false;
+            }
+            var startslot = slot;
+            var nextSlot = startslot;
+            for (int i = 1; i < room.size; i++)
+            {
+                nextSlot = nextSlot.NextSlot;
+                if (slot.State != HideOutRoomSlotState.UnLocked || nextSlot?.Level != startslot.Level)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         #endregion Methods

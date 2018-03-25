@@ -78,6 +78,7 @@
     <Compile Include="Plugins\Goals\Models\Goal.cs" />
     <Compile Include="Plugins\Goals\Models\GoalValue.cs" />
     <Compile Include="Plugins\HideOut\Models\Enums\HideOutRoomSlotState.cs" />
+    <Compile Include="Plugins\HideOut\Models\IRoomCost.cs" />
     <Compile Include="Plugins\HideOut\Models\SlotUnlockCost.cs" />
     <Compile Include="Plugins\Booster\Models\Booster.cs" />
     <Compile Include="Plugins\Booster\BoosterRequests.cs" />

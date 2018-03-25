@@ -69,7 +69,8 @@ namespace HZBot
         public int room_slot_6_2 { get; set; }
         public int room_slot_6_3 { get; set; }
         public int room_slot_6_4 { get; set; }
-        public IEnumerable<HideOutRoom> Rooms => HzAccountManger.GetAccByCharacterID(character_id).Data?.hideout_rooms ?? Enumerable.Empty<HideOutRoom>();
+        public HideoutWorkerActivity ActiveActivity => this.GetCurrentWorkerActivity();
+        public IEnumerable<HideOutRoom> Rooms => HzAccountManger.GetAccByCharacterID(character_id).Data?.hideout_rooms?.Where(r=>r.hideout_id == id) ?? Enumerable.Empty<HideOutRoom>();
 
         public IEnumerable<HideOutRoomSlot> Slots
         {

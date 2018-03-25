@@ -7,7 +7,7 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <DataTemplate DataType="{x:Type local:HideOutRoomSlot}">
-        <Viewbox>
+        <Viewbox Stretch="Fill">
             <Grid Grid.Row="3" Grid.Column="{Binding Slot}">
                 <Image Source="{Binding ImageUrl}" Stretch="Fill" />
                 <Button
@@ -64,13 +64,15 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="{Binding CNextLevel.price_gold, StringFormat={}Price Gold: {0}}" />
                 <TextBlock Grid.Row="1" Text="{Binding CNextLevel.price_glue, StringFormat={}Price Glue: {0}}" />
                 <TextBlock Grid.Row="2" Text="{Binding CNextLevel.price_stone, StringFormat={}Price Stone: {0}}" />
+                <TextBlock Grid.Row="3" Text="{Binding status, StringFormat={}State: {0}}" />
                 <Image
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Height="20"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
@@ -83,7 +85,7 @@
                 x:Name="AutoProduction"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Visibility="{Binding IsAutoProductionRoom, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                Visibility="{Binding CRoom.IsAutoProductionRoom, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                 <TextBlock
                     Margin="0,50,0,0"
                     HorizontalAlignment="Center"

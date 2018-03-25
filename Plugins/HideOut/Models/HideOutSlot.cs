@@ -71,17 +71,35 @@ namespace HZBot
             }
         }
 
-        public int RoomStartSlot
+        public HideOutRoomSlot RoomStartSlot
         {
             get
             {
                 return HzAccountManger.GetAccByHideOutID(HideOut.id).Data.hideout.Slots
                     .Where(s => s.Level == Level).Reverse().SkipWhile(s => s?.Slot != Slot)
                     ?.TakeWhile(s => s.Room != null && s.Room?.id == Room?.id)
-                    .LastOrDefault()?.Slot ?? Slot;
+                    .LastOrDefault() ?? this;
+            }
+        }
+        public HideOutRoomSlot RoomEndSlot
+        {
+            get
+            {
+                return HzAccountManger.GetAccByHideOutID(HideOut.id).Data.hideout.Slots
+                    .Where(s => s.Level == Level).SkipWhile(s => s?.Slot != Slot)
+                    ?.TakeWhile(s => s.Room != null && s.Room?.id == Room?.id)
+                    .LastOrDefault() ?? this;
             }
         }
 
+        public HideOutRoomSlot NextSlot => HzAccountManger.GetAccByHideOutID(HideOut.id).Data.hideout.Slots.SkipWhile(s => s.SlotId != SlotId).Skip(1).FirstOrDefault();
+        public HideOutRoomSlot PrevSlot=> HzAccountManger.GetAccByHideOutID(HideOut.id).Data.hideout.Slots.Reverse().SkipWhile(s => s.SlotId != SlotId).Skip(1).FirstOrDefault();
         #endregion Properties
+
+        public HideOutRoomSlot GetEndSlotForRoom(CHideOutRoom room)
+        {
+            return HzAccountManger.GetAccByHideOutID(HideOut.id).Data.hideout.Slots
+                  .Where(s => s.SlotId == SlotId).Take(room.size - 1).LastOrDefault() ?? this;
+        }
     }
 }

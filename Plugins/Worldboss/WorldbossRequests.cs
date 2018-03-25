@@ -33,6 +33,16 @@ namespace HZBot
         /// <param name="plugin">The plugin.</param>
         /// <param name="worldboss_event_id">The worldboss event identifier.</param>
         /// <returns></returns>
+        public static async Task<string> AssignWorldbossEventAsync(this HzPluginBase plugin, int worldboss_event_id)
+        {
+            var error = await plugin.Account.DefaultRequestContent("assignWorldbossEvent")
+                .AddKeyValue("rct", "2")
+                .AddKeyValue("worldboss_event_id", worldboss_event_id)
+                .AddLog($"[WORLDBOSS] Assign Worldboss!")
+                .PostToHzAsync();
+            return error;
+        }
+
         public static async Task<string> FinishWorldbossAttackAsync(this HzPluginBase plugin, int worldboss_event_id)
         {
             var error = await plugin.Account.DefaultRequestContent("finishWorldbossAttack")

@@ -53,12 +53,12 @@
         public double MissileDamageEquipWeight { get; set; } = 1;
 
         //HideOutPlugin
-        public bool IsAutoHideOutCollect { get; set; }
-
-        public bool IsAutoHideOutBuild { get; set; }
+        public bool IsAutoHideOutCollect { get; set; } = true;
+        public bool IsAutoHideOutUpgrade { get; set; } = true;
+        public bool IsAutoHideOutBuild { get; set; } = true;
 
         //Duel Plugin
-        public bool IsAutoDuel { get; set; }
+        public bool IsAutoDuel { get; set; } = true;
 
         //CharacterStat Plugin
         public bool IsAutoTrain { get => isAutoTrain; set { isAutoTrain = value; RaisePropertyChanged(); } }
@@ -70,10 +70,10 @@
         public double DodgeRatingSkillWeight { get; set; } = 0.4;
 
         //Worldboss
-        public bool IsAutoAttackWorldboss { get; set; }
+        public bool IsAutoAttackWorldboss { get; set; } = true;
 
         //Booster
-        public bool IsAutoABooster { get; set; }
+        public bool IsAutoABooster { get; set; } = true;
 
         public int WorkBooster { get; set; } = 25;
         public int StatsBooster { get; set; } = 25;

@@ -29,7 +29,7 @@ namespace HZBot
                             break;
 
                         case GoalRewardType.Quest_Energy:
-                            if (Account.Character.quest_energy <= 10) continue;
+                            if (Account.Character.quest_energy > 10) continue;
                             break;
 
                         case GoalRewardType.Booster:

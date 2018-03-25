@@ -1,9 +1,9 @@
 ﻿namespace HZBot
 {
-    public class CHideOutRoomLevel
+    public class CHideOutRoomLevel : IHideOutCost
     {
         #region Properties
-
+        public int Level { get; set; }
         public int price_gold { get; set; }
         public int price_glue { get; set; }
         public int price_stone { get; set; }
@@ -13,6 +13,8 @@
         public int min_till_max_resource { get; set; }
         public int resource_production_max { get; set; }
         public int image_level { get; set; }
+
+
 
         #endregion Properties
     }

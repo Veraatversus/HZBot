@@ -8,14 +8,14 @@ namespace HZBot
 
         /// <summary>Collects the hideout room activity result asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
-        /// <param name="hideOurRoom">The hide our room.</param>
+        /// <param name="room">The hide our room.</param>
         /// <returns></returns>
-        public static async Task<string> CollectHideoutRoomActivityResultAsync(this HzPluginBase plugin, HideOutRoom hideOurRoom)
+        public static async Task<string> CollectHideoutRoomActivityResultAsync(this HzPluginBase plugin, HideOutRoom room)
         {
             return await plugin.Account.DefaultRequestContent("collectHideoutRoomActivityResult")
-             .AddKeyValue("hideout_room_id", hideOurRoom.id)
+             .AddKeyValue("hideout_room_id", room.id)
              .AddKeyValue("rct", "1")
-             .AddLog($"[HideOut] Claim Reward:{hideOurRoom.id}")
+             .AddLog($"[HideOut] Claim Reward:{room.id}")
              .PostToHzAsync();
         }
 
@@ -61,18 +61,41 @@ namespace HZBot
         /// <summary>Builds the hideout room asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>
         /// <param name="slot">The slot.</param>
-        /// <param name="identifier">The identifier.</param>
+        /// <param name="room">The identifier.</param>
         /// <returns></returns>
-        public static async Task<string> BuildHideoutRoomAsync(this HzPluginBase plugin, HideOutRoomSlot slot, string identifier)
+        public static async Task<string> BuildHideoutRoomAsync(this HzPluginBase plugin, HideOutRoomSlot slot, CHideOutRoom room)
         {
             return await plugin.Account.DefaultRequestContent("buildHideoutRoom")
-             .AddKeyValue("identifier", identifier)
+             .AddKeyValue("identifier", room.identifier)
+             .AddKeyValue("slot", slot.Slot)
+             .AddKeyValue("level", slot.Level)
+             .AddKeyValue("rct", "1")
+             .AddLog($"[HideOut] Build Room {room.identifier}")
+             .PostToHzAsync();
+        }
+
+        
+             public static async Task<string> StoreHideoutRoomAsync(this HzPluginBase plugin, HideOutRoom room, bool ignoreResource = false)
+        {
+            return await plugin.Account.DefaultRequestContent("storeHideoutRoom")
+             .AddKeyValue("hideoutRoomId", room.id)
+             .AddKeyValue("rct", "2")
+             .AddKeyValue("ignoreResource", ignoreResource.ToString().ToLower())
+             .AddLog($"[HideOut] Store Room {room.identifier}")
+             .PostToHzAsync();
+        }
+
+        public static async Task<string> PlaceHideoutRoomAsync(this HzPluginBase plugin, HideOutRoomSlot slot, HideOutRoom room)
+        {
+            return await plugin.Account.DefaultRequestContent("placeHideoutRoom")
+             .AddKeyValue("hideoutRoomId", room.id)
              .AddKeyValue("slot", slot.Slot)
              .AddKeyValue("level", slot.Level)
              .AddKeyValue("rct", "2")
-             .AddLog($"[HideOut] Build Room")
+             .AddLog($"[HideOut] Place Room {room.identifier}")
              .PostToHzAsync();
         }
+
 
         /// <summary>Unlocks the hideout room slot asynchronous.</summary>
         /// <param name="plugin">The plugin.</param>

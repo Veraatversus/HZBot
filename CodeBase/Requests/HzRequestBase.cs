@@ -120,15 +120,7 @@ namespace HZBot
                     questToUpdate.Merge(updateQuest);
                 }
             }
-            var updateRoom = jobj.SelectToken("data.hideout_room");
-            if (updateRoom != null)
-            {
-                var roomToUpdate = account.JsonData["data"]?["hideout_rooms"]?.OfType<JContainer>().FirstOrDefault(room => room["id"]?.Value<int>() == updateRoom["id"]?.Value<int>());
-                if (roomToUpdate != null)
-                {
-                    roomToUpdate.Merge(updateRoom);
-                }
-            }
+
             if (jobj.SelectToken("data.quests")?.HasValues ?? false)
             {
                 var quests = account.JsonData.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "quests");
@@ -145,13 +137,49 @@ namespace HZBot
                     opponents.Remove();
                 }
             }
+            var updateRoom = jobj.SelectToken("data.hideout_room");
+            if (updateRoom != null)
+            {
+                var roomToUpdate = account.JsonData["data"]?["hideout_rooms"]?.OfType<JContainer>().FirstOrDefault(room => room["id"]?.Value<int>() == updateRoom["id"]?.Value<int>());
+                if (roomToUpdate != null)
+                {
+                    roomToUpdate.Merge(updateRoom);
+                }
+                else
+                {
+                    var data = account.JsonData["data"];
+                    if (data != null)
+                    {
+                        var rooms = data["hideout_rooms"] as JContainer;
+                        if (rooms == null)
+                        {
+                            (data as JObject).Add(new JProperty("hideout_rooms"));
+                        }
+    }
+                    var container = account.JsonData["data"]?["hideout_rooms"] as JContainer;
+                    container.Add(updateRoom);
+                    //account.JsonData["data"]?["hideout_rooms"]?.OfType<JContainer>().a
+                }
+            }
             if (jobj.SelectToken("data.hideout_rooms")?.HasValues ?? false)
             {
-                var hideoutRooms = account.JsonData.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "hideout_rooms");
-                if (hideoutRooms != null)
+                var rooms = jobj.SelectToken("data.hideout_rooms").OfType<JContainer>().ToList();
+                foreach (var item in rooms)
                 {
-                    hideoutRooms.Remove();
+                    var roomToUpdate = account.JsonData["data"]?["hideout_rooms"]?.OfType<JContainer>().FirstOrDefault(room => room["id"]?.Value<int>() == item["id"]?.Value<int>());
+                    if (roomToUpdate != null)
+                    {
+                        roomToUpdate.Merge(item);
+                        item.Remove();
+                    }
                 }
+
+
+                //var hideoutRooms = jobj.Descendants().OfType<JProperty>().FirstOrDefault(prop => prop.Name == "hideout_rooms");
+                //if (hideoutRooms != null)
+                //{
+                //    hideoutRooms.Remove();
+                //}
             }
             var settings = new JsonMergeSettings
             {

@@ -1,6 +1,6 @@
 ﻿namespace HZBot
 {
-    public class SlotUnlockCost
+    public class SlotUnlockCost : IHideOutCost
     {
         #region Properties
 

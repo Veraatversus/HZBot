@@ -16,7 +16,11 @@ namespace HZBot
         #endregion Constructors
 
         #region Properties
-
+        public TimeSpan HideOutTimer
+        {
+            get { return hideOutTimer; }
+            set { hideOutTimer = value; RaisePropertyChanged(); }
+        }
         public TimeSpan TimerText
         {
             get { return timerText; }
@@ -33,6 +37,7 @@ namespace HZBot
 
         private volatile bool taskRun = true;
         private TimeSpan timerText;
+        private TimeSpan hideOutTimer;
 
         #endregion Fields
 
@@ -55,10 +60,26 @@ namespace HZBot
                 {
                     try
                     {
+                        if (Account.Data.hideout?.ActiveActivity != null)
+                        {
+                            if (Account.Data.hideout.ActiveActivity.Ts_activity_end < Account.ServerTime && Account.IsBotEnabled)
+                            {
+                                if (Account.Data.hideout.ActiveActivity.Room != null)
+                                {
+                                   var error = await this.CheckHideoutRoomActivityFinishedAsync(Account.Data.hideout.ActiveActivity.Room);
+                                    await Account.Plugins.HideOut.DoHideOutLogic();
+                                }
+                            }
+                            else
+                            {
+                                HideOutTimer = TimeSpan.FromSeconds(Account.Data.hideout.ActiveActivity.Ts_activity_end - Account.ServerTime);
+                            }
+
+                        }
                         if (Account.ActiveWorker != null)
                         {
                             //Worker Remaining Time Left
-                            if (Account.ActiveWorker.RemainingTime <= -2)
+                            if (Account.ActiveWorker.RemainingTime <= -1 && Account.IsBotEnabled)
                             {
                                 //check for status complete
                                 if (Account.ActiveWorker.status == WorkStatus.Started)

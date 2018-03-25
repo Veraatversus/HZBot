@@ -31,7 +31,7 @@ namespace HZBot
         public Duel ActiveDuel => character.active_duel_id == duel?.id ? duel : null;
         public WorldbossEvent ActiveWorldBossEvent => character.worldboss_event_id != 0 ? worldboss_events?.FirstOrDefault(e => e.id == character.worldboss_event_id) : null;
         public WorldbossAttack ActiveWorldbossAttack => character.active_worldboss_attack_id == worldboss_attack?.id ? worldboss_attack : null;
-
+        public WorldbossEvent AssignableWorldBossEvent => worldboss_events?.FirstOrDefault(e => e.ts_start < HzAccountManger.GetAccByCharacterID(character.id).ServerTime && e.ts_end > HzAccountManger.GetAccByCharacterID(character.id).ServerTime);
         public IWorkItem ActiveWorker
         {
             get

@@ -23,7 +23,12 @@ namespace HZBot
 
         public async override Task OnPrimaryWorkerDoWork()
         {
-            if (Account.Config.IsAutoAttackWorldboss && Account.Data.ActiveWorldBossEvent != null)
+            if (Account.Config.IsAutoAttackWorldboss && Account.Data.ActiveWorldBossEvent == null && Account.Data.AssignableWorldBossEvent != null)
+            {
+                await this.AssignWorldbossEventAsync(Account.Data.AssignableWorldBossEvent.id);
+            }
+
+                if (Account.Config.IsAutoAttackWorldboss && Account.Data.ActiveWorldBossEvent != null)
             {
                 await StartAttackCommand.TryExecuteAsync(Account.Data.ActiveWorldBossEvent);
             }
