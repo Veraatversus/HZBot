@@ -54,7 +54,7 @@ namespace HZBot
              .AddKeyValue("hideoutRoomId", room.id)
              .AddKeyValue("ignoreResource", ignoreResource.ToString().ToLower())
              .AddKeyValue("rct", "2")
-             .AddLog($"[HideOut] Check For Complete")
+             .AddLog($"[HideOut] Upgrade Room {room.identifier}")
              .PostToHzAsync();
         }
 
