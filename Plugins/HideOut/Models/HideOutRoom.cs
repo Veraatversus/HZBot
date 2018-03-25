@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Security.Principal;
 
 namespace HZBot
@@ -46,12 +47,18 @@ namespace HZBot
         }
         public CHideOutRoomLevel CLevel => CRoom.Levels.FirstOrDefault(l => l.Level == level);
         public CHideOutRoomLevel CNextLevel => CRoom.Levels.FirstOrDefault(l => l.Level == level + 1);
-        public CHideOutRoomLevel CGeneratator => HzConstants.Default.Constants["hideout_rooms"]["generator"]["levels"]
-            .OfType<JProperty>()
-            .FirstOrDefault(tok => tok.Name == current_generator_level.ToString())?
-            .OfType<JProperty>()
-            ?.Select(prop => { var oput = prop.ToObject<CHideOutRoomLevel>(); oput.Level = Convert.ToInt32(prop.Name); return oput; })
-            .FirstOrDefault();
+        public CHideOutRoomLevel CGeneratator
+        {
+            get
+            {
+                var lev = HzConstants.Default.Constants["hideout_rooms"]["generator"]["levels"]
+                    .OfType<JProperty>()
+                    .FirstOrDefault(tok => tok.Name == current_generator_level.ToString());
+               return lev?
+                    .Select(prop => { var oput = prop.ToObject<CHideOutRoomLevel>(); oput.Level = Convert.ToInt32(lev.Name); return oput; })
+                    .FirstOrDefault();
+            }
+        }
 
         #endregion Properties
 

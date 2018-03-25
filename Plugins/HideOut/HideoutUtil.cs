@@ -141,14 +141,14 @@ namespace HZBot
             double _loc1_ = 1;
             if (room.CRoom.IsAutoProductionRoom && room.current_generator_level > 0)
             {
-                _loc1_ = 1 + room.CGeneratator.passiv_bonus_amount_1 / 100;
+                _loc1_ = 1 + room.CGeneratator.passiv_bonus_amount_1 / 100.0f;
             }
             return _loc1_;
         }
 
         public static bool HasRewardToCollect(this HideOutRoom room, int IsFullInProzent)
         {
-            return room.status == HideoutRoomStatus.Producing && room.CRoom.IsAutoProductionRoom && room.CurrentCalculatedResourceAmount() / room.MaxResourceAmount() * 100 >= IsFullInProzent;
+            return room.status == HideoutRoomStatus.Producing && room.CRoom.IsAutoProductionRoom && room.CurrentCalculatedResourceAmount() / room.MaxResourceAmount() * 100.0f >= IsFullInProzent;
         }
 
         public static IEnumerable<HideOutRoom> RoomsToRewardCollect(this HideOut hideout, int IsFullInProzent)
@@ -374,7 +374,7 @@ namespace HZBot
             var brokerlevel = _loc4_["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == currentBrokerLevel.ToString());
             if (brokerlevel != null)
             {
-                _loc3_ = (1 - brokerlevel["passiv_bonus_amount_1"].Value<int>() / 100) * _loc3_;
+                _loc3_ = (1 - brokerlevel["passiv_bonus_amount_1"].Value<int>() / 100.0f) * _loc3_;
             }
             return Math.Ceiling(_loc3_);
         }
