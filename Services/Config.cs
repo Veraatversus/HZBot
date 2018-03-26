@@ -64,10 +64,10 @@
         public bool IsAutoTrain { get => isAutoTrain; set { isAutoTrain = value; RaisePropertyChanged(); } }
 
         public bool IsAutoSkill { get => isAutoSkill; set { isAutoSkill = value; RaisePropertyChanged(); } }
-        public double StaminaSkillWeight { get; set; } = 0.0f;
+        public double StaminaSkillWeight { get; set; } = 0.1;
         public double StrengthSkillWeight { get; set; } = 0.2;
-        public double CriticalRatingSkillWeight { get; set; } = 0.4;
-        public double DodgeRatingSkillWeight { get; set; } = 0.4;
+        public double CriticalRatingSkillWeight { get; set; } = 0.35;
+        public double DodgeRatingSkillWeight { get; set; } = 0.35;
 
         //Worldboss
         public bool IsAutoAttackWorldboss { get; set; } = true;

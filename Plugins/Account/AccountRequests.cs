@@ -33,6 +33,15 @@ namespace HZBot
              .PostToHzAsync();
         }
 
+        public static async Task<string> updateGameSessionAsync(this HzPluginBase plugin)
+        {
+            return await plugin.Account.DefaultRequestContent("updateGameSession")
+             .AddKeyValue("connection_type", "2")
+             .AddKeyValue("rct", "2")
+             .AddLog($"[Account] Update Game Session!")
+             .PostToHzAsync();
+        }
+
         #endregion Methods
     }
 }

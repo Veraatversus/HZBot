@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace HZBot
 {
@@ -12,6 +13,9 @@ namespace HZBot
             LoginCommand = new AsyncRelayCommand(
                 async () => Account.IsLogined = string.IsNullOrWhiteSpace(await this.LoginRequestAsync()),
                 () => !Account.IsLogined);
+
+            UpdateSessionCommand = new AsyncRelayCommand(async () => await this.updateGameSessionAsync(),
+                () => Account.IsLogined);
         }
 
         #endregion Constructors
@@ -20,6 +24,8 @@ namespace HZBot
 
         //Command for Login into Account
         public AsyncRelayCommand LoginCommand { get; private set; }
+
+        public AsyncRelayCommand UpdateSessionCommand { get; private set; }
 
         #endregion Properties
 
@@ -43,6 +49,8 @@ namespace HZBot
             {
                 Account.IsLogined = false;
                 await LoginCommand.TryExecuteAsync();
+                await UpdateSessionCommand.TryExecuteAsync();
+                Account.IsBotEnabled = true;
             }
         }
 
