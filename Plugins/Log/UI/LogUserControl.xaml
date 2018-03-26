@@ -27,7 +27,7 @@
             Grid.Row="1"
             local:ListBoxBehavior.ScrollOnNewItem="True"
             ItemsSource="{Binding Log.LogList}"
-            SelectionMode="Multiple">
+            SelectionMode="Extended">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

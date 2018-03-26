@@ -7,128 +7,140 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DataContext="{d:DesignInstance local:HzAccount}"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <!--  HideOut  -->
-
-        <TextBlock
-            Grid.Row="0"
+    <Expander>
+        <Expander.Header>
+            <Grid HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneWayToSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock
+            Grid.Column="0"
             FontSize="18"
             FontWeight="Bold"
             Text="Hideout:" />
-        <UniformGrid Grid.Row="1" Columns="2">
+                <CheckBox Grid.Column="1" HorizontalAlignment="Center" FlowDirection="RightToLeft" IsChecked="{Binding Config.IsAutoHideOutCollect}">AutoCollect</CheckBox>
+                <CheckBox Grid.Column="2" HorizontalAlignment="Center" FlowDirection="RightToLeft" IsChecked="{Binding Config.IsAutoHideOutUpgrade}">AutoUpgrade</CheckBox>
+                <CheckBox Grid.Column="3" HorizontalAlignment="Center" FlowDirection="RightToLeft" IsChecked="{Binding Config.IsAutoHideOutBuild}">AutoBuild</CheckBox>
+            </Grid>
+        </Expander.Header>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <!--  HideOut  -->
 
-            <CheckBox IsChecked="{Binding Config.IsAutoHideOutCollect}">AutoCollect</CheckBox>
-            <CheckBox IsChecked="{Binding Config.IsAutoHideOutUpgrade}">AutoUpgrade</CheckBox>
-            <CheckBox IsChecked="{Binding Config.IsAutoHideOutBuild}">AutoBuild</CheckBox>
-            <TextBlock Text="{Binding Plugins.PrimaryWorker.HideOutTimer, StringFormat=Activity: {0}}" />
-            <TextBlock Text="{Binding Data.hideout.hideout_points, StringFormat=Points: {0}}" />
-            <TextBlock Text="{Binding Data.hideout.current_level, StringFormat=Level: {0}}" />
-            <TextBlock HorizontalAlignment="Left">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{} Glue: {0} / {1}">
-                        <Binding Path="Data.hideout.current_resource_glue" />
-                        <Binding Path="Data.hideout.max_resource_glue" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Left">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{} Stone: {0} / {1}">
-                        <Binding Path="Data.hideout.current_resource_stone" />
-                        <Binding Path="Data.hideout.max_resource_stone" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
+            <UniformGrid Grid.Row="1" Columns="2">
+                <TextBlock Text="{Binding Plugins.PrimaryWorker.HideOutTimer, StringFormat=Activity: {0}}" />
+                <TextBlock Text="{Binding Data.hideout.hideout_points, StringFormat=Points: {0}}" />
+                <TextBlock Text="{Binding Data.hideout.current_level, StringFormat=Level: {0}}" />
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Glue: {0} / {1}">
+                            <Binding Path="Data.hideout.current_resource_glue" />
+                            <Binding Path="Data.hideout.max_resource_glue" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Stone: {0} / {1}">
+                            <Binding Path="Data.hideout.current_resource_stone" />
+                            <Binding Path="Data.hideout.max_resource_stone" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
 
-            <TextBlock HorizontalAlignment="Left">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{} Barracks Level: {0} / {1}">
-                        <Binding Path="Data.hideout.current_barracks_level" />
-                        <Binding Path="Data.hideout.max_barracks_level" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <TextBlock Text="{Binding Data.hideout.current_worker_level, StringFormat=Worker Level: {0}}" />
-            <TextBlock HorizontalAlignment="Left">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{} Worker Count: {0} / {1}">
-                        <Binding Path="Data.hideout.idle_worker_count" />
-                        <Binding Path="Data.hideout.max_worker_count" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Left">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{} Attack Units: {0} / {1}">
-                        <Binding Path="Data.hideout.current_attacker_units" />
-                        <Binding Path="Data.hideout.max_attacker_units" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Left">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{} Defend Units: {0} / {1}">
-                        <Binding Path="Data.hideout.current_defender_units" />
-                        <Binding Path="Data.hideout.max_defender_units" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-        </UniformGrid>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Barracks Level: {0} / {1}">
+                            <Binding Path="Data.hideout.current_barracks_level" />
+                            <Binding Path="Data.hideout.max_barracks_level" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Text="{Binding Data.hideout.current_worker_level, StringFormat=Worker Level: {0}}" />
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Worker Count: {0} / {1}">
+                            <Binding Path="Data.hideout.idle_worker_count" />
+                            <Binding Path="Data.hideout.max_worker_count" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Attack Units: {0} / {1}">
+                            <Binding Path="Data.hideout.current_attacker_units" />
+                            <Binding Path="Data.hideout.max_attacker_units" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Defend Units: {0} / {1}">
+                            <Binding Path="Data.hideout.current_defender_units" />
+                            <Binding Path="Data.hideout.max_defender_units" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </UniformGrid>
 
-        <!--  HideOutRooms  -->
-        <TextBlock
+            <!--  HideOutRooms  -->
+            <TextBlock
             Grid.Row="2"
             FontSize="18"
             FontWeight="Bold"
             Text="Hideout Rooms:" />
-        <ListView Grid.Row="3" ItemsSource="{Binding Data.hideout.Slots}">
-            <ListView.Template>
-                <ControlTemplate>
-                    <ScrollViewer>
-                        <ItemsPresenter Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollContentPresenter}}}" />
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ListView.Template>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Grid.Column" Value="{Binding RoomStartSlot.Slot}" />
-                    <Setter Property="Grid.ColumnSpan" Value="{Binding Room.CRoom.size}" />
-                    <Setter Property="Grid.Row" Value="{Binding Level}" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
-    </Grid>
+            <ListView Grid.Row="3" ItemsSource="{Binding Data.hideout.Slots}">
+                <ListView.Template>
+                    <ControlTemplate>
+                        <ScrollViewer>
+                            <ItemsPresenter Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollContentPresenter}}}" />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ListView.Template>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Grid.Column" Value="{Binding RoomStartSlot.Slot}" />
+                        <Setter Property="Grid.ColumnSpan" Value="{Binding Room.CRoom.size}" />
+                        <Setter Property="Grid.Row" Value="{Binding Level}" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+    </Expander>
+    
 </local:HzUserControl>

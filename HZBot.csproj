@@ -226,6 +226,7 @@
     <Compile Include="Plugins\Account\Models\User.cs" />
     <Compile Include="CodeBase\ViewBase\ViewModelBase.cs" />
     <Compile Include="Wpf\Converter\InverseBooleanConverter.cs" />
+    <Compile Include="Wpf\ScrollViewerCorrector.cs" />
     <Page Include="Plugins\HideOut\UI\HideOutTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

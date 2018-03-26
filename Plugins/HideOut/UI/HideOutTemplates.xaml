@@ -56,74 +56,74 @@
 
     <DataTemplate DataType="{x:Type local:HideOutRoom}">
         <Grid>
+            <Grid x:Name="RoomGrid" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto">
+                <TextBlock
+                    Grid.Row="1" FontSize="20"
+                    Foreground="White">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="identifier" />
+                            <Binding Path="level" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Background>
+                        <SolidColorBrush Opacity="0.4" Color="Black" />
+                    </TextBlock.Background>
+                </TextBlock>
+            </Grid>
             <Grid
                 x:Name="UpdateGrid"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom">
+                VerticalAlignment="Bottom"
+                TextBlock.FontSize="20"
+                TextBlock.Foreground="White">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock
+
+                
+                <Image
                     Grid.Row="0"
-                    FontSize="15"
-                    Foreground="White"
-                    Text="{Binding CNextLevel.current_price_gold, StringFormat={}Price Gold: {0}}">
-                    <TextBlock.Background>
-                        <SolidColorBrush Opacity="0.4" Color="Black" />
-                    </TextBlock.Background>
-                </TextBlock>
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Source="/HZBot;component/Assets/HideOut/upgrade.png"
+                    Visibility="{Binding CanUpgrade, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                    <Image.ToolTip>
+                        <ToolTip>
+                            <StackPanel TextBlock.FontSize="15" TextBlock.Foreground="White">
+                                <StackPanel.Background>
+                                    <SolidColorBrush Opacity="0.4" Color="Black" />
+                                </StackPanel.Background>
+                                <TextBlock Grid.Row="0" Text="{Binding CNextLevel.current_price_gold, StringFormat={}Price Gold: {0}}" />
+                                <TextBlock Grid.Row="1" Text="{Binding CNextLevel.price_glue, StringFormat={}Price Glue: {0}}" />
+                                <TextBlock Grid.Row="2" Text="{Binding CNextLevel.price_stone, StringFormat={}Price Stone: {0}}" />
+                            </StackPanel>
+                        </ToolTip>
+                    </Image.ToolTip>
+                </Image>
                 <TextBlock
-                    Grid.Row="1"
-                    FontSize="15"
-                    Foreground="White"
-                    Text="{Binding CNextLevel.price_glue, StringFormat={}Price Glue: {0}}">
-                    <TextBlock.Background>
-                        <SolidColorBrush Opacity="0.4" Color="Black" />
-                    </TextBlock.Background>
-                </TextBlock>
-                <TextBlock
-                    Grid.Row="2"
-                    FontSize="15"
-                    Foreground="White"
-                    Text="{Binding CNextLevel.price_stone, StringFormat={}Price Stone: {0}}">
-                    <TextBlock.Background>
-                        <SolidColorBrush Opacity="0.4" Color="Black" />
-                    </TextBlock.Background>
-                </TextBlock>
-                <TextBlock
-                    Grid.Row="3"
-                    FontSize="15"
+                    Grid.Row="1" FontSize="20"
                     Foreground="White"
                     Text="{Binding status, StringFormat={}State: {0}}">
                     <TextBlock.Background>
                         <SolidColorBrush Opacity="0.4" Color="Black" />
                     </TextBlock.Background>
                 </TextBlock>
-                <Image
-                    Grid.Row="4"
-                    Height="20"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Source="/HZBot;component/Assets/HideOut/upgrade.png"
-                    Visibility="{Binding CanUpgrade, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" />
-
             </Grid>
 
             <Grid
                 x:Name="AutoProduction"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Visibility="{Binding CRoom.IsAutoProductionRoom, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                Visibility="{Binding CRoom.IsProductionRoom, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
                 <TextBlock
                     Margin="0,50,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontFamily="Segoe Print"
-                    FontSize="20"
+                    FontSize="25"
                     FontWeight="ExtraBold"
                     Foreground="White">
                     <TextBlock.Background>
@@ -138,15 +138,15 @@
                 </TextBlock>
 
                 <Image
-                    Height="40"
-                    Margin="0,0,0,10"
+                    Height="50"
+                    Margin="0,0,0,20"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Source="{Binding CRoom.RessourceIcon}" />
                 <Image
                     x:Name="warning"
-                    Height="30"
-                    Margin="40,0,0,40"
+                    Height="40"
+                    Margin="50,0,0,50"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Source="/HZBot;component/Assets/HideOut/warning.png"

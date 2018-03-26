@@ -5,4 +5,10 @@
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="Margin" Value="5" />
     </Style>
+    
+    <Style TargetType="{x:Type ScrollViewer}">
+        <Style.Setters>
+            <Setter Property="local:ScrollViewerCorrector.FixScrolling" Value="True" />
+        </Style.Setters>
+    </Style>
 </ResourceDictionary>

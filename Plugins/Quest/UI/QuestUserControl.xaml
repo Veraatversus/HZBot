@@ -60,9 +60,9 @@
                 </Grid>
             </DataTemplate>
         </Expander.HeaderTemplate>
-        <ListView Grid.Row="1" ItemsSource="{Binding Quests}">
+        <ListView Grid.Row="1" PreviewMouseWheel="ListView_PreviewMouseWheel" ItemsSource="{Binding Quests}">
             <ListView.View>
-                <GridView ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" />
                     <GridViewColumn DisplayMemberBinding="{Binding level}" Header="Level" />
                     <GridViewColumn DisplayMemberBinding="{Binding energy_cost}" Header="-E" />

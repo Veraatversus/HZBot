@@ -18,7 +18,7 @@ namespace HZBot
                  .AddKeyValue("character_id", charID)
                  .AddKeyValue("use_premium", usePremiumCurrency.ToString().ToLower())
                  .AddKeyValue("rct", "2")
-                 .AddLog("StartDuel...")
+                 .AddLog("[Duel] StartDuel...")
                  .PostToHzAsync();
             return error;
         }
@@ -30,7 +30,7 @@ namespace HZBot
         {
             var error = await plugin.Account.DefaultRequestContent("checkForDuelComplete")
                 .AddKeyValue("rct", "2")
-                .AddLog($"CheckDuelComplete...")
+                .AddLog($"[Duel] CheckDuelComplete...")
                 .PostToHzAsync();
 
             return error;
@@ -48,10 +48,11 @@ namespace HZBot
                 if (index != null)
                     index.Status = (plugin.Account.Data.duel.character_a_status == 2 ? 1 : 0);
             }
+            var status = plugin.Account.Data.duel.character_a_status == 2 ? "Gewonnen" : "Verloren!";
             var error = await plugin.Account.DefaultRequestContent("claimDuelRewards")
                 .AddKeyValue("rct", "2")
                 .AddKeyValue("discard_item", "false")
-                .AddLog($"ClaimDuelReward: Status={(plugin.Account.Data.duel.character_a_status == 2 ? "Gewonnen" : "Verloren!")}")
+                .AddLog($"[Duel] ClaimDuelReward: Status={status}")
                 .PostToHzAsync();
 
             return error;

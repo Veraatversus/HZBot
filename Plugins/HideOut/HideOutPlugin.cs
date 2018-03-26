@@ -13,6 +13,7 @@ namespace HZBot
             UnlockSlotCommand = new AsyncRelayCommand<HideOutRoomSlot>(
                 slot => this.UnlockHideoutRoomSlotAsync(slot),
                 slot => slot.State == HideOutRoomSlotState.CanUnlock &&
+                Account.Data.hideout.ActiveActivity == null &&
                 slot.SlotUnlockCost.HaveEnoughRessources(Account));
         }
 
@@ -27,35 +28,19 @@ namespace HZBot
 
         #region Methods
 
-        public async override Task OnLogined()
-        {
-        }
 
-        public async override Task BeforPrimaryWorkerWork()
+        public async override Task AfterPrimaryWorkerWork()
         {
             await DoHideOutLogic();
         }
         public async Task DoHideOutLogic()
         {
-            //  await this.CollectHideoutRoomActivityResultAsync(Account.Data.hideout_rooms.FirstOrDefault());
-            // await this.CheckHideoutRoomActivityFinishedAsync(Account.Data.hideout_rooms.FirstOrDefault());
-            //await this.StoreHideoutRoomAsync(Account.Data.hideout_rooms.FirstOrDefault(), true);
-            //await this.CheckHideoutRoomActivityFinishedAsync(Account.Data.hideout_rooms.FirstOrDefault());
             if (Account.Data?.hideout == null /*&& Account.Character.level >= 10*/)
             {
                 return;
                 //await this.UnlockHideoutAsync();
             }
 
-            //var activity = Account.Data.hideout.ActiveActivity;
-            //if (activity != null &&
-            //   activity.Ts_activity_end < Account.ServerTime)
-            //{
-            //    if (activity.Room != null)
-            //    {
-            //        await this.CheckHideoutRoomActivityFinishedAsync(activity.Room);
-            //    }
-            //}
             if (Account.Config.IsAutoHideOutCollect)
             {
                 foreach (var room in Account.Data.hideout.RoomsToRewardCollect(25))
