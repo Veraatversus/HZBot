@@ -10,6 +10,7 @@ namespace HZBot
     {
         #region Properties
 
+        public HideOut HideOut { get; set; }
         public string identifier { get; set; }
         public int limit { get; set; }
         public int unlock_with_mainbuilding_1 { get; set; }
@@ -55,6 +56,7 @@ namespace HZBot
             .Select(prop =>
             {
                 var oput = prop.Value.ToObject<CHideOutRoomLevel>();
+                oput.HideOut = HideOut;
                 oput.Level = Convert.ToInt32(prop.Name);
                 return oput;
             });

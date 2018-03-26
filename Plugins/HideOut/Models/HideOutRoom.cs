@@ -12,6 +12,7 @@ namespace HZBot
 
         public int id { get; set; }
         public int hideout_id { get; set; }
+        public HideOut HideOut => HzAccountManger.GetAccByHideOutID(hideout_id).Data?.hideout;
         public int ts_creation { get; set; }
         public string identifier { get; set; }
         public HideoutRoomStatus status { get; set; }
@@ -41,6 +42,7 @@ namespace HZBot
                 if (o != null)
                 {
                     o.identifier = identifier;
+                    o.HideOut = HideOut;
                 }
                 return o;
             }

@@ -69,19 +69,20 @@ namespace HZBot
 
         public static HideOutRoomSlot GetNextUnlockSlot(this IEnumerable<HideOutRoomSlot> slots)
         {
-            var lastUnlocked = false;
-            foreach (var slot in slots.SlotUnlockOrder())
-            {
-                if (slot.SlotValue == 0)
-                {
-                    lastUnlocked = true;
-                }
-                if (lastUnlocked && slot.SlotValue == -1)
-                {
-                    return slot;
-                }
-            }
-            return null;
+            return slots.SlotUnlockOrder().FirstOrDefault(s => s.SlotValue == -1);
+            //var lastUnlocked = false;
+            //foreach (var slot in slots.SlotUnlockOrder())
+            //{
+            //    if (slot.SlotValue == 0)
+            //    {
+            //        lastUnlocked = true;
+            //    }
+            //    if (lastUnlocked && slot.SlotValue == -1)
+            //    {
+            //        return slot;
+            //    }
+            //}
+            //return null;
         }
 
         public static double CurrentCalculatedResourceAmount(this HideOutRoom room)
@@ -302,9 +303,9 @@ namespace HZBot
             }
         }
 
-        public static int TotalCost(this IHideOutCost roomLevel)
+        public static int TotalCost(this IHideOutCost roomLevel, HideOut hideOut)
         {
-            return roomLevel.price_stone + roomLevel.price_glue + roomLevel.price_gold;
+            return roomLevel.price_stone + roomLevel.price_glue + (int)hideOut.GetReducedGameCurrencyValue(roomLevel.price_gold);
         }
 
         public static bool HaveEnoughRessources(this IHideOutCost roomLevel, HzAccount account)
@@ -313,7 +314,7 @@ namespace HZBot
             return roomLevel != null &&
                     roomLevel.price_glue <= account.Data.hideout.current_resource_glue &&
                     roomLevel.price_stone <= account.Data.hideout.current_resource_stone &&
-                    roomLevel.price_gold <= account.Character.game_currency;
+                   account.Data.hideout.GetReducedGameCurrencyValue(roomLevel.price_gold) <= account.Character.game_currency;
         }
 
         public static bool CanRoomBeBuild(this HideOut hideOut, string hideOutRoomType)
@@ -361,10 +362,23 @@ namespace HZBot
             return true;
         }
 
-        public static double GetReducedGameCurrencyValue(this HideOutRoom room)
+        public static double? GetReducedGameCurrencyValue(this HideOut hideOut, int? price_Gold)
         {
-            var priceGold = room.CNextLevel.price_gold;
-            var currentBrokerLevel = HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_broker_level;
+            var priceGold = 0;
+            if (price_Gold == null)
+            {
+                return null;
+            }
+            else
+            {
+                priceGold = (int)price_Gold;
+            }
+
+            var currentBrokerLevel = 0;
+            if (hideOut != null)
+            {
+                currentBrokerLevel = HzAccountManger.GetAccByHideOutID(hideOut.id).Data.hideout.current_broker_level;
+            }
             if (currentBrokerLevel == 0)
             {
                 return priceGold;
@@ -432,7 +446,7 @@ namespace HZBot
             else
             {
                 if (room.CNextLevel != null &&
-                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.game_currency >= room.GetReducedGameCurrencyValue() &&
+                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.game_currency >= HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.GetReducedGameCurrencyValue(room.CNextLevel.price_gold) &&
                     HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_glue >= room.CNextLevel.price_glue &&
                     HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_stone >= room.CNextLevel.price_stone)
                 {

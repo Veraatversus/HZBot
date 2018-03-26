@@ -36,7 +36,7 @@
                                             <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding SlotUnlockCost.duration, StringFormat=Duration: {0}}" />
-                                                    <TextBlock Text="{Binding SlotUnlockCost.price_gold, StringFormat=Price Gold: {0}}" />
+                                                    <TextBlock Text="{Binding SlotUnlockCost.current_price_gold, StringFormat=Price Gold: {0}}" />
                                                     <TextBlock Text="{Binding SlotUnlockCost.price_glue, StringFormat=Price Glue: {0}}" />
                                                     <TextBlock Text="{Binding SlotUnlockCost.price_stone, StringFormat=Price Stone: {0}}" />
                                                 </StackPanel>
@@ -71,7 +71,7 @@
                     Grid.Row="0"
                     FontSize="15"
                     Foreground="White"
-                    Text="{Binding CNextLevel.price_gold, StringFormat={}Price Gold: {0}}">
+                    Text="{Binding CNextLevel.current_price_gold, StringFormat={}Price Gold: {0}}">
                     <TextBlock.Background>
                         <SolidColorBrush Opacity="0.4" Color="Black" />
                     </TextBlock.Background>
@@ -142,7 +142,7 @@
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="{Binding RessourceIcon}" />
+                    Source="{Binding CRoom.RessourceIcon}" />
                 <Image
                     x:Name="warning"
                     Height="30"

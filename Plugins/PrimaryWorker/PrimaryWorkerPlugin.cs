@@ -60,6 +60,10 @@ namespace HZBot
                 {
                     try
                     {
+                        if (Account.IsBotEnabled || Account.Config.IsAutoStartBot)
+                        {
+                            if (!Account.IsBotEnabled) Account.IsBotEnabled = true;
+                        }
                         if (Account.Data.hideout?.ActiveActivity != null)
                         {
                             if (Account.Data.hideout.ActiveActivity.Ts_activity_end < Account.ServerTime && Account.IsBotEnabled)
@@ -111,16 +115,12 @@ namespace HZBot
                         }
                         if (Account.ActiveWorker == null)
                         {
-                            if (Account.IsBotEnabled || Account.Config.IsAutoStartBot)
-                            {
-                                if (!Account.IsBotEnabled) Account.IsBotEnabled = true;
 
-                                if (TimeSpan.FromSeconds(Account.ServerTime - Account.Data.server_time) >= TimeSpan.FromMinutes(10))
-                                {
-                                    await Account.Plugins.Account.SyncGameAsync();
-                                }
-                                await Account.Plugins.RaiseOnPrimaryWorkerComplete();
+                            if (TimeSpan.FromSeconds(Account.ServerTime - Account.Data.server_time) >= TimeSpan.FromMinutes(10))
+                            {
+                                await Account.Plugins.Account.SyncGameAsync();
                             }
+                            await Account.Plugins.RaiseOnPrimaryWorkerComplete();
                         }
                     }
                     catch (Exception e)

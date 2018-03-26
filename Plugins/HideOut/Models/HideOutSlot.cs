@@ -12,7 +12,7 @@ namespace HZBot
 
         public int SlotValue { get; internal set; }
         public HideOut HideOut { get; internal set; }
-        public SlotUnlockCost SlotUnlockCost => HzConstants.Default.Constants["hideout_expansion"][((Level * HideoutUtil.MAX_SLOTS) + Slot + 1).ToString()].ToObject<SlotUnlockCost>();
+        public SlotUnlockCost SlotUnlockCost { get { var obj = HzConstants.Default.Constants["hideout_expansion"][((Level * HideoutUtil.MAX_SLOTS) + Slot + 1).ToString()].ToObject<SlotUnlockCost>(); obj.HideOut = this.HideOut; return obj; } }
 
         public HideOutRoom Room
         {
