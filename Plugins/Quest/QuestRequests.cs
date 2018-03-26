@@ -17,7 +17,8 @@ namespace HZBot
             {
                 case WorkType.Quest:
                     content = plugin.Account.DefaultRequestContent("checkForQuestComplete")
-                        .AddLog($"[Quest] END: ID:{plugin.Account.Data.ActiveQuest.id} Duration:{plugin.Account.Data.ActiveQuest.duration / 60}");
+                        .AddLog($"[Quest] END: ID:{plugin.Account.Data.ActiveQuest.id} Duration:{plugin.Account.Data.ActiveQuest.duration / 60}")
+                        .AddKeyValue("reload_user", "true");
                     break;
 
                 case WorkType.Training:
