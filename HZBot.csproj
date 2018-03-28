@@ -88,6 +88,9 @@
     <Compile Include="Plugins\HideOut\Models\CHideOutRoomLevel.cs" />
     <Compile Include="Plugins\HideOut\Models\Enums\HideoutRoomTypes.cs" />
     <Compile Include="Plugins\HideOut\Models\HideOutSlot.cs" />
+    <Compile Include="Plugins\Voucher\Models\getUserVoucher.cs" />
+    <Compile Include="Plugins\Voucher\VoucherPlugin.cs" />
+    <Compile Include="Plugins\Voucher\VoucherRequest.cs" />
     <Compile Include="Plugins\Worldboss\Models\WorldbossAttack.cs" />
     <Compile Include="Plugins\Account\UI\AccountUserControl.xaml.cs">
       <DependentUpon>AccountUserControl.xaml</DependentUpon>
@@ -333,6 +336,7 @@
     <EmbeddedResource Include="Assets\constantsReadable.json" />
     <None Include="Assets\TestJsons\Battle.json" />
     <None Include="Assets\TestJsons\GetCharacter.json" />
+    <None Include="Assets\TestJsons\getUserVoucher.json" />
     <None Include="Assets\TestJsons\Leaderboard.json" />
     <None Include="Assets\TestJsons\startDuell.json" />
     <None Include="Assets\TestJsons\Worldboss\checkForWorldbossAttackComplete.json" />
