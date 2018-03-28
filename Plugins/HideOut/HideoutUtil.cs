@@ -385,10 +385,10 @@ namespace HZBot
             }
             var _loc4_ = HzConstants.Default.Constants["hideout_rooms"]["broker"];
             double _loc3_ = priceGold;
-            var brokerlevel = _loc4_["levels"].OfType<JProperty>().FirstOrDefault(tok => tok.Name == currentBrokerLevel.ToString());
+            var brokerlevel = hideOutCost.HideOut?.CurrentBrokerLevel;
             if (brokerlevel != null)
             {
-                _loc3_ = (1 - brokerlevel["passiv_bonus_amount_1"].Value<int>() / 100.0f) * _loc3_;
+                _loc3_ = (1 - brokerlevel.passiv_bonus_amount_1 / 100.0f) * _loc3_;
             }
             return Math.Ceiling(_loc3_);
         }

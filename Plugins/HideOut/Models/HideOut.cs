@@ -93,6 +93,7 @@ namespace HZBot
                 }
             }
         }
+        public CHideOutRoomLevel CurrentBrokerLevel => Rooms.FirstOrDefault(r => r.CRoom.Type == HideoutRoomType.broker)?.CRoom.Levels.FirstOrDefault(l => l.Level == current_broker_level);
 
         #endregion Properties
     }
