@@ -1,0 +1,12 @@
+﻿{
+  "data": {
+    "voucher": {
+      "id": 844337,
+      "code": "UX_2018848660_training5",
+      "rewards": "{\"training_sessions\":1}",
+      "ts_end": 1522257517
+    },
+    "server_time": 1522093045
+  },
+  "error": ""
+}

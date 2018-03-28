@@ -23,6 +23,7 @@ namespace HZBot
             PrimaryWorker = RegisterPlugin(new PrimaryWorkerPlugin(hzAccount));
             Booster = RegisterPlugin(new BoosterPlugin(hzAccount));
             Goal = RegisterPlugin(new GoalPlugin(hzAccount));
+            voucher = RegisterPlugin(new VoucherPlugin(hzAccount));
         }
 
         #endregion Constructors
@@ -37,7 +38,7 @@ namespace HZBot
         public HideOutPlugin HideOut { get; private set; }
         public ItemPlugin Item { get; private set; }
         public PrimaryWorkerPlugin PrimaryWorker { get; private set; }
-
+        public VoucherPlugin voucher { get; set; }
         public AccountPlugin Account { get; private set; }
         public WorldbossPlugin Worldboss { get; private set; }
         public LogPlugin Log { get; }
