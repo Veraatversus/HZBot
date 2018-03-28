@@ -63,7 +63,7 @@ namespace HZBot
             if (Account.Config.IsAutoHideOutUpgrade && Account.Data.hideout.ActiveActivity == null)
             {
                 var room = Account.Data.hideout.Rooms.RoomsThatCanUpgrade()
-                      .OrderBy(r => Account.Data.hideout.GetReducedGameCurrencyValue(r.CNextLevel?.price_gold))
+                      .OrderBy(r => r.CNextLevel?.GetReducedGameCurrencyValue())
                       .FirstOrDefault();
                 if (room != null)
                 {

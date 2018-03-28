@@ -305,7 +305,7 @@ namespace HZBot
 
         public static int TotalCost(this IHideOutCost roomLevel, HideOut hideOut)
         {
-            return roomLevel.price_stone + roomLevel.price_glue + (int)hideOut.GetReducedGameCurrencyValue(roomLevel.price_gold);
+            return roomLevel.price_stone + roomLevel.price_glue + (int)roomLevel.GetReducedGameCurrencyValue();
         }
 
         public static bool HaveEnoughRessources(this IHideOutCost roomLevel, HzAccount account)
@@ -314,7 +314,7 @@ namespace HZBot
             return roomLevel != null &&
                     roomLevel.price_glue <= account.Data.hideout.current_resource_glue &&
                     roomLevel.price_stone <= account.Data.hideout.current_resource_stone &&
-                   account.Data.hideout.GetReducedGameCurrencyValue(roomLevel.price_gold) <= account.Character.game_currency;
+                  roomLevel.GetReducedGameCurrencyValue() <= account.Character.game_currency;
         }
 
         public static bool CanRoomBeBuild(this HideOut hideOut, string hideOutRoomType)
@@ -362,22 +362,22 @@ namespace HZBot
             return true;
         }
 
-        public static double? GetReducedGameCurrencyValue(this HideOut hideOut, int? price_Gold)
+        public static double GetReducedGameCurrencyValue(this IHideOutCost hideOutCost)
         {
-            var priceGold = 0;
-            if (price_Gold == null)
-            {
-                return null;
-            }
-            else
-            {
-                priceGold = (int)price_Gold;
-            }
+            var priceGold = hideOutCost.price_gold;
+            //if (price_Gold == null)
+            //{
+            //    return null;
+            //}
+            //else
+            //{
+            //    priceGold = (int)price_Gold;
+            //}
 
             var currentBrokerLevel = 0;
-            if (hideOut != null)
+            if (hideOutCost.HideOut != null)
             {
-                currentBrokerLevel = HzAccountManger.GetAccByHideOutID(hideOut.id).Data.hideout.current_broker_level;
+                currentBrokerLevel = hideOutCost.HideOut.current_broker_level;
             }
             if (currentBrokerLevel == 0)
             {
@@ -446,9 +446,9 @@ namespace HZBot
             else
             {
                 if (room.CNextLevel != null &&
-                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.game_currency >= HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.GetReducedGameCurrencyValue(room.CNextLevel.price_gold) &&
-                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_glue >= room.CNextLevel.price_glue &&
-                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Data.hideout.current_resource_stone >= room.CNextLevel.price_stone)
+                    HzAccountManger.GetAccByHideOutID(room.hideout_id).Character?.game_currency >= room.CNextLevel.GetReducedGameCurrencyValue() &&
+                    room.HideOut.current_resource_glue >= room.CNextLevel.price_glue &&
+                    room.HideOut.current_resource_stone >= room.CNextLevel.price_stone)
                 {
                     return true;
                 }
