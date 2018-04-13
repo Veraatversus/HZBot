@@ -29,8 +29,9 @@
         public string Username { get => username; set { username = value; RaisePropertyChanged(); } }
 
         public string Password { get => password; set { password = value; RaisePropertyChanged(); } }
-        public int FlashVersion { get; set; } = 146;
+        public int FlashVersion { get; set; } = 147;
         public int ServerId { get; set; } = 16;
+        public string ClientID { get; set; } = "s151510585613";
         public bool IsAutoLogin { get; set; }
         public bool IsAutoStartBot { get => isAutoStartBot; set { isAutoStartBot = value; RaisePropertyChanged(); } }
 
