@@ -1,0 +1,2 @@
+# HZBot
+Outdated
